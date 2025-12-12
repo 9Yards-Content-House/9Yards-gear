@@ -1,1 +1,11 @@
-{"version":4,"routes":{"/gear/cam001":{},"/gear/cam002":{},"/gear/cam003":{},"/gear/cam004":{},"/gear/lens001":{},"/gear/lens002":{},"/gear/lens003":{},"/gear/lens004":{},"/gear/light001":{},"/gear/light002":{},"/gear/light003":{},"/gear/light004":{},"/gear/audio001":{},"/gear/audio002":{},"/gear/audio003":{},"/gear/audio004":{},"/gear/drone001":{},"/gear/drone002":{},"/gear/drone003":{},"/gear/grip001":{},"/gear/grip002":{},"/gear/grip003":{},"/gear/acc001":{},"/gear/acc002":{},"/gear/acc003":{},"/gear/acc004":{},"/gear/acc005":{}},"dynamicRoutes":{"/gear/[id]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/gear/[id]","routeRegex":"^\\/gear\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"e75bf753909ae4ebb22115814b56cb56","previewModeSigningKey":"ac324fa56d6cc4fd0a7c872d6733566636549e2ce0c1327c5409e0a8cb0302b4","previewModeEncryptionKey":"446eec3b118f2abc1ac8893f97d99de448d86c0ed0024ab943b77afe04fd3f4d"}}
+{
+  "version": 4,
+  "routes": {},
+  "dynamicRoutes": {},
+  "notFoundRoutes": [],
+  "preview": {
+    "previewModeId": "92fd0ad3e0d803e380d66c4905f06e31",
+    "previewModeSigningKey": "794d9890bb29f1ab117f3e1863d442176d2fac1b26b8fe7421ba5dad4fb0f038",
+    "previewModeEncryptionKey": "46fae0041a0d1861b9170c7434786da335a67edc40e7ee83206a5ce0fbf0347a"
+  }
+}

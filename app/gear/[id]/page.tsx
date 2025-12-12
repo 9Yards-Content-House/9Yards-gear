@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/badge"
 import { GearImageGallery } from "@/components/gear/gear-image-gallery"
 import { SyncedBookingSection } from "@/components/gear/synced-booking-section"
 import { RelatedGear } from "@/components/gear/related-gear"
+import { AddToQuoteButton } from "@/components/gear/add-to-quote-button"
+import { ProductSchema } from "@/components/seo/schema-org"
 import { getGearById, getCategoryById, formatPrice, getAllGear } from "@/lib/gear-data"
 
 type Props = {
@@ -49,6 +51,7 @@ export default async function GearDetailPage({ params }: Props) {
 
   return (
     <>
+      <ProductSchema item={item} />
       <Header />
       <main className="min-h-screen pt-20">
         <div className="mx-auto max-w-7xl px-4 py-8 lg:px-8">
@@ -137,6 +140,8 @@ export default async function GearDetailPage({ params }: Props) {
                 </div>
                 <p className="text-xs text-primary mt-2">Book 7+ days and get 2 days free!</p>
               </div>
+
+              <AddToQuoteButton item={item} />
 
               <SyncedBookingSection item={item} />
             </div>
