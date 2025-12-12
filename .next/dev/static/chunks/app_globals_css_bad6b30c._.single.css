@@ -930,6 +930,10 @@
     field-sizing: content;
   }
 
+  .aspect-4\/3 {
+    aspect-ratio: 4 / 3;
+  }
+
   .aspect-\[2\/1\] {
     aspect-ratio: 2;
   }
@@ -1081,6 +1085,10 @@
 
   .h-16 {
     height: calc(var(--spacing) * 16);
+  }
+
+  .h-20 {
+    height: calc(var(--spacing) * 20);
   }
 
   .h-24 {
@@ -1279,8 +1287,24 @@
     width: calc(var(--spacing) * 16);
   }
 
+  .w-20 {
+    width: calc(var(--spacing) * 20);
+  }
+
+  .w-24 {
+    width: calc(var(--spacing) * 24);
+  }
+
+  .w-28 {
+    width: calc(var(--spacing) * 28);
+  }
+
   .w-32 {
     width: calc(var(--spacing) * 32);
+  }
+
+  .w-40 {
+    width: calc(var(--spacing) * 40);
   }
 
   .w-64 {
@@ -1361,6 +1385,10 @@
 
   .max-w-md {
     max-width: var(--container-md);
+  }
+
+  .max-w-none {
+    max-width: none;
   }
 
   .max-w-sm {
@@ -1728,6 +1756,12 @@
     gap: calc(var(--spacing) * 12);
   }
 
+  :where(.space-y-1 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 1) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 1) * calc(1 - var(--tw-space-y-reverse)));
+  }
+
   :where(.space-y-2 > :not(:last-child)) {
     --tw-space-y-reverse: 0;
     margin-block-start: calc(calc(var(--spacing) * 2) * var(--tw-space-y-reverse));
@@ -1750,6 +1784,12 @@
     --tw-space-y-reverse: 0;
     margin-block-start: calc(calc(var(--spacing) * 6) * var(--tw-space-y-reverse));
     margin-block-end: calc(calc(var(--spacing) * 6) * calc(1 - var(--tw-space-y-reverse)));
+  }
+
+  :where(.space-y-8 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 8) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 8) * calc(1 - var(--tw-space-y-reverse)));
   }
 
   :where(.space-x-4 > :not(:last-child)) {
@@ -2418,6 +2458,10 @@
 
   .pl-4 {
     padding-left: calc(var(--spacing) * 4);
+  }
+
+  .pl-6 {
+    padding-left: calc(var(--spacing) * 6);
   }
 
   .pl-8 {
@@ -3668,16 +3712,63 @@
     }
   }
 
+  .focus\:not-sr-only:focus {
+    clip-path: none;
+    white-space: normal;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    position: static;
+    overflow: visible;
+  }
+
+  .focus\:absolute:focus {
+    position: absolute;
+  }
+
+  .focus\:top-4:focus {
+    top: calc(var(--spacing) * 4);
+  }
+
+  .focus\:left-4:focus {
+    left: calc(var(--spacing) * 4);
+  }
+
   .focus\:z-10:focus {
     z-index: 10;
+  }
+
+  .focus\:z-50:focus {
+    z-index: 50;
+  }
+
+  .focus\:rounded-md:focus {
+    border-radius: calc(var(--radius)  - 2px);
   }
 
   .focus\:bg-accent:focus {
     background-color: var(--accent);
   }
 
+  .focus\:bg-primary:focus {
+    background-color: var(--primary);
+  }
+
+  .focus\:px-4:focus {
+    padding-inline: calc(var(--spacing) * 4);
+  }
+
+  .focus\:py-2:focus {
+    padding-block: calc(var(--spacing) * 2);
+  }
+
   .focus\:text-accent-foreground:focus {
     color: var(--accent-foreground);
+  }
+
+  .focus\:text-primary-foreground:focus {
+    color: var(--primary-foreground);
   }
 
   .focus\:opacity-100:focus {
@@ -3758,6 +3849,10 @@
   .focus-visible\:ring-\[3px\]:focus-visible {
     --tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+
+  .focus-visible\:ring-\[\#25D366\]:focus-visible {
+    --tw-ring-color: #25d366;
   }
 
   .focus-visible\:ring-destructive:focus-visible {

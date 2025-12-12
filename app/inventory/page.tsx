@@ -14,7 +14,7 @@ export default function InventoryPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <Suspense fallback={<InventoryLoadingSkeleton />}>
           <InventoryContent />
         </Suspense>
@@ -32,7 +32,7 @@ function InventoryLoadingSkeleton() {
         <div className="h-6 w-96 bg-secondary rounded animate-pulse mb-8" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="aspect-[4/3] bg-secondary rounded-xl animate-pulse" />
+            <div key={i} className="aspect-4/3 bg-secondary rounded-xl animate-pulse" />
           ))}
         </div>
       </div>
