@@ -22,7 +22,7 @@
         "autofocus": "Dual Pixel CMOS AF II",
         "storage": "CFexpress + SD UHS-II"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1606462661923-c49c2f2ec5ba?w=800&q=80",
       "available": true,
       "featured": true,
       "bookedDates": ["2025-12-15", "2025-12-16", "2025-12-20", "2025-12-21", "2025-12-22"]
@@ -40,7 +40,7 @@
         "autofocus": "Fast Hybrid AF",
         "storage": "CFexpress Type A"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800&q=80",
       "available": true,
       "featured": true,
       "bookedDates": ["2025-12-18", "2025-12-19"]
@@ -58,7 +58,7 @@
         "dynamicRange": "14 stops",
         "storage": "CFast 2.0"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=800&q=80",
       "available": true,
       "featured": false,
       "bookedDates": []
@@ -76,7 +76,7 @@
         "dynamicRange": "16+ stops",
         "storage": "CFast 2.0"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1617005082133-548c4dd27f35?w=800&q=80",
       "available": false,
       "featured": true,
       "bookedDates": ["2025-12-14", "2025-12-15", "2025-12-16", "2025-12-17"]
@@ -94,7 +94,7 @@
         "mount": "Canon RF",
         "stabilization": "5-stop IS"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1606462661976-db2c5e1a7d24?w=800&q=80",
       "available": true,
       "featured": true,
       "bookedDates": []
@@ -112,7 +112,7 @@
         "mount": "Canon EF / Sony E",
         "elements": "17 elements in 12 groups"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1606741965326-cb990ae01bb2?w=800&q=80",
       "available": true,
       "featured": false,
       "bookedDates": ["2025-12-20"]
@@ -130,7 +130,7 @@
         "mount": "Canon EF Cinema",
         "coverage": "Super 35mm"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1617005082133-548c4dd27f35?w=800&q=80",
       "available": true,
       "featured": true,
       "bookedDates": []
@@ -148,7 +148,7 @@
         "mount": "Sony E",
         "stabilization": "Optical SteadyShot"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1606980707446-6924ad09a46d?w=800&q=80",
       "available": true,
       "featured": false,
       "bookedDates": []
@@ -166,7 +166,7 @@
         "cri": "96+ CRI",
         "control": "Sidus Link App"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80",
       "available": true,
       "featured": true,
       "bookedDates": ["2025-12-16", "2025-12-17"]
@@ -184,7 +184,7 @@
         "cri": "95+ CRI",
         "control": "Sidus Link App"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?w=800&q=80",
       "available": true,
       "featured": false,
       "bookedDates": []
@@ -202,7 +202,7 @@
         "cri": "98 CRI",
         "beam": "15° to 45°"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80",
       "available": true,
       "featured": false,
       "bookedDates": []
@@ -220,7 +220,7 @@
         "cri": "95+ CRI",
         "dimming": "0-100%"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80",
       "available": true,
       "featured": true,
       "bookedDates": []
@@ -238,7 +238,7 @@
         "frequency": "40Hz - 20kHz",
         "sensitivity": "25 mV/Pa"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&q=80",
       "available": true,
       "featured": true,
       "bookedDates": []
@@ -256,7 +256,7 @@
         "preamps": "Kashmir Preamps",
         "timecode": "Built-in"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80",
       "available": true,
       "featured": false,
       "bookedDates": []
@@ -274,7 +274,7 @@
         "frequency": "20Hz - 20kHz",
         "weight": "76g"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1519508234439-4f23643125c1?w=800&q=80",
       "available": true,
       "featured": false,
       "bookedDates": []
@@ -292,7 +292,7 @@
         "frequency": "UHF",
         "battery": "8 hours"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1525201548942-d8732f6617a0?w=800&q=80",
       "available": true,
       "featured": true,
       "bookedDates": ["2025-12-18"]
@@ -310,7 +310,7 @@
         "transmission": "O3 Pro 15km",
         "gimbal": "3-Axis Stabilization"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80",
       "available": true,
       "featured": true,
       "bookedDates": []
@@ -328,7 +328,7 @@
         "video": "5.1K 50fps ProRes",
         "storage": "1TB SSD"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&q=80",
       "available": true,
       "featured": false,
       "bookedDates": ["2025-12-22", "2025-12-23"]
@@ -346,7 +346,7 @@
         "modes": "Multiple Shooting Modes",
         "control": "LiDAR Focus"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=800&q=80",
       "available": true,
       "featured": true,
       "bookedDates": []
@@ -364,7 +364,7 @@
         "head": "Fluid Video Head",
         "legs": "Carbon Fiber"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80",
       "available": true,
       "featured": false,
       "bookedDates": []
@@ -382,7 +382,7 @@
         "arm": "40\" Grip Arm",
         "head": "2.5\" Grip Head"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80",
       "available": true,
       "featured": false,
       "bookedDates": []
@@ -400,7 +400,7 @@
         "material": "Aluminum",
         "pan": "360° Rotation"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80",
       "available": true,
       "featured": true,
       "bookedDates": []
@@ -418,7 +418,7 @@
         "brightness": "1800 nits",
         "features": "LUTs, Waveform, Focus"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800&q=80",
       "available": true,
       "featured": true,
       "bookedDates": []
@@ -436,7 +436,7 @@
         "display": "8\" Touchscreen",
         "recording": "Internal SSD"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
       "available": true,
       "featured": false,
       "bookedDates": []
@@ -454,7 +454,7 @@
         "charger": "Dual Bay",
         "runtime": "4+ hours each"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=800&q=80",
       "available": true,
       "featured": false,
       "bookedDates": []
@@ -472,7 +472,7 @@
         "receiver": "Wireless Video",
         "mount": "Articulating Arm"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=800&q=80",
       "available": true,
       "featured": true,
       "bookedDates": []
@@ -490,7 +490,7 @@
         "stands": "Heavy Duty",
         "crossbar": "Telescoping"
       },
-      "image": "/placeholder.svg?height=400&width=600",
+      "image": "https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=800&q=80",
       "available": true,
       "featured": false,
       "bookedDates": []

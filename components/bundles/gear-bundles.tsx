@@ -18,7 +18,7 @@ const bundles = [
     items: ["Sony FX6 Cinema Camera", "Sigma 18-35mm f/1.8 Art", "Aputure 600d Pro LED", "DJI RS 3 Pro Gimbal"],
     pricePerDay: 350000,
     savings: 60000,
-    image: "/music-video-production-equipment.jpg",
+    image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80",
     popular: true,
   },
   {
@@ -28,7 +28,7 @@ const bundles = [
     items: ["Canon EOS R5 Camera Body", "Canon RF 24-70mm f/2.8L", "Sennheiser MKH 416", "Sachtler Ace XL Tripod"],
     pricePerDay: 250000,
     savings: 40000,
-    image: "/documentary-filming-equipment.jpg",
+    image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80",
     popular: false,
   },
   {
@@ -44,7 +44,7 @@ const bundles = [
     ],
     pricePerDay: 600000,
     savings: 110000,
-    image: "/commercial-film-production-gear.jpg",
+    image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80",
     popular: true,
   },
   {
@@ -54,7 +54,7 @@ const bundles = [
     items: ["DJI Inspire 3", "DJI Mavic 3 Pro Cine", "iPad Pro Directors Kit"],
     pricePerDay: 450000,
     savings: 50000,
-    image: "/drone-aerial-filming-equipment.jpg",
+    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80",
     popular: false,
   },
 ]

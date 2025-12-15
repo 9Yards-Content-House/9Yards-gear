@@ -13,21 +13,21 @@ const testimonials = [
       "9Yards Gear has been instrumental in elevating our production quality. Their equipment is always well-maintained and their service is exceptional.",
     author: "Sarah Nakamya",
     role: "Director, Kampala Films",
-    image: "/professional-woman-portrait.png",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80",
   },
   {
     quote:
       "The availability calendar feature makes planning so much easier. We can book months in advance and know exactly what we're getting.",
     author: "David Ssemwanga",
     role: "Cinematographer",
-    image: "/professional-man-portrait-cinematographer.jpg",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
   },
   {
     quote:
       "From music videos to commercials, 9Yards has the gear we need. Their team understands the local production landscape perfectly.",
     author: "Grace Achieng",
     role: "Music Video Director",
-    image: "/creative-professional-woman-portrait.jpg",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
   },
 ]
 
