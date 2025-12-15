@@ -15,7 +15,9 @@ export function PWARegister() {
         navigator.serviceWorker
           .register("/sw.js")
           .then((registration) => {
-            console.log("SW registered:", registration)
+            if (process.env.NODE_ENV === "development") {
+              console.log("Service Worker registered successfully")
+            }
 
             // Check for updates every hour
             setInterval(() => {
@@ -38,13 +40,17 @@ export function PWARegister() {
             })
           })
           .catch((error) => {
-            console.log("SW registration failed:", error)
+            if (process.env.NODE_ENV === "development") {
+              console.error("Service Worker registration failed", error)
+            }
           })
 
         // Listen for messages from service worker
         navigator.serviceWorker.addEventListener("message", (event) => {
           if (event.data.type === "BOOKING_SYNCED") {
-            console.log("Booking synced successfully:", event.data.url)
+            if (process.env.NODE_ENV === "development") {
+              console.log("Booking synced successfully")
+            }
             // You could show a toast notification here
           }
         })

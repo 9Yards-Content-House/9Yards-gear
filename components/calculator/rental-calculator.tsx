@@ -168,6 +168,12 @@ export function RentalCalculator() {
         throw new Error("Payment system failed to load. Please refresh and try again.")
       }
 
+      // Sanitize phone number - remove all non-digits and non-plus for international format
+      const sanitizedPhone = customerPhone.trim().replace(/[^\d+]/g, "")
+      if (sanitizedPhone.length < 10) {
+        throw new Error("Please enter a valid phone number (at least 10 digits)")
+      }
+
       const paymentData = {
         public_key: publicKey,
         tx_ref: `9YARDS-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
@@ -176,7 +182,7 @@ export function RentalCalculator() {
         payment_options: "card,mobilemoney,ussd",
         customer: {
           email: customerEmail.trim(),
-          phone_number: customerPhone.trim().replace(/[^0-9]/g, ""),
+          phone_number: sanitizedPhone,
           name: customerName.trim(),
         },
         customizations: {
@@ -193,31 +199,36 @@ export function RentalCalculator() {
           days: days,
         },
         callback: function (data: any) {
-          console.log("Payment callback:", data)
+          // Prevent double submission
+          setPaymentProcessing(false)
           
           if (data.status === "successful") {
             // Store payment info
-            const paymentRecord = {
-              tx_ref: data.tx_ref,
-              amount: data.amount,
-              timestamp: new Date().toISOString(),
-              customer: {
-                name: customerName,
-                email: customerEmail,
-                phone: customerPhone,
-              },
-              items: cart.map(c => ({ id: c.id, name: c.item.name, quantity: c.quantity })),
-              rental_start: startDate ? format(startDate, "yyyy-MM-dd") : "",
-              rental_end: endDate ? format(endDate, "yyyy-MM-dd") : "",
-              total_amount: total,
+            try {
+              const paymentRecord = {
+                tx_ref: data.tx_ref,
+                amount: data.amount,
+                timestamp: new Date().toISOString(),
+                customer: {
+                  name: customerName,
+                  email: customerEmail,
+                  phone: customerPhone,
+                },
+                items: cart.map(c => ({ id: c.id, name: c.item.name, quantity: c.quantity })),
+                rental_start: startDate ? format(startDate, "yyyy-MM-dd") : "",
+                rental_end: endDate ? format(endDate, "yyyy-MM-dd") : "",
+                total_amount: total,
+              }
+              
+              localStorage.setItem("lastPayment", JSON.stringify(paymentRecord))
+              
+              // Also add to payment history
+              const paymentHistory = JSON.parse(localStorage.getItem("paymentHistory") || "[]")
+              paymentHistory.push(paymentRecord)
+              localStorage.setItem("paymentHistory", JSON.stringify(paymentHistory.slice(-10))) // Keep last 10
+            } catch (storageError) {
+              console.warn("Failed to save payment to localStorage", storageError)
             }
-            
-            localStorage.setItem("lastPayment", JSON.stringify(paymentRecord))
-            
-            // Also add to payment history
-            const paymentHistory = JSON.parse(localStorage.getItem("paymentHistory") || "[]")
-            paymentHistory.push(paymentRecord)
-            localStorage.setItem("paymentHistory", JSON.stringify(paymentHistory.slice(-10))) // Keep last 10
             
             alert(`Payment successful! ✓\n\nTransaction Ref: ${data.tx_ref}\n\nWe'll contact you within 24 hours at ${customerEmail} to confirm your booking and arrange equipment pickup.`)
             
@@ -233,11 +244,8 @@ export function RentalCalculator() {
           } else {
             alert("Payment failed. Please try again or contact support.")
           }
-          
-          setPaymentProcessing(false)
         },
         onclose: function () {
-          console.log("Payment modal closed")
           setPaymentProcessing(false)
         },
       }
