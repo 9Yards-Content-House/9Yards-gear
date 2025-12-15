@@ -7,7 +7,7 @@ export type GearCategory = {
 }
 
 export type GearSpecs = {
-  [key: string]: string
+  [key: string]: string | undefined
 }
 
 export type GearItem = {

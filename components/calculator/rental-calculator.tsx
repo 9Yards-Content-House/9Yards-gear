@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react"
 import Link from "next/link"
-import { Calculator, Plus, Trash2, Calendar as CalendarIcon, Package, Send, FileText, Sparkles, CreditCard } from "lucide-react"
+import { Calculator, Plus, Trash2, Calendar as CalendarIcon, Package, Send, FileText, Sparkles, CreditCard, Loader2 } from "lucide-react"
 import { format, differenceInDays, addDays } from "date-fns"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -32,6 +32,10 @@ export function RentalCalculator() {
   const [endDate, setEndDate] = useState<Date>()
   const [categoryFilter, setCategoryFilter] = useState<string>("all")
   const [paymentProcessing, setPaymentProcessing] = useState(false)
+  const [customerEmail, setCustomerEmail] = useState("")
+  const [customerPhone, setCustomerPhone] = useState("")
+  const [customerName, setCustomerName] = useState("")
+  const [showPaymentForm, setShowPaymentForm] = useState(false)
 
   const allGear = getAllGear()
   const categories = getAllCategories()
@@ -121,76 +125,127 @@ export function RentalCalculator() {
     return encodeURIComponent(message)
   }
 
+  const validatePaymentForm = () => {
+    if (!customerName.trim()) {
+      alert("Please enter your full name")
+      return false
+    }
+    if (!customerEmail.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) {
+      alert("Please enter a valid email address")
+      return false
+    }
+    if (!customerPhone.trim()) {
+      alert("Please enter your phone number")
+      return false
+    }
+    return true
+  }
+
   const handleFlutterwavePayment = async () => {
     if (cart.length === 0 || !startDate || !endDate) {
       alert("Please add items and select rental dates")
       return
     }
 
-    setPaymentProcessing(true)
-
-    // Get Flutterwave key from environment
-    const publicKey = process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY || "FLWPUBK_TEST-XXXXXXXXXXXXXXXX-X"
-    
-    // Flutterwave payment integration
-    const FlutterwaveCheckout = (window as any).FlutterwaveCheckout
-
-    const paymentData = {
-      public_key: publicKey,
-      tx_ref: `9YARDS-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-      amount: depositAmount,
-      currency: "UGX",
-      payment_options: "card,mobilemoney,ussd",
-      customer: {
-        email: "customer@example.com", // Should be collected from a form
-        phone_number: "256700000000", // Should be collected from a form
-        name: "Customer Name", // Should be collected from a form
-      },
-      customizations: {
-        title: "9Yards Gear Rental Deposit",
-        description: `50% deposit for ${cart.length} item(s) - ${days} day(s)`,
-        logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://gear.9yards.co.ug'}/icon-192.png`,
-      },
-      meta: {
-        items: cart.map(c => `${c.item.name} x${c.quantity}`).join(", "),
-        rental_start: startDate ? format(startDate, "yyyy-MM-dd") : "",
-        rental_end: endDate ? format(endDate, "yyyy-MM-dd") : "",
-        total_amount: total,
-        deposit_amount: depositAmount,
-      },
-      callback: function (data: any) {
-        console.log("Payment callback:", data)
-        
-        if (data.status === "successful") {
-          // Store payment info
-          localStorage.setItem("lastPayment", JSON.stringify({
-            tx_ref: data.tx_ref,
-            amount: data.amount,
-            timestamp: new Date().toISOString(),
-            items: cart.map(c => ({ id: c.id, name: c.item.name, quantity: c.quantity })),
-          }))
-          
-          alert(`Payment successful! Transaction ref: ${data.tx_ref}\n\nWe'll contact you within 24 hours to confirm your booking and arrange equipment pickup.`)
-          
-          // Clear cart after successful payment
-          setCart([])
-          clearQuote()
-        } else {
-          alert("Payment was not completed. Please try again.")
-        }
-        
-        setPaymentProcessing(false)
-      },
-      onclose: function () {
-        console.log("Payment modal closed")
-        setPaymentProcessing(false)
-      },
+    if (!validatePaymentForm()) {
+      return
     }
 
-    if (FlutterwaveCheckout) {
+    setPaymentProcessing(true)
+
+    try {
+      // Get Flutterwave key from environment
+      const publicKey = process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY
+      
+      if (!publicKey || publicKey.includes("XXXXXXX")) {
+        throw new Error("Flutterwave is not configured. Please check your environment variables.")
+      }
+
+      // Flutterwave payment integration
+      const FlutterwaveCheckout = (window as any).FlutterwaveCheckout
+
+      if (!FlutterwaveCheckout) {
+        throw new Error("Payment system failed to load. Please refresh and try again.")
+      }
+
+      const paymentData = {
+        public_key: publicKey,
+        tx_ref: `9YARDS-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        amount: Math.round(depositAmount),
+        currency: "UGX",
+        payment_options: "card,mobilemoney,ussd",
+        customer: {
+          email: customerEmail.trim(),
+          phone_number: customerPhone.trim().replace(/[^0-9]/g, ""),
+          name: customerName.trim(),
+        },
+        customizations: {
+          title: "9Yards Gear Rental Deposit",
+          description: `50% deposit for ${cart.length} item(s) - ${days} day(s)`,
+          logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://gear.9yards.co.ug'}/icon-192.png`,
+        },
+        meta: {
+          items: cart.map(c => `${c.item.name} x${c.quantity}`).join(", "),
+          rental_start: startDate ? format(startDate, "yyyy-MM-dd") : "",
+          rental_end: endDate ? format(endDate, "yyyy-MM-dd") : "",
+          total_amount: Math.round(total),
+          deposit_amount: Math.round(depositAmount),
+          days: days,
+        },
+        callback: function (data: any) {
+          console.log("Payment callback:", data)
+          
+          if (data.status === "successful") {
+            // Store payment info
+            const paymentRecord = {
+              tx_ref: data.tx_ref,
+              amount: data.amount,
+              timestamp: new Date().toISOString(),
+              customer: {
+                name: customerName,
+                email: customerEmail,
+                phone: customerPhone,
+              },
+              items: cart.map(c => ({ id: c.id, name: c.item.name, quantity: c.quantity })),
+              rental_start: startDate ? format(startDate, "yyyy-MM-dd") : "",
+              rental_end: endDate ? format(endDate, "yyyy-MM-dd") : "",
+              total_amount: total,
+            }
+            
+            localStorage.setItem("lastPayment", JSON.stringify(paymentRecord))
+            
+            // Also add to payment history
+            const paymentHistory = JSON.parse(localStorage.getItem("paymentHistory") || "[]")
+            paymentHistory.push(paymentRecord)
+            localStorage.setItem("paymentHistory", JSON.stringify(paymentHistory.slice(-10))) // Keep last 10
+            
+            alert(`Payment successful! ✓\n\nTransaction Ref: ${data.tx_ref}\n\nWe'll contact you within 24 hours at ${customerEmail} to confirm your booking and arrange equipment pickup.`)
+            
+            // Clear cart and form after successful payment
+            setCart([])
+            clearQuote()
+            setShowPaymentForm(false)
+            setCustomerEmail("")
+            setCustomerPhone("")
+            setCustomerName("")
+          } else if (data.status === "cancelled") {
+            alert("Payment was cancelled. Please try again when ready.")
+          } else {
+            alert("Payment failed. Please try again or contact support.")
+          }
+          
+          setPaymentProcessing(false)
+        },
+        onclose: function () {
+          console.log("Payment modal closed")
+          setPaymentProcessing(false)
+        },
+      }
+
       FlutterwaveCheckout(paymentData)
-    } else {
-      alert("Payment system is not loaded. Please refresh the page and try again.")
+    } catch (error) {
+      console.error("Payment error:", error)
+      alert(`Payment error: ${error instanceof Error ? error.message : "Unknown error occurred"}`)
       setPaymentProcessing(false)
     }
   }
@@ -401,36 +456,107 @@ export function RentalCalculator() {
               * Final price confirmed upon booking approval. Includes insurance and VAT.
             </p>
 
-            <div className="flex flex-col gap-2 pt-4">
-              <Button
-                onClick={handleFlutterwavePayment}
-                size="lg"
-                className="w-full"
-                disabled={paymentProcessing || !startDate || !endDate}
-              >
-                <CreditCard className="h-5 w-5 mr-2" />
-                {paymentProcessing ? "Processing..." : `Pay Deposit - ${formatPrice(depositAmount)}`}
-              </Button>
-              <div className="grid grid-cols-2 gap-2">
-                <Button asChild variant="outline" size="lg">
-                  <a
-                    href={`https://wa.me/256700000000?text=${generateQuoteSummary()}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+            <div className="flex flex-col gap-3 pt-4">
+              {!showPaymentForm ? (
+                <>
+                  <Button
+                    onClick={() => setShowPaymentForm(true)}
+                    size="lg"
+                    className="w-full"
+                    disabled={!startDate || !endDate}
                   >
-                    <Send className="h-4 w-4 mr-2" />
-                    WhatsApp Quote
-                  </a>
-                </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <Link href="/contact">
-                    <FileText className="h-4 w-4 mr-2" />
-                    Email Quote
-                  </Link>
-                </Button>
-              </div>
+                    <CreditCard className="h-5 w-5 mr-2" />
+                    Proceed to Payment
+                  </Button>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Button asChild variant="outline" size="lg">
+                      <a
+                        href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '256783791730'}?text=${generateQuoteSummary()}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Send className="h-4 w-4 mr-2" />
+                        WhatsApp Quote
+                      </a>
+                    </Button>
+                    <Button variant="outline" size="lg" asChild>
+                      <Link href="/contact">
+                        <FileText className="h-4 w-4 mr-2" />
+                        Email Quote
+                      </Link>
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="space-y-3 p-4 bg-secondary/50 rounded-lg border border-border">
+                    <h4 className="font-semibold text-foreground">Payment Details</h4>
+                    <div className="space-y-2">
+                      <div>
+                        <Label htmlFor="paymentName" className="text-sm">Full Name</Label>
+                        <Input
+                          id="paymentName"
+                          placeholder="Your full name"
+                          value={customerName}
+                          onChange={(e) => setCustomerName(e.target.value)}
+                          className="mt-1"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="paymentEmail" className="text-sm">Email Address</Label>
+                        <Input
+                          id="paymentEmail"
+                          type="email"
+                          placeholder="your@email.com"
+                          value={customerEmail}
+                          onChange={(e) => setCustomerEmail(e.target.value)}
+                          className="mt-1"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="paymentPhone" className="text-sm">Phone Number</Label>
+                        <Input
+                          id="paymentPhone"
+                          type="tel"
+                          placeholder="+256 700 000 000"
+                          value={customerPhone}
+                          onChange={(e) => setCustomerPhone(e.target.value)}
+                          className="mt-1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <Button
+                    onClick={handleFlutterwavePayment}
+                    size="lg"
+                    className="w-full"
+                    disabled={paymentProcessing}
+                  >
+                    {paymentProcessing ? (
+                      <>
+                        <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                        Processing...
+                      </>
+                    ) : (
+                      <>
+                        <CreditCard className="h-5 w-5 mr-2" />
+                        Pay Deposit - {formatPrice(depositAmount)}
+                      </>
+                    )}
+                  </Button>
+                  <Button
+                    onClick={() => setShowPaymentForm(false)}
+                    variant="outline"
+                    size="lg"
+                    className="w-full"
+                    disabled={paymentProcessing}
+                  >
+                    Back
+                  </Button>
+                </>
+              )}
               <p className="text-xs text-center text-muted-foreground mt-2">
-                We accept Mobile Money, Cards, and Bank Transfers via Flutterwave
+                Secure payments via Flutterwave • Mobile Money, Cards, USSD accepted
               </p>
             </div>
           </div>
