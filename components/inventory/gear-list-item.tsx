@@ -20,7 +20,7 @@ export function GearListItem({ item }: GearListItemProps) {
             src={item.image || "/placeholder.svg"}
             alt={item.name}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-opacity duration-300"
             sizes="(max-width: 768px) 100vw, 192px"
           />
           {!item.available && (
@@ -61,7 +61,7 @@ export function GearListItem({ item }: GearListItemProps) {
                   </span>
                 ))}
             </div>
-            <Button variant="ghost" size="sm" className="text-primary group-hover:translate-x-1 transition-transform">
+            <Button variant="ghost" size="sm" className="text-primary transition-colors">
               View Details
               <ArrowRight className="ml-1 h-4 w-4" />
             </Button>

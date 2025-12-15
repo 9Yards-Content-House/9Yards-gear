@@ -95,7 +95,7 @@ export function GearBundles() {
             {bundles.map((bundle) => (
               <Card
                 key={bundle.id}
-                className="bg-background border-border overflow-hidden group cursor-pointer hover:border-primary/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                className="bg-background border-border overflow-hidden group cursor-pointer hover:border-primary/50 hover:shadow-xl transition-all duration-300"
                 onClick={() => handleBundleClick(bundle)}
               >
                 <div className="relative aspect-[2/1]">
@@ -103,7 +103,7 @@ export function GearBundles() {
                     src={bundle.image || "/placeholder.svg"}
                     alt={bundle.name}
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="object-cover transition-opacity duration-300"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />

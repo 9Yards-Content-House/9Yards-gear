@@ -27,14 +27,14 @@ export function GearCard({ item }: GearCardProps) {
 
   return (
     <>
-      <Card className="group h-full overflow-hidden bg-card hover:bg-secondary/50 transition-all duration-300 border-border hover:border-primary/50 hover:shadow-xl hover:-translate-y-2">
+      <Card className="group h-full overflow-hidden bg-card hover:bg-secondary/50 transition-all duration-300 border-border hover:border-primary/50 hover:shadow-xl">
         <div className="relative aspect-[4/3] overflow-hidden">
           <Link href={`/gear/${item.id}`}>
             <Image
               src={item.image || "/placeholder.svg"}
               alt={item.name}
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-110"
+              className="object-cover transition-opacity duration-300"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               loading="lazy"
             />

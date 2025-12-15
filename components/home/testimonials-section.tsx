@@ -66,7 +66,7 @@ export function TestimonialsSection() {
               key={testimonial.author}
               className={cn(
                 "bg-background border-border transition-all duration-300",
-                "hover:border-primary/50 hover:-translate-y-1",
+                "hover:border-primary/50",
               )}
             >
               <CardContent className="p-6">
