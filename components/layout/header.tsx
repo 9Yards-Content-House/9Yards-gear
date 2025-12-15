@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Menu, X, ChevronDown, ExternalLink, Calculator } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -62,13 +63,14 @@ export function Header() {
         {/* Logo */}
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center transition-transform group-hover:scale-105">
-              <span className="text-primary-foreground font-bold text-lg">9Y</span>
-            </div>
-            <div className="hidden sm:block">
-              <span className="text-xl font-bold text-foreground">9Yards</span>
-              <span className="text-xl font-light text-primary ml-1">Gear</span>
-            </div>
+            <Image
+              src="/logo.png"
+              alt="9Yards Film"
+              width={180}
+              height={60}
+              className="h-10 w-auto sm:h-12 md:h-14 transition-transform group-hover:scale-105"
+              priority
+            />
           </Link>
         </div>
 

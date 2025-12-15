@@ -15,7 +15,7 @@ export function GearImageGallery({ image, name }: GearImageGalleryProps) {
 
   return (
     <>
-      <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-secondary group">
+      <div className="relative aspect-4/3 rounded-xl overflow-hidden bg-secondary group">
         <Image src={image || "/placeholder.svg"} alt={name} fill className="object-cover" priority />
         <Button
           variant="secondary"
@@ -41,7 +41,7 @@ export function GearImageGallery({ image, name }: GearImageGalleryProps) {
           >
             <X className="h-6 w-6" />
           </Button>
-          <div className="relative w-full max-w-4xl aspect-[4/3]">
+          <div className="relative w-full max-w-4xl aspect-4/3">
             <Image src={image || "/placeholder.svg"} alt={name} fill className="object-contain" />
           </div>
         </div>

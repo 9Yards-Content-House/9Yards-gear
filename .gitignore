@@ -78,6 +78,10 @@ workbox-*.js.map
 # Local Netlify folder
 .netlify
 
+# Temporary files
+*.tmp
+9Yards-Film-2D-Logo*.png
+
 # Sentry
 .sentryclirc
 

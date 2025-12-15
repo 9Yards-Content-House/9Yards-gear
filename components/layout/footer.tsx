@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Instagram, Youtube, Mail, Phone, MapPin, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -40,13 +41,13 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">9Y</span>
-              </div>
-              <div>
-                <span className="text-xl font-bold text-foreground">9Yards</span>
-                <span className="text-xl font-light text-primary ml-1">Gear</span>
-              </div>
+              <Image
+                src="/logo.png"
+                alt="9Yards Film"
+                width={200}
+                height={70}
+                className="h-12 w-auto sm:h-14 md:h-16"
+              />
             </Link>
             <p className="text-sm text-muted-foreground mb-6 max-w-sm">
               Premium film and production equipment rental in Uganda. Empowering creators with professional gear at

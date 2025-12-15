@@ -58,7 +58,7 @@ export function BundleModal({ bundle, isOpen, onClose }: BundleModalProps) {
         </DialogHeader>
 
         {/* Bundle Image */}
-        <div className="relative aspect-[2/1] w-full overflow-hidden rounded-lg">
+        <div className="relative aspect-2/1 w-full overflow-hidden rounded-lg">
           <Image
             src={bundle.image || "/placeholder.svg"}
             alt={bundle.name}

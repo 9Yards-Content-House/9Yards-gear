@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 export function GearCardSkeleton() {
   return (
     <Card className="h-full overflow-hidden bg-card border-border">
-      <Skeleton className="aspect-[4/3] rounded-none" />
+      <Skeleton className="aspect-4/3 rounded-none" />
       <CardContent className="p-4 space-y-3">
         <Skeleton className="h-5 w-3/4" />
         <Skeleton className="h-4 w-full" />

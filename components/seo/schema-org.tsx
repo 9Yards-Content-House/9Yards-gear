@@ -39,7 +39,7 @@ export function OrganizationSchema() {
         },
         contactPoint: {
           "@type": "ContactPoint",
-          telephone: "+256-700-000-000",
+          telephone: "+256-783-791-730",
           contactType: "customer service",
           availableLanguage: ["en", "sw"],
         },
