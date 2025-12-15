@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 import { type GearItem, formatPrice } from "@/lib/gear-data"
+import { hasDateConflict, isDateInPast, formatDateRange } from "@/lib/date-utils"
 import { cn } from "@/lib/utils"
 
 type BookingFormProps = {
@@ -69,12 +71,19 @@ export function BookingForm({ item, startDate, endDate, onDateChange }: BookingF
         break
       case "startDate":
         if (!value) return "Start date is required"
-        if (new Date(value) < new Date(new Date().toDateString())) return "Start date cannot be in the past"
+        if (isDateInPast(new Date(value))) return "Start date cannot be in the past"
         break
       case "endDate":
         if (!value) return "End date is required"
         if (formData.startDate && new Date(value) < new Date(formData.startDate)) {
           return "End date must be after start date"
+        }
+        // Check for date conflicts with booked dates
+        if (formData.startDate && item.bookedDates?.length > 0) {
+          const conflict = hasDateConflict(new Date(formData.startDate), new Date(value), item.bookedDates)
+          if (conflict.hasConflict) {
+            return `Dates unavailable. Already booked: ${conflict.conflictDates.join(", ")}`
+          }
         }
         break
     }
@@ -163,6 +172,15 @@ export function BookingForm({ item, startDate, endDate, onDateChange }: BookingF
   return (
     <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-6 space-y-4">
       <h3 className="text-lg font-semibold text-foreground mb-4">Request Booking</h3>
+
+      {item.bookedDates && item.bookedDates.length > 0 && (
+        <Alert className="border-yellow-500/50 bg-yellow-500/10">
+          <AlertCircle className="h-4 w-4 text-yellow-500" />
+          <AlertDescription className="text-sm text-yellow-500">
+            This item has some dates already booked. Please select available dates.
+          </AlertDescription>
+        </Alert>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
@@ -296,7 +314,7 @@ export function BookingForm({ item, startDate, endDate, onDateChange }: BookingF
           <Textarea
             id="notes"
             placeholder="Any special requirements or questions..."
-            className="pl-10 min-h-[80px]"
+            className="pl-10 min-h-20"
             value={formData.notes}
             onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
           />

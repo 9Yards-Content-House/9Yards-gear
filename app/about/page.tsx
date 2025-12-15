@@ -117,7 +117,7 @@ export default function AboutPage() {
               fill
               className="object-cover opacity-20"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
+            <div className="absolute inset-0 bg-linear-to-b from-background via-background/80 to-background" />
           </div>
           <div className="relative z-10 mx-auto max-w-7xl px-4 lg:px-8">
             <div className="max-w-3xl">

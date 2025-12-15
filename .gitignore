@@ -1,1 +1,85 @@
+# Dependencies
 node_modules
+node_modules/
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Next.js
+/.next/
+/out/
+out
+
+# Production build
+/build
+/dist
+
+# Environment variables
+.env
+.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# OS files
+.DS_Store
+Thumbs.db
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+.loadpath
+
+# Misc
+*.log
+.cache
+.temp
+.tmp
+*.pid
+*.seed
+*.pid.lock
+
+# PWA
+sw.js.map
+workbox-*.js
+workbox-*.js.map
+
+# Local Netlify folder
+.netlify
+
+# Sentry
+.sentryclirc
+
+# Documentation (keep IMPROVEMENTS.md but ignore auto-generated docs)
+/docs/api

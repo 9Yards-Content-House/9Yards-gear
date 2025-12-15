@@ -129,32 +129,60 @@ export function RentalCalculator() {
 
     setPaymentProcessing(true)
 
-    // Flutterwave payment integration (test mode)
+    // Get Flutterwave key from environment
+    const publicKey = process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY || "FLWPUBK_TEST-XXXXXXXXXXXXXXXX-X"
+    
+    // Flutterwave payment integration
     const FlutterwaveCheckout = (window as any).FlutterwaveCheckout
 
     const paymentData = {
-      public_key: "FLWPUBK_TEST-XXXXXXXXXXXXXXXX-X", // Replace with actual test key
-      tx_ref: `9Y-${Date.now()}`,
+      public_key: publicKey,
+      tx_ref: `9YARDS-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       amount: depositAmount,
       currency: "UGX",
-      payment_options: "card, mobilemoney, ussd",
+      payment_options: "card,mobilemoney,ussd",
       customer: {
-        email: "customer@example.com",
-        phone_number: "256700000000",
-        name: "Customer Name",
+        email: "customer@example.com", // Should be collected from a form
+        phone_number: "256700000000", // Should be collected from a form
+        name: "Customer Name", // Should be collected from a form
       },
       customizations: {
         title: "9Yards Gear Rental Deposit",
-        description: `Deposit for ${cart.length} item(s) rental`,
-        logo: "https://gear.9yards.co.ug/logo.png",
+        description: `50% deposit for ${cart.length} item(s) - ${days} day(s)`,
+        logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://gear.9yards.co.ug'}/icon-192.png`,
+      },
+      meta: {
+        items: cart.map(c => `${c.item.name} x${c.quantity}`).join(", "),
+        rental_start: startDate ? format(startDate, "yyyy-MM-dd") : "",
+        rental_end: endDate ? format(endDate, "yyyy-MM-dd") : "",
+        total_amount: total,
+        deposit_amount: depositAmount,
       },
       callback: function (data: any) {
-        console.log("Payment successful:", data)
-        alert(`Payment successful! Ref: ${data.tx_ref}. We'll contact you to confirm your booking.`)
+        console.log("Payment callback:", data)
+        
+        if (data.status === "successful") {
+          // Store payment info
+          localStorage.setItem("lastPayment", JSON.stringify({
+            tx_ref: data.tx_ref,
+            amount: data.amount,
+            timestamp: new Date().toISOString(),
+            items: cart.map(c => ({ id: c.id, name: c.item.name, quantity: c.quantity })),
+          }))
+          
+          alert(`Payment successful! Transaction ref: ${data.tx_ref}\n\nWe'll contact you within 24 hours to confirm your booking and arrange equipment pickup.`)
+          
+          // Clear cart after successful payment
+          setCart([])
+          clearQuote()
+        } else {
+          alert("Payment was not completed. Please try again.")
+        }
+        
         setPaymentProcessing(false)
       },
       onclose: function () {
-        console.log("Payment cancelled")
+        console.log("Payment modal closed")
         setPaymentProcessing(false)
       },
     }
@@ -162,7 +190,7 @@ export function RentalCalculator() {
     if (FlutterwaveCheckout) {
       FlutterwaveCheckout(paymentData)
     } else {
-      alert("Flutterwave is not loaded. Please refresh and try again.")
+      alert("Payment system is not loaded. Please refresh the page and try again.")
       setPaymentProcessing(false)
     }
   }
@@ -179,7 +207,7 @@ export function RentalCalculator() {
         {/* Add Equipment */}
         <div className="flex gap-2">
           <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="w-[140px]">
+            <SelectTrigger className="w-35">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
@@ -287,7 +315,7 @@ export function RentalCalculator() {
                 </Badge>
               )}
             </div>
-            <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2">
+            <div className="space-y-2 max-h-75 overflow-y-auto pr-2">
               {cart.map((c) => (
                 <div key={c.id} className="flex items-center justify-between gap-2 p-3 bg-secondary/50 rounded-lg text-sm border border-border">
                   <div className="flex-1 min-w-0">

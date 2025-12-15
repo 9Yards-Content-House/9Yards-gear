@@ -9,6 +9,7 @@ import { GearImageGallery } from "@/components/gear/gear-image-gallery"
 import { SyncedBookingSection } from "@/components/gear/synced-booking-section"
 import { RelatedGear } from "@/components/gear/related-gear"
 import { AddToQuoteButton } from "@/components/gear/add-to-quote-button"
+import { GearViewTracker } from "@/components/gear/gear-view-tracker"
 import { ProductSchema } from "@/components/seo/schema-org"
 import { getGearById, getCategoryById, formatPrice, getAllGear } from "@/lib/gear-data"
 
@@ -52,6 +53,7 @@ export default async function GearDetailPage({ params }: Props) {
   return (
     <>
       <ProductSchema item={item} />
+      <GearViewTracker item={item} />
       <Header />
       <main className="min-h-screen pt-20">
         <div className="mx-auto max-w-7xl px-4 py-8 lg:px-8">

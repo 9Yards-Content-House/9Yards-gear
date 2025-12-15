@@ -15,7 +15,7 @@ export function GearListItem({ item }: GearListItemProps) {
   return (
     <Link href={`/gear/${item.id}`} className="block">
       <div className="group flex flex-col sm:flex-row gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/50 transition-all duration-300">
-        <div className="relative w-full sm:w-48 aspect-video sm:aspect-[4/3] rounded-lg overflow-hidden shrink-0">
+        <div className="relative w-full sm:w-48 aspect-video sm:aspect-4/3 rounded-lg overflow-hidden shrink-0">
           <Image
             src={item.image || "/placeholder.svg"}
             alt={item.name}

@@ -5,10 +5,11 @@ import type React from "react"
 import { useState, useEffect, useRef, useMemo } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Fuse from "fuse.js"
-import { Search, X } from "lucide-react"
+import { Search, X, Loader2 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { getAllGear, type GearItem } from "@/lib/gear-data"
+import { useDebounce } from "@/hooks/use-debounce"
 import { cn } from "@/lib/utils"
 
 export function SearchBar() {
@@ -18,10 +19,14 @@ export function SearchBar() {
   const [suggestions, setSuggestions] = useState<GearItem[]>([])
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(-1)
+  const [isSearching, setIsSearching] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const suggestionsRef = useRef<HTMLDivElement>(null)
 
   const allGear = getAllGear()
+  
+  // Debounce the search query to avoid excessive re-renders
+  const debouncedQuery = useDebounce(query, 300)
 
   const fuse = useMemo(
     () =>
@@ -34,16 +39,26 @@ export function SearchBar() {
   )
 
   useEffect(() => {
-    if (query.length >= 2) {
-      const results = fuse.search(query).slice(0, 5)
+    if (debouncedQuery.length >= 2) {
+      setIsSearching(true)
+      const results = fuse.search(debouncedQuery).slice(0, 5)
       setSuggestions(results.map((r) => r.item))
       setShowSuggestions(true)
+      setIsSearching(false)
     } else {
       setSuggestions([])
       setShowSuggestions(false)
+      setIsSearching(false)
     }
     setSelectedIndex(-1)
-  }, [query, fuse])
+  }, [debouncedQuery, fuse])
+  
+  // Show searching indicator when typing
+  useEffect(() => {
+    if (query.length >= 2 && query !== debouncedQuery) {
+      setIsSearching(true)
+    }
+  }, [query, debouncedQuery])
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -99,8 +114,14 @@ export function SearchBar() {
           onKeyDown={handleKeyDown}
           onFocus={() => query.length >= 2 && setShowSuggestions(true)}
           className="pl-10 pr-10 bg-secondary border-border"
+          aria-label="Search equipment"
+          aria-autocomplete="list"
+          aria-controls="search-suggestions"
+          aria-expanded={showSuggestions}
         />
-        {query && (
+        {isSearching ? (
+          <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-muted-foreground" />
+        ) : query ? (
           <Button
             variant="ghost"
             size="icon"
@@ -110,18 +131,25 @@ export function SearchBar() {
               handleSearch("")
               inputRef.current?.focus()
             }}
+            aria-label="Clear search"
           >
             <X className="h-4 w-4" />
           </Button>
-        )}
+        ) : null}
       </div>
 
       {/* Autocomplete suggestions */}
       {showSuggestions && suggestions.length > 0 && (
-        <div className="absolute z-50 w-full mt-1 bg-card border border-border rounded-lg shadow-lg overflow-hidden">
+        <div 
+          id="search-suggestions" 
+          role="listbox"
+          className="absolute z-50 w-full mt-1 bg-card border border-border rounded-lg shadow-lg overflow-hidden"
+        >
           {suggestions.map((item, index) => (
             <button
               key={item.id}
+              role="option"
+              aria-selected={selectedIndex === index}
               className={cn(
                 "w-full px-4 py-3 text-left hover:bg-secondary transition-colors flex items-center gap-3",
                 selectedIndex === index && "bg-secondary",

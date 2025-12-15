@@ -1663,6 +1663,7 @@ __turbopack_context__.s([
     "RentalCalculator",
     ()=>RentalCalculator
 ]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
@@ -1839,14 +1840,16 @@ function RentalCalculator() {
             return;
         }
         setPaymentProcessing(true);
-        // Flutterwave payment integration (test mode)
+        // Get Flutterwave key from environment
+        const publicKey = ("TURBOPACK compile-time value", "FLWPUBK_TEST-XXXXXXXXXXXXXXXX-X") || "FLWPUBK_TEST-XXXXXXXXXXXXXXXX-X";
+        // Flutterwave payment integration
         const FlutterwaveCheckout = window.FlutterwaveCheckout;
         const paymentData = {
-            public_key: "FLWPUBK_TEST-XXXXXXXXXXXXXXXX-X",
-            tx_ref: `9Y-${Date.now()}`,
+            public_key: publicKey,
+            tx_ref: `9YARDS-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
             amount: depositAmount,
             currency: "UGX",
-            payment_options: "card, mobilemoney, ussd",
+            payment_options: "card,mobilemoney,ussd",
             customer: {
                 email: "customer@example.com",
                 phone_number: "256700000000",
@@ -1854,23 +1857,48 @@ function RentalCalculator() {
             },
             customizations: {
                 title: "9Yards Gear Rental Deposit",
-                description: `Deposit for ${cart.length} item(s) rental`,
-                logo: "https://gear.9yards.co.ug/logo.png"
+                description: `50% deposit for ${cart.length} item(s) - ${days} day(s)`,
+                logo: `${("TURBOPACK compile-time value", "http://localhost:3000") || 'https://gear.9yards.co.ug'}/icon-192.png`
+            },
+            meta: {
+                items: cart.map((c)=>`${c.item.name} x${c.quantity}`).join(", "),
+                rental_start: startDate ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$date$2d$fns$2f$format$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["format"])(startDate, "yyyy-MM-dd") : "",
+                rental_end: endDate ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$date$2d$fns$2f$format$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["format"])(endDate, "yyyy-MM-dd") : "",
+                total_amount: total,
+                deposit_amount: depositAmount
             },
             callback: function(data) {
-                console.log("Payment successful:", data);
-                alert(`Payment successful! Ref: ${data.tx_ref}. We'll contact you to confirm your booking.`);
+                console.log("Payment callback:", data);
+                if (data.status === "successful") {
+                    // Store payment info
+                    localStorage.setItem("lastPayment", JSON.stringify({
+                        tx_ref: data.tx_ref,
+                        amount: data.amount,
+                        timestamp: new Date().toISOString(),
+                        items: cart.map((c)=>({
+                                id: c.id,
+                                name: c.item.name,
+                                quantity: c.quantity
+                            }))
+                    }));
+                    alert(`Payment successful! Transaction ref: ${data.tx_ref}\n\nWe'll contact you within 24 hours to confirm your booking and arrange equipment pickup.`);
+                    // Clear cart after successful payment
+                    setCart([]);
+                    (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$quote$2d$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["clearQuote"])();
+                } else {
+                    alert("Payment was not completed. Please try again.");
+                }
                 setPaymentProcessing(false);
             },
             onclose: function() {
-                console.log("Payment cancelled");
+                console.log("Payment modal closed");
                 setPaymentProcessing(false);
             }
         };
         if (FlutterwaveCheckout) {
             FlutterwaveCheckout(paymentData);
         } else {
-            alert("Flutterwave is not loaded. Please refresh and try again.");
+            alert("Payment system is not loaded. Please refresh the page and try again.");
             setPaymentProcessing(false);
         }
     };
@@ -1885,19 +1913,19 @@ function RentalCalculator() {
                             className: "h-5 w-5 text-primary"
                         }, void 0, false, {
                             fileName: "[project]/components/calculator/rental-calculator.tsx",
-                            lineNumber: 174,
+                            lineNumber: 202,
                             columnNumber: 11
                         }, this),
                         "Rental Calculator"
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/calculator/rental-calculator.tsx",
-                    lineNumber: 173,
+                    lineNumber: 201,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                lineNumber: 172,
+                lineNumber: 200,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -1916,12 +1944,12 @@ function RentalCalculator() {
                                             placeholder: "Category"
                                         }, void 0, false, {
                                             fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                            lineNumber: 183,
+                                            lineNumber: 211,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 182,
+                                        lineNumber: 210,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -1931,7 +1959,7 @@ function RentalCalculator() {
                                                 children: "All Categories"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 186,
+                                                lineNumber: 214,
                                                 columnNumber: 15
                                             }, this),
                                             categories.map((cat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -1939,19 +1967,19 @@ function RentalCalculator() {
                                                     children: cat.name
                                                 }, cat.id, false, {
                                                     fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                    lineNumber: 188,
+                                                    lineNumber: 216,
                                                     columnNumber: 17
                                                 }, this))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 185,
+                                        lineNumber: 213,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 181,
+                                lineNumber: 209,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -1964,12 +1992,12 @@ function RentalCalculator() {
                                             placeholder: "Select equipment..."
                                         }, void 0, false, {
                                             fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                            lineNumber: 196,
+                                            lineNumber: 224,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 195,
+                                        lineNumber: 223,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -1987,7 +2015,7 @@ function RentalCalculator() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                            lineNumber: 203,
+                                                            lineNumber: 231,
                                                             columnNumber: 21
                                                         }, this),
                                                         !item.available && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
@@ -1996,29 +2024,29 @@ function RentalCalculator() {
                                                             children: "Booked"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                            lineNumber: 205,
+                                                            lineNumber: 233,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                    lineNumber: 201,
+                                                    lineNumber: 229,
                                                     columnNumber: 19
                                                 }, this)
                                             }, item.id, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 200,
+                                                lineNumber: 228,
                                                 columnNumber: 17
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 198,
+                                        lineNumber: 226,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 194,
+                                lineNumber: 222,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -2028,18 +2056,18 @@ function RentalCalculator() {
                                     className: "h-4 w-4"
                                 }, void 0, false, {
                                     fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                    lineNumber: 215,
+                                    lineNumber: 243,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 214,
+                                lineNumber: 242,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                        lineNumber: 180,
+                        lineNumber: 208,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2052,14 +2080,14 @@ function RentalCalculator() {
                                         className: "h-4 w-4 text-muted-foreground"
                                     }, void 0, false, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 222,
+                                        lineNumber: 250,
                                         columnNumber: 13
                                     }, this),
                                     "Rental Period"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 221,
+                                lineNumber: 249,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2077,19 +2105,19 @@ function RentalCalculator() {
                                                             className: "mr-2 h-4 w-4"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                            lineNumber: 229,
+                                                            lineNumber: 257,
                                                             columnNumber: 19
                                                         }, this),
                                                         startDate ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$date$2d$fns$2f$format$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["format"])(startDate, "MMM d, yyyy") : "Start date"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                    lineNumber: 228,
+                                                    lineNumber: 256,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 227,
+                                                lineNumber: 255,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$popover$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PopoverContent"], {
@@ -2102,18 +2130,18 @@ function RentalCalculator() {
                                                     initialFocus: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                    lineNumber: 234,
+                                                    lineNumber: 262,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 233,
+                                                lineNumber: 261,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 226,
+                                        lineNumber: 254,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$popover$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Popover"], {
@@ -2128,19 +2156,19 @@ function RentalCalculator() {
                                                             className: "mr-2 h-4 w-4"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                            lineNumber: 247,
+                                                            lineNumber: 275,
                                                             columnNumber: 19
                                                         }, this),
                                                         endDate ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$date$2d$fns$2f$format$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["format"])(endDate, "MMM d, yyyy") : "End date"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                    lineNumber: 246,
+                                                    lineNumber: 274,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 245,
+                                                lineNumber: 273,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$popover$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PopoverContent"], {
@@ -2153,24 +2181,24 @@ function RentalCalculator() {
                                                     initialFocus: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                    lineNumber: 252,
+                                                    lineNumber: 280,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 251,
+                                                lineNumber: 279,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 244,
+                                        lineNumber: 272,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 225,
+                                lineNumber: 253,
                                 columnNumber: 11
                             }, this),
                             startDate && endDate && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2187,26 +2215,26 @@ function RentalCalculator() {
                                                 className: "h-3 w-3 inline"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 267,
+                                                lineNumber: 295,
                                                 columnNumber: 19
                                             }, this),
                                             "Weekly rate applies - 2 free days!"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 266,
+                                        lineNumber: 294,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 263,
+                                lineNumber: 291,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                        lineNumber: 220,
+                        lineNumber: 248,
                         columnNumber: 9
                     }, this),
                     cart.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2222,7 +2250,7 @@ function RentalCalculator() {
                                                 className: "h-4 w-4 text-muted-foreground"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 280,
+                                                lineNumber: 308,
                                                 columnNumber: 17
                                             }, this),
                                             "Selected Equipment (",
@@ -2231,7 +2259,7 @@ function RentalCalculator() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 279,
+                                        lineNumber: 307,
                                         columnNumber: 15
                                     }, this),
                                     cart.length >= 3 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
@@ -2242,20 +2270,20 @@ function RentalCalculator() {
                                                 className: "h-3 w-3 mr-1"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 285,
+                                                lineNumber: 313,
                                                 columnNumber: 19
                                             }, this),
                                             "Bundle discount!"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 284,
+                                        lineNumber: 312,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 278,
+                                lineNumber: 306,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2271,7 +2299,7 @@ function RentalCalculator() {
                                                         children: c.item.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                        lineNumber: 294,
+                                                        lineNumber: 322,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2287,13 +2315,13 @@ function RentalCalculator() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                        lineNumber: 295,
+                                                        lineNumber: 323,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 293,
+                                                lineNumber: 321,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2308,7 +2336,7 @@ function RentalCalculator() {
                                                         className: "w-16 h-8 text-center"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                        lineNumber: 300,
+                                                        lineNumber: 328,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -2320,35 +2348,35 @@ function RentalCalculator() {
                                                             className: "h-4 w-4 text-destructive"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                            lineNumber: 309,
+                                                            lineNumber: 337,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                        lineNumber: 308,
+                                                        lineNumber: 336,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 299,
+                                                lineNumber: 327,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, c.id, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 292,
+                                        lineNumber: 320,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 290,
+                                lineNumber: 318,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                        lineNumber: 277,
+                        lineNumber: 305,
                         columnNumber: 11
                     }, this),
                     cart.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2371,7 +2399,7 @@ function RentalCalculator() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 323,
+                                                lineNumber: 351,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2379,13 +2407,13 @@ function RentalCalculator() {
                                                 children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$gear$2d$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatPrice"])(subtotal)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 326,
+                                                lineNumber: 354,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 322,
+                                        lineNumber: 350,
                                         columnNumber: 15
                                     }, this),
                                     weeklyDiscount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2396,7 +2424,7 @@ function RentalCalculator() {
                                                 children: "Weekly Discount (2 free days)"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 330,
+                                                lineNumber: 358,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2407,13 +2435,13 @@ function RentalCalculator() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 331,
+                                                lineNumber: 359,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 329,
+                                        lineNumber: 357,
                                         columnNumber: 17
                                     }, this),
                                     bundleDiscount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2424,7 +2452,7 @@ function RentalCalculator() {
                                                 children: "Bundle Discount (10%)"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 336,
+                                                lineNumber: 364,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2435,24 +2463,24 @@ function RentalCalculator() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 337,
+                                                lineNumber: 365,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 335,
+                                        lineNumber: 363,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 321,
+                                lineNumber: 349,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$separator$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Separator"], {}, void 0, false, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 342,
+                                lineNumber: 370,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2466,7 +2494,7 @@ function RentalCalculator() {
                                                 children: "Equipment Insurance (5%)"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 346,
+                                                lineNumber: 374,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2474,13 +2502,13 @@ function RentalCalculator() {
                                                 children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$gear$2d$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatPrice"])(insurance)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 347,
+                                                lineNumber: 375,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 345,
+                                        lineNumber: 373,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2491,7 +2519,7 @@ function RentalCalculator() {
                                                 children: "VAT (18%)"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 350,
+                                                lineNumber: 378,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2499,24 +2527,24 @@ function RentalCalculator() {
                                                 children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$gear$2d$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatPrice"])(tax)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 351,
+                                                lineNumber: 379,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 349,
+                                        lineNumber: 377,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 344,
+                                lineNumber: 372,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$separator$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Separator"], {}, void 0, false, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 355,
+                                lineNumber: 383,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2527,7 +2555,7 @@ function RentalCalculator() {
                                         children: "Total Amount"
                                     }, void 0, false, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 358,
+                                        lineNumber: 386,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2535,13 +2563,13 @@ function RentalCalculator() {
                                         children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$gear$2d$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatPrice"])(total)
                                     }, void 0, false, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 359,
+                                        lineNumber: 387,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 357,
+                                lineNumber: 385,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2555,7 +2583,7 @@ function RentalCalculator() {
                                                 children: "Required Deposit (50%)"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 364,
+                                                lineNumber: 392,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2563,13 +2591,13 @@ function RentalCalculator() {
                                                 children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$gear$2d$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatPrice"])(depositAmount)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 365,
+                                                lineNumber: 393,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 363,
+                                        lineNumber: 391,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2581,13 +2609,13 @@ function RentalCalculator() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 367,
+                                        lineNumber: 395,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 362,
+                                lineNumber: 390,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2595,7 +2623,7 @@ function RentalCalculator() {
                                 children: "* Final price confirmed upon booking approval. Includes insurance and VAT."
                             }, void 0, false, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 372,
+                                lineNumber: 400,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2611,14 +2639,14 @@ function RentalCalculator() {
                                                 className: "h-5 w-5 mr-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 383,
+                                                lineNumber: 411,
                                                 columnNumber: 17
                                             }, this),
                                             paymentProcessing ? "Processing..." : `Pay Deposit - ${(0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$gear$2d$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatPrice"])(depositAmount)}`
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 377,
+                                        lineNumber: 405,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2637,19 +2665,19 @@ function RentalCalculator() {
                                                             className: "h-4 w-4 mr-2"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                            lineNumber: 393,
+                                                            lineNumber: 421,
                                                             columnNumber: 21
                                                         }, this),
                                                         "WhatsApp Quote"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                    lineNumber: 388,
+                                                    lineNumber: 416,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 387,
+                                                lineNumber: 415,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -2663,25 +2691,25 @@ function RentalCalculator() {
                                                             className: "h-4 w-4 mr-2"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                            lineNumber: 399,
+                                                            lineNumber: 427,
                                                             columnNumber: 21
                                                         }, this),
                                                         "Email Quote"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                    lineNumber: 398,
+                                                    lineNumber: 426,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                                lineNumber: 397,
+                                                lineNumber: 425,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 386,
+                                        lineNumber: 414,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2689,19 +2717,19 @@ function RentalCalculator() {
                                         children: "We accept Mobile Money, Cards, and Bank Transfers via Flutterwave"
                                     }, void 0, false, {
                                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                        lineNumber: 404,
+                                        lineNumber: 432,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 376,
+                                lineNumber: 404,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                        lineNumber: 320,
+                        lineNumber: 348,
                         columnNumber: 11
                     }, this),
                     cart.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2711,7 +2739,7 @@ function RentalCalculator() {
                                 className: "h-12 w-12 mx-auto mb-3 opacity-30"
                             }, void 0, false, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 413,
+                                lineNumber: 441,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2719,7 +2747,7 @@ function RentalCalculator() {
                                 children: "Add equipment to calculate rental costs"
                             }, void 0, false, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 414,
+                                lineNumber: 442,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2727,25 +2755,25 @@ function RentalCalculator() {
                                 children: "Select a category and item above to get started"
                             }, void 0, false, {
                                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                                lineNumber: 415,
+                                lineNumber: 443,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/calculator/rental-calculator.tsx",
-                        lineNumber: 412,
+                        lineNumber: 440,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/calculator/rental-calculator.tsx",
-                lineNumber: 178,
+                lineNumber: 206,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/calculator/rental-calculator.tsx",
-        lineNumber: 171,
+        lineNumber: 199,
         columnNumber: 5
     }, this);
 }

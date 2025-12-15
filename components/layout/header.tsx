@@ -137,7 +137,7 @@ export function Header() {
       <div
         className={cn(
           "lg:hidden absolute top-full left-0 right-0 bg-background border-b border-border transition-all duration-300 ease-in-out overflow-hidden",
-          mobileMenuOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0",
+          mobileMenuOpen ? "max-h-100 opacity-100" : "max-h-0 opacity-0",
         )}
       >
         <div className="px-4 py-4 space-y-2">

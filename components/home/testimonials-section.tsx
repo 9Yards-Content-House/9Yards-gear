@@ -103,7 +103,7 @@ export function TestimonialsSection() {
               style={{ transform: `translateX(-${activeIndex * 100}%)` }}
             >
               {testimonials.map((testimonial) => (
-                <div key={testimonial.author} className="w-full flex-shrink-0 px-1">
+                <div key={testimonial.author} className="w-full shrink-0 px-1">
                   <Card className="bg-background border-border">
                     <CardContent className="p-6">
                       <Quote className="h-8 w-8 text-primary/30 mb-4" />

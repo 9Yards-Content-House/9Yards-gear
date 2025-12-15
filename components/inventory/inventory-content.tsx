@@ -11,10 +11,12 @@ import { CategoryFilter } from "./category-filter"
 import { PriceFilter } from "./price-filter"
 import { AvailabilityFilter } from "./availability-filter"
 import { ViewToggle } from "./view-toggle"
+import { SortSelect } from "./sort-select"
 import { GearCard } from "@/components/gear/gear-card"
 import { GearListItem } from "./gear-list-item"
 import { InventorySkeleton } from "./gear-skeleton"
 import { getAllGear, type GearItem } from "@/lib/gear-data"
+import { trackSearch, trackFilterUsage } from "@/lib/analytics"
 
 function InventoryResults() {
   const searchParams = useSearchParams()
@@ -39,20 +41,57 @@ function InventoryResults() {
         threshold: 0.3,
       })
       results = fuse.search(query).map((r) => r.item)
+      trackSearch(query, results.length)
     }
 
     const category = searchParams.get("category")
     if (category) {
       results = results.filter((item) => item.category === category)
+      trackFilterUsage("category", category)
     }
 
     const minPrice = Number(searchParams.get("minPrice")) || 0
     const maxPrice = Number(searchParams.get("maxPrice")) || Number.POSITIVE_INFINITY
-    results = results.filter((item) => item.pricePerDay >= minPrice && item.pricePerDay <= maxPrice)
+    if (minPrice > 0 || maxPrice < Number.POSITIVE_INFINITY) {
+      results = results.filter((item) => item.pricePerDay >= minPrice && item.pricePerDay <= maxPrice)
+    }
 
     const availableOnly = searchParams.get("available") === "true"
     if (availableOnly) {
       results = results.filter((item) => item.available)
+      trackFilterUsage("availability", "available-only")
+    }
+
+    // Apply sorting
+    const sortBy = searchParams.get("sort") || "featured"
+    switch (sortBy) {
+      case "price-low":
+        results.sort((a, b) => a.pricePerDay - b.pricePerDay)
+        break
+      case "price-high":
+        results.sort((a, b) => b.pricePerDay - a.pricePerDay)
+        break
+      case "name-asc":
+        results.sort((a, b) => a.name.localeCompare(b.name))
+        break
+      case "name-desc":
+        results.sort((a, b) => b.name.localeCompare(a.name))
+        break
+      case "newest":
+        // Assumes items added more recently have higher IDs or use a timestamp if available
+        results.sort((a, b) => b.id.localeCompare(a.id))
+        break
+      case "featured":
+      default:
+        // Featured items first, then available, then by price
+        results.sort((a, b) => {
+          if (a.featured && !b.featured) return -1
+          if (!a.featured && b.featured) return 1
+          if (a.available && !b.available) return -1
+          if (!a.available && b.available) return 1
+          return a.pricePerDay - b.pricePerDay
+        })
+        break
     }
 
     return results
@@ -99,6 +138,7 @@ function InventoryResults() {
             <SearchBar />
           </div>
           <div className="flex items-center gap-2">
+            <SortSelect />
             <ViewToggle view={view} onViewChange={setView} />
 
             {/* Mobile filter trigger */}

@@ -1,8 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ArrowUp, X } from "lucide-react"
+import Link from "next/link"
+import { ArrowUp, X, Scale } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { getComparisonCount } from "@/lib/comparison-utils"
 import { cn } from "@/lib/utils"
 
 // WhatsApp icon component
@@ -19,13 +22,24 @@ function WhatsAppIcon({ className }: { className?: string }) {
   )
 }
 
-const WHATSAPP_NUMBER = "256700000000" // Replace with actual number
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "256700000000"
 const WHATSAPP_MESSAGE = "Hi! I'm interested in renting gear from 9Yards."
 
 export function FloatingActions() {
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [showWhatsAppTooltip, setShowWhatsAppTooltip] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
+  const [comparisonCount, setComparisonCount] = useState(0)
+
+  useEffect(() => {
+    const updateCount = () => {
+      setComparisonCount(getComparisonCount())
+    }
+    
+    updateCount()
+    window.addEventListener("comparisonUpdated" as any, updateCount)
+    return () => window.removeEventListener("comparisonUpdated" as any, updateCount)
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,6 +87,26 @@ export function FloatingActions() {
       >
         <ArrowUp className="h-5 w-5" />
       </Button>
+
+      {/* Comparison button */}
+      {comparisonCount > 0 && (
+        <Button
+          asChild
+          variant="outline"
+          size="icon"
+          className="h-12 w-12 rounded-full bg-card border-primary shadow-lg transition-all duration-300 relative"
+        >
+          <Link href="/compare" aria-label={`Compare ${comparisonCount} items`}>
+            <Scale className="h-5 w-5" />
+            <Badge
+              variant="default"
+              className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs"
+            >
+              {comparisonCount}
+            </Badge>
+          </Link>
+        </Button>
+      )}
 
       {/* WhatsApp button */}
       <div className="relative">
