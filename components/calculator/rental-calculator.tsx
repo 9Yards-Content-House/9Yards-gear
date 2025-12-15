@@ -30,6 +30,8 @@ export function RentalCalculator() {
   const [selectedItemId, setSelectedItemId] = useState<string>("")
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()
+  const [startDateOpen, setStartDateOpen] = useState(false)
+  const [endDateOpen, setEndDateOpen] = useState(false)
   const [categoryFilter, setCategoryFilter] = useState<string>("all")
   const [paymentProcessing, setPaymentProcessing] = useState(false)
   const [customerEmail, setCustomerEmail] = useState("")
@@ -314,36 +316,42 @@ export function RentalCalculator() {
             Rental Period
           </Label>
           <div className="grid grid-cols-2 gap-2">
-            <Popover>
+            <Popover open={startDateOpen} onOpenChange={setStartDateOpen}>
               <PopoverTrigger asChild>
                 <Button variant="outline" className="justify-start text-left font-normal">
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {startDate ? format(startDate, "MMM d, yyyy") : "Start date"}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
+              <PopoverContent className="w-auto p-0" align="start">
                 <Calendar
                   mode="single"
                   selected={startDate}
-                  onSelect={setStartDate}
+                  onSelect={(date) => {
+                    setStartDate(date)
+                    setStartDateOpen(false)
+                  }}
                   disabled={(date) => date < new Date()}
                   initialFocus
                 />
               </PopoverContent>
             </Popover>
 
-            <Popover>
+            <Popover open={endDateOpen} onOpenChange={setEndDateOpen}>
               <PopoverTrigger asChild>
                 <Button variant="outline" className="justify-start text-left font-normal">
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {endDate ? format(endDate, "MMM d, yyyy") : "End date"}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
+              <PopoverContent className="w-auto p-0" align="start">
                 <Calendar
                   mode="single"
                   selected={endDate}
-                  onSelect={setEndDate}
+                  onSelect={(date) => {
+                    setEndDate(date)
+                    setEndDateOpen(false)
+                  }}
                   disabled={(date) => !startDate || date < startDate}
                   initialFocus
                 />

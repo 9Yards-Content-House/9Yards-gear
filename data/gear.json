@@ -23,7 +23,7 @@
         "autofocus": "Advanced Focus System",
         "storage": "Codex Compact Drive"
       },
-      "image": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80",
+      "image": "/gear/cam001.jpg",
       "available": true,
       "featured": true,
       "bookedDates": ["2025-12-20", "2025-12-21"]
@@ -41,7 +41,7 @@
         "autofocus": "Real-time Tracking",
         "storage": "SDXC + CFexpress"
       },
-      "image": "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800&q=80",
+      "image": "/gear/cam002.jpg",
       "available": true,
       "featured": false,
       "bookedDates": []
@@ -59,7 +59,7 @@
         "dynamicRange": "12 stops",
         "storage": "USB-C + SD"
       },
-      "image": "https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=800&q=80",
+      "image": "/gear/cam003.jpg",
       "available": false,
       "featured": true,
       "bookedDates": ["2025-12-15", "2025-12-16", "2025-12-17"]
@@ -77,7 +77,7 @@
         "mount": "PL Mount",
         "coverage": "Full Frame"
       },
-      "image": "https://images.unsplash.com/photo-1606462661976-db2c5e1a7d24?w=800&q=80",
+      "image": "/gear/lens001.jpg",
       "available": true,
       "featured": true,
       "bookedDates": []
@@ -95,7 +95,7 @@
         "mount": "EF Mount",
         "stabilization": "Power Zoom"
       },
-      "image": "https://images.unsplash.com/photo-1606741965326-cb990ae01bb2?w=800&q=80",
+      "image": "/gear/lens002.jpg",
       "available": true,
       "featured": false,
       "bookedDates": ["2025-12-18"]
@@ -113,7 +113,7 @@
         "cri": "95+",
         "control": "DMX + App"
       },
-      "image": "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80",
+      "image": "/gear/light001.jpg",
       "available": true,
       "featured": true,
       "bookedDates": []
@@ -131,7 +131,7 @@
         "cri": "96+",
         "beamAngle": "120°"
       },
-      "image": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80",
+      "image": "/gear/light002.png",
       "available": true,
       "featured": false,
       "bookedDates": ["2025-12-19", "2025-12-20"]
@@ -149,7 +149,7 @@
         "frequency": "40Hz - 20kHz",
         "sensitivity": "-28 dB"
       },
-      "image": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&q=80",
+      "image": "/gear/audio001.webp",
       "available": true,
       "featured": true,
       "bookedDates": []
@@ -167,7 +167,7 @@
         "preamps": "Mic/Line",
         "timecode": "Ambient Lock"
       },
-      "image": "https://images.unsplash.com/photo-1519508234439-4f23643125c1?w=800&q=80",
+      "image": "/gear/audio002.png",
       "available": true,
       "featured": false,
       "bookedDates": []
@@ -185,7 +185,7 @@
         "modes": "Pan Follow, FPV",
         "control": "Bluetooth + App"
       },
-      "image": "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=800&q=80",
+      "image": "/gear/motion001.jpg",
       "available": true,
       "featured": true,
       "bookedDates": ["2025-12-22"]
@@ -203,7 +203,7 @@
         "transmission": "OcuSync 3.0",
         "payload": "2.7kg"
       },
-      "image": "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80",
+      "image": "/gear/motion002.png",
       "available": true,
       "featured": false,
       "bookedDates": []
@@ -221,7 +221,7 @@
         "head": "Fluid Drag",
         "legs": "Twin Leg Aluminum"
       },
-      "image": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80",
+      "image": "/gear/grip001.jpg",
       "available": true,
       "featured": true,
       "bookedDates": []
@@ -239,7 +239,7 @@
         "arm": "40\" Steel Arm",
         "head": "Grip Head"
       },
-      "image": "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80",
+      "image": "/gear/grip002.jpg",
       "available": true,
       "featured": false,
       "bookedDates": []
@@ -257,7 +257,7 @@
         "brightness": "3000 nits",
         "features": "Scopes, LUT Support"
       },
-      "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800&q=80",
+      "image": "/gear/acc001.jpg",
       "available": true,
       "featured": true,
       "bookedDates": []
@@ -275,7 +275,7 @@
         "range": "1500ft LOS",
         "frequency": "5GHz"
       },
-      "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
+      "image": "/gear/acc002.jpg",
       "available": true,
       "featured": false,
       "bookedDates": ["2025-12-16"]
@@ -293,7 +293,7 @@
         "runtime": "4-6 hours",
         "charger": "Active Charge"
       },
-      "image": "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=800&q=80",
+      "image": "/gear/power001.jpg",
       "available": true,
       "featured": true,
       "bookedDates": []
@@ -311,7 +311,7 @@
         "type": "Type B",
         "durability": "IP68 Waterproof"
       },
-      "image": "https://images.unsplash.com/photo-1558618460-28b0e8b68a18?w=800&q=80",
+      "image": "/gear/power002.jpg",
       "available": true,
       "featured": false,
       "bookedDates": []
