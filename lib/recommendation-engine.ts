@@ -4,25 +4,28 @@ import { type GearItem, getAllGear } from "./gear-data"
 // Define complementary relationships between gear
 const complementaryGear: Record<string, string[]> = {
   // Cameras need lenses, batteries, storage
-  cameras: ["lenses", "accessories", "grip"],
+  cameras: ["lenses", "accessories", "grip", "power"],
 
   // Lenses often pair with cameras and filters
   lenses: ["cameras", "accessories", "grip"],
 
   // Lighting pairs with grip equipment
-  lighting: ["grip", "accessories"],
+  lighting: ["grip", "accessories", "power"],
 
   // Audio often needs windshields, mounts
   audio: ["accessories", "grip"],
 
-  // Drones need batteries, monitors
-  drones: ["accessories"],
+  // Motion & Drones need batteries, monitors
+  motion: ["accessories", "power"],
 
   // Grip supports cameras and lighting
   grip: ["cameras", "lighting"],
 
   // Accessories complement everything
-  accessories: ["cameras", "lenses", "lighting", "audio", "drones"],
+  accessories: ["cameras", "lenses", "lighting", "audio", "motion"],
+
+  // Power & Media complements all production equipment
+  power: ["cameras", "lighting", "motion", "accessories"],
 }
 
 // Specific item recommendations based on keywords

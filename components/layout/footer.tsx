@@ -10,9 +10,10 @@ const footerLinks = {
     { name: "Lenses", href: "/inventory?category=lenses" },
     { name: "Lighting", href: "/inventory?category=lighting" },
     { name: "Audio Equipment", href: "/inventory?category=audio" },
-    { name: "Drones & Motion", href: "/inventory?category=drones" },
+    { name: "Motion & Drones", href: "/inventory?category=motion" },
     { name: "Grip & Support", href: "/inventory?category=grip" },
-    { name: "Accessories", href: "/inventory?category=accessories" },
+    { name: "Accessories & Monitors", href: "/inventory?category=accessories" },
+    { name: "Power & Media", href: "/inventory?category=power" },
   ],
   company: [
     { name: "About Us", href: "/about" },

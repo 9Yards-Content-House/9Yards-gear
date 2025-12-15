@@ -1,6 +1,6 @@
 import type React from "react"
 import Link from "next/link"
-import { Camera, Aperture, Lightbulb, Mic, Plane, Move, Package } from "lucide-react"
+import { Camera, Aperture, Lightbulb, Mic, Plane, Move, Package, Battery } from "lucide-react"
 import { getAllCategories, getGearByCategory } from "@/lib/gear-data"
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -11,6 +11,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Plane,
   Move,
   Package,
+  Battery,
 }
 
 export function CategoriesSection() {
