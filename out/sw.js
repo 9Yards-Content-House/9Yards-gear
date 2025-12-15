@@ -1,12 +1,15 @@
-// Service Worker for 9Yards Gear PWA
-const CACHE_NAME = '9yards-gear-v1'
+// Service Worker for 9Yards Gear PWA - Enhanced Version
+const CACHE_NAME = '9yards-gear-v2'
 const OFFLINE_URL = '/offline.html'
+const OFFLINE_DATA_CACHE = '9yards-offline-data-v1'
+const BOOKING_QUEUE = 'pending-bookings'
 
 // Assets to cache on install
 const STATIC_ASSETS = [
   '/',
   '/inventory',
   '/calculator',
+  '/compare',
   '/about',
   '/contact',
   '/offline.html',
@@ -29,7 +32,7 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames
-          .filter((name) => name !== CACHE_NAME)
+          .filter((name) => name !== CACHE_NAME && name !== OFFLINE_DATA_CACHE)
           .map((name) => caches.delete(name))
       )
     })
@@ -37,7 +40,7 @@ self.addEventListener('activate', (event) => {
   self.clients.claim()
 })
 
-// Fetch event - serve from cache, fallback to network
+// Fetch event - Network first for API, cache first for assets
 self.addEventListener('fetch', (event) => {
   // Skip non-GET requests
   if (event.request.method !== 'GET') return
@@ -45,9 +48,40 @@ self.addEventListener('fetch', (event) => {
   // Skip external requests
   if (!event.request.url.startsWith(self.location.origin)) return
 
+  // API requests - network first with fallback
+  if (event.request.url.includes('/api/')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          // Clone and cache successful responses
+          if (response.ok) {
+            const responseClone = response.clone()
+            caches.open(OFFLINE_DATA_CACHE).then((cache) => {
+              cache.put(event.request, responseClone)
+            })
+          }
+          return response
+        })
+        .catch(() => {
+          // Fallback to cache
+          return caches.match(event.request)
+        })
+    )
+    return
+  }
+
+  // Static assets - cache first
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
+        // Return cached version and update cache in background
+        fetch(event.request).then((response) => {
+          if (response.ok) {
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, response)
+            })
+          }
+        }).catch(() => {})
         return cachedResponse
       }
 
@@ -78,14 +112,94 @@ self.addEventListener('fetch', (event) => {
   )
 })
 
-// Background sync for offline form submissions (future enhancement)
+// Background sync for offline booking submissions
 self.addEventListener('sync', (event) => {
   if (event.tag === 'sync-bookings') {
     event.waitUntil(syncBookings())
   }
 })
 
+// Sync pending bookings when back online
 async function syncBookings() {
-  // Placeholder for syncing offline bookings when online
-  console.log('Syncing bookings...')
+  try {
+    const cache = await caches.open(OFFLINE_DATA_CACHE)
+    const requests = await cache.keys()
+    const bookingRequests = requests.filter(req => req.url.includes('booking'))
+
+    for (const request of bookingRequests) {
+      try {
+        const response = await fetch(request.clone())
+        if (response.ok) {
+          await cache.delete(request)
+          // Notify clients about successful sync
+          self.clients.matchAll().then(clients => {
+            clients.forEach(client => {
+              client.postMessage({
+                type: 'BOOKING_SYNCED',
+                url: request.url
+              })
+            })
+          })
+        }
+      } catch (error) {
+        console.error('Failed to sync booking:', error)
+      }
+    }
+  } catch (error) {
+    console.error('Sync bookings failed:', error)
+  }
 }
+
+// Push notification handler (for future implementation)
+self.addEventListener('push', (event) => {
+  const options = {
+    body: event.data ? event.data.text() : 'New notification from 9Yards Gear',
+    icon: '/icon-192.png',
+    badge: '/icon-72.png',
+    vibrate: [100, 50, 100],
+    data: {
+      dateOfArrival: Date.now(),
+      primaryKey: 1
+    }
+  }
+
+  event.waitUntil(
+    self.registration.showNotification('9Yards Gear', options)
+  )
+})
+
+// Notification click handler
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close()
+
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true })
+      .then((clientList) => {
+        // Focus existing window if available
+        for (const client of clientList) {
+          if ('focus' in client) {
+            return client.focus()
+          }
+        }
+        // Open new window if no existing window
+        if (clients.openWindow) {
+          return clients.openWindow('/')
+        }
+      })
+  )
+})
+
+// Message handler for communication with clients
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting()
+  }
+  
+  if (event.data && event.data.type === 'CACHE_URLS') {
+    event.waitUntil(
+      caches.open(CACHE_NAME).then((cache) => {
+        return cache.addAll(event.data.urls)
+      })
+    )
+  }
+})

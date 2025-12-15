@@ -28,7 +28,7 @@ const footerLinks = {
 
 const socialLinks = [
   { name: "Instagram", href: "https://instagram.com/9yardsfilm", icon: Instagram },
-  { name: "WhatsApp", href: "https://wa.me/256700000000", icon: Phone },
+  { name: "WhatsApp", href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '256783791730'}`, icon: Phone },
   { name: "TikTok", href: "https://tiktok.com/@9yardsfilm", icon: Youtube },
 ]
 
@@ -168,7 +168,7 @@ export function Footer() {
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-primary shrink-0" />
                 <a
-                  href="tel:+256700000000"
+                  href="tel:+256783791730"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   +256 700 000 000

@@ -234,7 +234,7 @@ export function BookingForm({ item, startDate, endDate, onDateChange }: BookingF
           <Input
             id="email"
             type="email"
-            placeholder="you@example.com"
+            placeholder="stuartmuyambi@gmail.com"
             className={getInputClassName("email")}
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}

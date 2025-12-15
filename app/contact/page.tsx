@@ -110,7 +110,7 @@ export default function ContactPage() {
                         </p>
                         <Button asChild size="sm" variant="outline" className="bg-transparent">
                           <a
-                            href="https://wa.me/256700000000"
+                            href="https://wa.me/256783791730"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center"
@@ -174,7 +174,7 @@ export default function ContactPage() {
                               id="email"
                               type="email"
                               required
-                              placeholder="you@example.com"
+                              placeholder="stuartmuyambi@gmail.com"
                               value={formData.email}
                               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             />
@@ -206,7 +206,7 @@ export default function ContactPage() {
                               id="message"
                               required
                               placeholder="Tell us how we can help..."
-                              className="min-h-[150px]"
+                              className="min-h-37.5"
                               value={formData.message}
                               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                             />

@@ -3,6 +3,7 @@
   "/_not-found/page": "/_not-found",
   "/about/page": "/about",
   "/calculator/page": "/calculator",
+  "/compare/page": "/compare",
   "/contact/page": "/contact",
   "/gear/[id]/page": "/gear/[id]",
   "/inventory/page": "/inventory",

@@ -3,6 +3,7 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/about/page": "app/about/page.js",
   "/calculator/page": "app/calculator/page.js",
+  "/compare/page": "app/compare/page.js",
   "/contact/page": "app/contact/page.js",
   "/gear/[id]/page": "app/gear/[id]/page.js",
   "/inventory/page": "app/inventory/page.js",

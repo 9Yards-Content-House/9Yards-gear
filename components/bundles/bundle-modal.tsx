@@ -31,7 +31,8 @@ export function BundleModal({ bundle, isOpen, onClose }: BundleModalProps) {
 
   const handleWhatsApp = () => {
     const message = `Hi! I'm interested in the ${bundle.name} bundle (${formatPrice(bundle.pricePerDay)}/day). Can you tell me more?`
-    const whatsappUrl = `https://wa.me/256700000000?text=${encodeURIComponent(message)}`
+    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "256783791730"
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, "_blank")
   }
 
