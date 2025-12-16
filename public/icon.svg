@@ -1,0 +1,32 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Metallic gradient -->
+    <linearGradient id="metallic-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a"/>
+      <stop offset="50%" style="stop-color:#0a0a0a"/>
+      <stop offset="100%" style="stop-color:#1a1a1a"/>
+    </linearGradient>
+    <linearGradient id="silver-text" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#F0F0F0"/>
+      <stop offset="30%" style="stop-color:#D0D0D0"/>
+      <stop offset="70%" style="stop-color:#A0A0A0"/>
+      <stop offset="100%" style="stop-color:#C0C0C0"/>
+    </linearGradient>
+    <linearGradient id="gold-accent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4AF37"/>
+      <stop offset="50%" style="stop-color:#B8962C"/>
+      <stop offset="100%" style="stop-color:#D4AF37"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="180" height="180" rx="37" fill="url(#metallic-bg)"/>
+  
+  <!-- 9Y Logo Text -->
+  <text x="90" y="105" text-anchor="middle" font-family="'Helvetica Neue', Arial, sans-serif" font-size="72" font-weight="700" fill="url(#silver-text)">
+    9Y
+  </text>
+  
+  <!-- Gold underline accent -->
+  <rect x="40" y="130" width="100" height="4" rx="2" fill="url(#gold-accent)"/>
+</svg>

@@ -1,0 +1,35 @@
+{
+  "name": "9Yards Gear - Professional Equipment Rental",
+  "short_name": "9Yards Gear",
+  "description": "Premium film and production equipment rental in Uganda",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0A0A",
+  "theme_color": "#D4AF37",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "photo"],
+  "shortcuts": [
+    {
+      "name": "Browse Inventory",
+      "short_name": "Inventory",
+      "description": "View all available equipment",
+      "url": "/inventory",
+      "icons": [{ "src": "/apple-icon.png", "sizes": "180x180" }]
+    },
+    {
+      "name": "Rental Calculator",
+      "short_name": "Calculator",
+      "description": "Calculate rental costs",
+      "url": "/calculator",
+      "icons": [{ "src": "/apple-icon.png", "sizes": "180x180" }]
+    }
+  ]
+}
