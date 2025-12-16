@@ -1,7 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Inter, Geist_Mono } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
 import { FloatingActions } from "@/components/ui/floating-actions"
 import { PWARegister } from "@/components/pwa-register"
 import "./globals.css"
@@ -70,6 +69,8 @@ export default function RootLayout({
         />
         {/* Flutterwave */}
         <script src="https://checkout.flutterwave.com/v3.js"></script>
+        {/* Netlify Identity Widget */}
+        <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
         {/* PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#D4AF37" />
@@ -82,7 +83,6 @@ export default function RootLayout({
         {children}
         <FloatingActions />
         <PWARegister />
-        <Analytics />
       </body>
     </html>
   )
