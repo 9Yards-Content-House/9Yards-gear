@@ -63,7 +63,9 @@ export async function copyToClipboard(text: string): Promise<boolean> {
     await navigator.clipboard.writeText(text)
     return true
   } catch (error) {
-    console.error("Failed to copy:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Failed to copy:", error)
+    }
     return false
   }
 }
@@ -86,7 +88,9 @@ export function trackReferral(referralCode: string): void {
       }
     }
   } catch (error) {
-    console.error("Failed to track referral:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Failed to track referral:", error)
+    }
   }
 }
 

@@ -164,7 +164,7 @@ export function AvailabilityCalendar({
           <Button variant="ghost" size="icon" onClick={goToPrevMonth} disabled={!canGoPrev} className="h-8 w-8">
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <span className="text-sm font-medium text-foreground min-w-[140px] text-center">
+          <span className="text-sm font-medium text-foreground min-w-35 text-center">
             {MONTHS[currentMonth]} {currentYear}
           </span>
           <Button variant="ghost" size="icon" onClick={goToNextMonth} className="h-8 w-8">

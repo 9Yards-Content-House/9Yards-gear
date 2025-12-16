@@ -61,7 +61,9 @@ export function RentalCalculator() {
         // You could pre-fill the calculator with bundle items
         localStorage.removeItem("calculatorBundle")
       } catch (e) {
-        console.error("Failed to parse bundle data", e)
+        if (process.env.NODE_ENV === "development") {
+          console.error("Failed to parse bundle data", e)
+        }
       }
     }
   }, [allGear])

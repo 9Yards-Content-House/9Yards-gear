@@ -61,7 +61,7 @@ export function QuickViewModal({ item, isOpen, onClose }: QuickViewModalProps) {
             </div>
 
             <h2 className="text-xl font-bold text-foreground mb-2">{item.name}</h2>
-            <p className="text-sm text-muted-foreground mb-4 flex-grow">{item.description}</p>
+            <p className="text-sm text-muted-foreground mb-4 grow">{item.description}</p>
 
             {/* Key specs */}
             <div className="grid grid-cols-2 gap-2 mb-4 text-sm">

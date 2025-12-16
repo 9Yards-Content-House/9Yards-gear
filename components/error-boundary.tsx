@@ -50,7 +50,7 @@ export function ErrorBoundary({ error, reset }: ErrorBoundaryProps) {
 
         {process.env.NODE_ENV === 'development' && (
           <div className="mt-8 p-4 bg-secondary rounded-lg text-left">
-            <p className="text-xs text-muted-foreground font-mono break-words">
+            <p className="text-xs text-muted-foreground font-mono overflow-wrap-break-word">
               {error.toString()}
             </p>
           </div>

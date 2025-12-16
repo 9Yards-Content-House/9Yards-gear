@@ -74,7 +74,9 @@ export function getCurrentUser(): User | null {
  */
 export function login(): void {
   if (!isNetlifyIdentityAvailable()) {
-    console.error("Netlify Identity not loaded")
+    if (process.env.NODE_ENV === "development") {
+      console.error("Netlify Identity not loaded")
+    }
     return
   }
   ;(window as any).netlifyIdentity?.open("login")
@@ -85,7 +87,9 @@ export function login(): void {
  */
 export function signup(): void {
   if (!isNetlifyIdentityAvailable()) {
-    console.error("Netlify Identity not loaded")
+    if (process.env.NODE_ENV === "development") {
+      console.error("Netlify Identity not loaded")
+    }
     return
   }
   ;(window as any).netlifyIdentity?.open("signup")
@@ -117,7 +121,9 @@ export async function updateUser(metadata: Record<string, any>): Promise<User | 
     })
     return updatedUser
   } catch (error) {
-    console.error("Failed to update user:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Failed to update user:", error)
+    }
     return null
   }
 }
@@ -197,7 +203,9 @@ export async function getUserToken(): Promise<string | null> {
     const token = await user.jwt()
     return token
   } catch (error) {
-    console.error("Failed to get user token:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Failed to get user token:", error)
+    }
     return null
   }
 }

@@ -26,7 +26,9 @@ export function getWishlist(): WishlistItem[] {
     const stored = localStorage.getItem(WISHLIST_KEY)
     return stored ? JSON.parse(stored) : []
   } catch (error) {
-    console.error("Failed to load wishlist:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Failed to load wishlist:", error)
+    }
     return []
   }
 }
@@ -62,7 +64,9 @@ export function addToWishlist(gearId: string, notifyOnAvailable = false): boolea
 
     return true
   } catch (error) {
-    console.error("Failed to add to wishlist:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Failed to add to wishlist:", error)
+    }
     return false
   }
 }
@@ -84,7 +88,9 @@ export function removeFromWishlist(gearId: string): boolean {
 
     return true
   } catch (error) {
-    console.error("Failed to remove from wishlist:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Failed to remove from wishlist:", error)
+    }
     return false
   }
 }
@@ -116,7 +122,9 @@ export function clearWishlist(): void {
     localStorage.removeItem(WISHLIST_KEY)
     window.dispatchEvent(new CustomEvent("wishlistUpdated"))
   } catch (error) {
-    console.error("Failed to clear wishlist:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Failed to clear wishlist:", error)
+    }
   }
 }
 
@@ -179,7 +187,9 @@ export async function checkWishlistAvailability(
       )
       localStorage.setItem(WISHLIST_KEY, JSON.stringify(updatedWishlist))
     } catch (error) {
-      console.error("Failed to send wishlist notification:", error)
+      if (process.env.NODE_ENV === "development") {
+        console.error("Failed to send wishlist notification:", error)
+      }
     }
   }
 }

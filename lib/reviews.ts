@@ -41,7 +41,9 @@ export async function submitReview(review: Omit<Review, "id" | "createdAt" | "st
 
     return result.fields as Review
   } catch (error) {
-    console.error("Failed to submit review:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Failed to submit review:", error)
+    }
     throw new Error("Failed to submit review")
   }
 }
@@ -61,7 +63,9 @@ export async function getGearReviews(gearId: string): Promise<Review[]> {
 
     return result.records?.map((r: any) => ({ id: r.id, ...r.fields })) || []
   } catch (error) {
-    console.error("Failed to fetch reviews:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Failed to fetch reviews:", error)
+    }
     return []
   }
 }
@@ -81,7 +85,9 @@ export async function getAllReviews(status?: "pending" | "approved" | "rejected"
 
     return result.records?.map((r: any) => ({ id: r.id, ...r.fields })) || []
   } catch (error) {
-    console.error("Failed to fetch reviews:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Failed to fetch reviews:", error)
+    }
     return []
   }
 }
@@ -98,7 +104,9 @@ export async function updateReviewStatus(reviewId: string, status: "approved" | 
       data: { status },
     })
   } catch (error) {
-    console.error("Failed to update review status:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Failed to update review status:", error)
+    }
     throw new Error("Failed to update review")
   }
 }
@@ -115,7 +123,9 @@ export async function markReviewHelpful(reviewId: string, currentCount: number):
       data: { helpful: currentCount + 1 },
     })
   } catch (error) {
-    console.error("Failed to mark review helpful:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Failed to mark review helpful:", error)
+    }
   }
 }
 

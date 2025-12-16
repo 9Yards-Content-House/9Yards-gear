@@ -9,10 +9,21 @@
   "orientation": "portrait-primary",
   "icons": [
     {
+      "src": "/icon-dark-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
       "src": "/apple-icon.png",
       "sizes": "180x180",
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "categories": ["business", "productivity", "photo"],

@@ -40,7 +40,9 @@ export async function callAirtable(request: AirtableRequest): Promise<any> {
 
     return await response.json()
   } catch (error) {
-    console.error("Airtable API error:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Airtable API error:", error)
+    }
     throw error
   }
 }
@@ -61,7 +63,9 @@ export async function sendEmail(request: EmailRequest): Promise<void> {
       throw new Error(error.error || "Failed to send email")
     }
   } catch (error) {
-    console.error("Email send error:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Email send error:", error)
+    }
     throw error
   }
 }
@@ -82,7 +86,9 @@ export async function sendSMS(request: SMSRequest): Promise<void> {
       throw new Error(error.error || "Failed to send SMS")
     }
   } catch (error) {
-    console.error("SMS send error:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("SMS send error:", error)
+    }
     throw error
   }
 }
