@@ -15,7 +15,7 @@ export function HeroSection() {
           className="object-cover opacity-30"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
+        <div className="absolute inset-0 bg-linear-to-b from-background via-background/80 to-background" />
       </div>
 
       {/* Content */}
