@@ -4,9 +4,11 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Menu, X, ChevronDown, ExternalLink, Calculator } from "lucide-react"
+import { Menu, X, ChevronDown, ExternalLink, Calculator, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { AuthButton } from "@/components/auth/auth-button"
+import { WishlistCount } from "@/components/wishlist/wishlist-button"
 import { cn } from "@/lib/utils"
 
 const navigation = [
@@ -110,7 +112,7 @@ export function Header() {
         </div>
 
         {/* Right side */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-4">
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-4 lg:items-center">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="text-muted-foreground">
@@ -129,6 +131,13 @@ export function Header() {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
+          <Button variant="ghost" size="icon" asChild className="relative">
+            <Link href="/wishlist">
+              <Heart className="h-5 w-5" />
+              <WishlistCount />
+            </Link>
+          </Button>
+          <AuthButton />
           <Button asChild>
             <Link href="/inventory">Browse Gear</Link>
           </Button>
