@@ -272,9 +272,10 @@ export function RentalCalculator() {
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Add Equipment */}
-        <div className="flex gap-2">
+        {/* Add Equipment */}
+        <div className="flex flex-col sm:flex-row gap-2">
           <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="w-35">
+            <SelectTrigger className="w-full sm:w-[140px]">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
@@ -287,7 +288,7 @@ export function RentalCalculator() {
             </SelectContent>
           </Select>
           <Select value={selectedItemId} onValueChange={setSelectedItemId}>
-            <SelectTrigger className="flex-1">
+            <SelectTrigger className="flex-1 w-full">
               <SelectValue placeholder="Select equipment..." />
             </SelectTrigger>
             <SelectContent>
@@ -306,7 +307,7 @@ export function RentalCalculator() {
               ))}
             </SelectContent>
           </Select>
-          <Button onClick={addItem} disabled={!selectedItemId}>
+          <Button onClick={addItem} disabled={!selectedItemId} className="w-full sm:w-auto">
             <Plus className="h-4 w-4" />
           </Button>
         </div>
@@ -317,10 +318,10 @@ export function RentalCalculator() {
             <CalendarIcon className="h-4 w-4 text-muted-foreground" />
             Rental Period
           </Label>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <Popover open={startDateOpen} onOpenChange={setStartDateOpen}>
               <PopoverTrigger asChild>
-                <Button variant="outline" className="justify-start text-left font-normal">
+                <Button variant="outline" className="justify-start text-left font-normal w-full">
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {startDate ? format(startDate, "MMM d, yyyy") : "Start date"}
                 </Button>
@@ -330,8 +331,10 @@ export function RentalCalculator() {
                   mode="single"
                   selected={startDate}
                   onSelect={(date) => {
-                    setStartDate(date)
-                    setStartDateOpen(false)
+                    if (date) {
+                        setStartDate(date)
+                        setStartDateOpen(false)
+                    }
                   }}
                   disabled={(date) => date < new Date()}
                   initialFocus
@@ -341,7 +344,7 @@ export function RentalCalculator() {
 
             <Popover open={endDateOpen} onOpenChange={setEndDateOpen}>
               <PopoverTrigger asChild>
-                <Button variant="outline" className="justify-start text-left font-normal">
+                <Button variant="outline" className="justify-start text-left font-normal w-full">
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {endDate ? format(endDate, "MMM d, yyyy") : "End date"}
                 </Button>
@@ -351,8 +354,10 @@ export function RentalCalculator() {
                   mode="single"
                   selected={endDate}
                   onSelect={(date) => {
-                    setEndDate(date)
-                    setEndDateOpen(false)
+                    if (date) {
+                        setEndDate(date)
+                        setEndDateOpen(false)
+                    }
                   }}
                   disabled={(date) => !startDate || date < startDate}
                   initialFocus
@@ -486,7 +491,7 @@ export function RentalCalculator() {
                     <CreditCard className="h-5 w-5 mr-2" />
                     Proceed to Payment
                   </Button>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <Button asChild variant="outline" size="lg">
                       <a
                         href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '256783791730'}?text=${generateQuoteSummary()}`}
