@@ -108,7 +108,7 @@ export function SearchBar() {
         <Input
           ref={inputRef}
           type="text"
-          placeholder="Search cameras, lenses, lighting..."
+          placeholder="Search for cameras, lenses, lighting, audio..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}

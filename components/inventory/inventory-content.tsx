@@ -1,10 +1,12 @@
 "use client"
 
 import { useState, useMemo, useEffect, Suspense } from "react"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
+import Link from "next/link"
 import Fuse from "fuse.js"
-import { SlidersHorizontal, X, LayoutGrid } from "lucide-react"
+import { SlidersHorizontal, X, LayoutGrid, ChevronRight, Search, Phone, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { SearchBar } from "./search-bar"
 import { CategoryFilter } from "./category-filter"
@@ -15,14 +17,16 @@ import { SortSelect } from "./sort-select"
 import { GearCard } from "@/components/gear/gear-card"
 import { GearListItem } from "./gear-list-item"
 import { InventorySkeleton } from "./gear-skeleton"
+import { CantFindCTA } from "./cant-find-cta"
 import { useGear, type GearItem } from "@/lib/gear-context"
 import { trackSearch, trackFilterUsage } from "@/lib/analytics"
 
 function InventoryResults() {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const [view, setView] = useState<"grid" | "list">("grid")
   const [filtersOpen, setFiltersOpen] = useState(false)
-  const { gear: allGear, isLoading } = useGear()
+  const { gear: allGear, categories, isLoading } = useGear()
 
   const filteredGear = useMemo(() => {
     let results: GearItem[] = allGear
@@ -121,8 +125,17 @@ function InventoryResults() {
       <div className="mx-auto max-w-7xl px-4 py-8 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground">Equipment Inventory</h1>
-          <p className="text-muted-foreground mt-2">Browse our professional film and production equipment</p>
+          {/* Breadcrumb */}
+          <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-4" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+            <ChevronRight className="h-4 w-4" />
+            <span className="text-foreground font-medium">Inventory</span>
+          </nav>
+          
+          <h1 className="text-3xl font-bold text-foreground">Browse Equipment</h1>
+          <p className="text-muted-foreground mt-2">
+            Explore Uganda&apos;s most comprehensive film equipment inventory. From cinema cameras to professional audio, find the perfect gear for your production.
+          </p>
         </div>
 
         {/* Search and filters bar */}
@@ -209,13 +222,27 @@ function InventoryResults() {
             ) : filteredGear.length === 0 ? (
               <div className="text-center py-16 bg-card border border-border rounded-xl">
                 <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-4">
-                  <LayoutGrid className="h-8 w-8 text-muted-foreground" />
+                  <Search className="h-8 w-8 text-muted-foreground" />
                 </div>
                 <p className="text-lg text-foreground font-medium mb-2">No equipment found</p>
-                <p className="text-muted-foreground mb-6">Try adjusting your search or filter criteria</p>
-                <Button variant="outline" onClick={clearFilters}>
-                  Clear all filters
-                </Button>
+                <p className="text-muted-foreground mb-6">Try adjusting your filters or search terms</p>
+                <div className="flex flex-wrap justify-center gap-2 mb-6">
+                  <span className="text-sm text-muted-foreground">Popular searches:</span>
+                  <button onClick={() => router.push('/inventory?q=ARRI')} className="text-sm text-primary hover:underline">ARRI cameras</button>
+                  <button onClick={() => router.push('/inventory?q=Sony FX6')} className="text-sm text-primary hover:underline">Sony FX6</button>
+                  <button onClick={() => router.push('/inventory?q=LED')} className="text-sm text-primary hover:underline">LED lighting</button>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Button variant="outline" onClick={clearFilters}>
+                    Clear All Filters
+                  </Button>
+                  <Button asChild>
+                    <Link href="/contact">
+                      <MessageCircle className="mr-2 h-4 w-4" />
+                      Contact Us
+                    </Link>
+                  </Button>
+                </div>
               </div>
             ) : view === "grid" ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -242,6 +269,9 @@ function InventoryResults() {
                 ))}
               </div>
             )}
+
+            {/* CTA Section */}
+            {!isLoading && filteredGear.length > 0 && <CantFindCTA />}
           </div>
         </div>
       </div>
