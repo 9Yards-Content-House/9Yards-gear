@@ -10,23 +10,26 @@ import { cn } from "@/lib/utils"
 const testimonials = [
   {
     quote:
-      "9Yards Gear has been instrumental in elevating our production quality. Their equipment is always well-maintained and their service is exceptional.",
-    author: "Sarah Nakamya",
-    role: "Director, Kampala Films",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80",
-  },
-  {
-    quote:
-      "The availability calendar feature makes planning so much easier. We can book months in advance and know exactly what we're getting.",
-    author: "David Ssemwanga",
-    role: "Cinematographer",
+      "9Yards Gear made our music video shoot seamless. The Sony FX6 package had everything we needed, and the team was incredibly helpful. Our video looked cinematic without breaking the bank.",
+    author: "David Musoke",
+    role: "Music Video Director",
+    project: "Music Video Production",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
   },
   {
     quote:
-      "From music videos to commercials, 9Yards has the gear we need. Their team understands the local production landscape perfectly.",
-    author: "Grace Achieng",
-    role: "Music Video Director",
+      "Professional equipment, transparent pricing, and no surprises. I've rented cameras from 9Yards Gear for three projects now, and they've never let me down. Highly recommend.",
+    author: "Sarah Nakato",
+    role: "Documentary Filmmaker",
+    project: "Documentary Film",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80",
+  },
+  {
+    quote:
+      "The ARRI lighting package transformed our corporate shoot. The gear was well-maintained, and the rental process was straightforward. Will definitely use them again.",
+    author: "James Okello",
+    role: "Creative Director",
+    project: "Commercial Production",
     image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
   },
 ]
@@ -55,8 +58,8 @@ export function TestimonialsSection() {
     <section className="py-24 bg-card">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-foreground">What Creators Say</h2>
-          <p className="text-muted-foreground mt-2">Trusted by Uganda&apos;s leading filmmakers and content creators</p>
+          <h2 className="text-3xl font-bold text-foreground">Trusted by Uganda&apos;s Top Creators</h2>
+          <p className="text-muted-foreground mt-2">Don&apos;t just take our word for it—hear from filmmakers, musicians, and brands who&apos;ve rented from us</p>
         </div>
 
         {/* Desktop grid */}

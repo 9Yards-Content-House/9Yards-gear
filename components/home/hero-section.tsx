@@ -34,8 +34,8 @@ export function HeroSection() {
         </h1>
 
         <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-          Uganda&apos;s premier film equipment rental house. Access cinema cameras, professional lighting, audio gear,
-          and more for your next production.
+          Uganda&apos;s premier film equipment rental house. From cinema cameras to professional audio, 
+          access the gear that brings your vision to life.
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -46,12 +46,13 @@ export function HeroSection() {
             </Link>
           </Button>
           <Button asChild variant="outline" size="lg" className="text-base px-8 bg-transparent">
-            <Link href="/about">
+            <Link href="/how-it-works">
               <Play className="mr-2 h-5 w-5" />
-              Our Story
+              See How It Works
             </Link>
           </Button>
         </div>
+
 
         {/* Stats */}
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">

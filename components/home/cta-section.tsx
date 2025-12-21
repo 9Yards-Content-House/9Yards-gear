@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, Phone } from "lucide-react"
+import { ArrowRight, Calculator, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function CTASection() {
@@ -16,7 +16,7 @@ export function CTASection() {
           Ready to Bring Your Vision to Life?
         </h2>
         <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
-          Browse our professional equipment inventory or get in touch with our team to discuss your production needs.
+          Browse our inventory, check availability, and book professional gear in minutes.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button asChild size="lg" className="text-base px-8">
@@ -26,13 +26,17 @@ export function CTASection() {
             </Link>
           </Button>
           <Button asChild variant="outline" size="lg" className="text-base px-8 bg-transparent">
-            <Link href="/contact">
-              <Phone className="mr-2 h-5 w-5" />
-              Contact Us
+            <Link href="/calculator">
+              <Calculator className="mr-2 h-5 w-5" />
+              Calculate Rental Cost
             </Link>
           </Button>
         </div>
+        <p className="mt-6 text-sm text-muted-foreground">
+          Need a custom package? <a href="tel:+256700488870" className="text-primary font-medium hover:underline">Contact us at 0700 488 870</a>
+        </p>
       </div>
     </section>
   )
 }
+

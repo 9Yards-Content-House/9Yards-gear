@@ -14,7 +14,7 @@ export async function FeaturedGear() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12">
           <div>
             <h2 className="text-3xl font-bold text-foreground">Featured Equipment</h2>
-            <p className="text-muted-foreground mt-2">Hand-picked gear for professional productions</p>
+            <p className="text-muted-foreground mt-2">Cinema-quality gear trusted by Uganda&apos;s leading filmmakers</p>
           </div>
           <Button asChild variant="outline">
             <Link href="/inventory">

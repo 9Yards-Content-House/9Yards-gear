@@ -1,25 +1,27 @@
-import { Search, Calendar, Truck, Film } from "lucide-react"
+import Link from "next/link"
+import { Search, Calendar, Package, Film } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 const steps = [
   {
     icon: Search,
     title: "Browse & Select",
-    description: "Explore our professional inventory and find the perfect gear for your production.",
+    description: "Explore our inventory and check real-time availability. Compare specs and find the perfect gear for your project.",
   },
   {
     icon: Calendar,
-    title: "Check Availability",
-    description: "View real-time availability and select your preferred rental dates.",
+    title: "Book Online",
+    description: "Select your dates, review pricing, and complete your booking. We'll confirm within 2 hours via call or WhatsApp.",
   },
   {
-    icon: Truck,
-    title: "Book & Pickup",
-    description: "Complete your booking and pick up your gear from our Kampala location.",
+    icon: Package,
+    title: "Pick Up Your Gear",
+    description: "Visit our Kampala studio with your ID and deposit. We'll inspect the equipment together and provide care guidelines.",
   },
   {
     icon: Film,
     title: "Create & Return",
-    description: "Capture your vision and return the equipment when your rental ends.",
+    description: "Use the gear to bring your vision to life. Return on time, pass inspection, and get your deposit back the same day.",
   },
 ]
 
@@ -28,8 +30,8 @@ export function HowItWorks() {
     <section className="py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-foreground">How It Works</h2>
-          <p className="text-muted-foreground mt-2">Simple steps to get professional gear for your next project</p>
+          <h2 className="text-3xl font-bold text-foreground">How Renting Works</h2>
+          <p className="text-muted-foreground mt-2">Getting professional gear for your production is simple</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -53,7 +55,21 @@ export function HowItWorks() {
             </div>
           ))}
         </div>
+
+        <div className="text-center mt-12">
+          <Button asChild variant="outline">
+            <Link href="/how-it-works">See Full Rental Guide</Link>
+          </Button>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Need help choosing equipment? Call us at{" "}
+            <a href="tel:+256700488870" className="text-primary font-medium hover:underline">
+              0700 488 870
+            </a>{" "}
+            or WhatsApp anytime.
+          </p>
+        </div>
       </div>
     </section>
   )
 }
+
