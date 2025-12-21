@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from "react"
 import { useAuth, isAdmin } from "@/lib/auth"
-import { getAllGear, type GearItem } from "@/lib/gear-data"
+import { useGear, formatPrice, type GearItem } from "@/lib/gear-context"
 import { getAllBookings, getBookingStats } from "@/lib/booking-manager"
 import { getAllReviews, updateReviewStatus, type Review } from "@/lib/reviews"
 import { Button } from "@/components/ui/button"
@@ -13,11 +13,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
-import { formatPrice } from "@/lib/gear-data"
 import { Calendar, Package, Star, TrendingUp, Users, DollarSign } from "lucide-react"
 
 export function AdminDashboard() {
   const { user, loading } = useAuth()
+  const { gear: allGear, isLoading: gearLoading } = useGear()
   const [activeTab, setActiveTab] = useState("overview")
 
   if (loading) {

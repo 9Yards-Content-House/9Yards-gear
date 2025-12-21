@@ -15,21 +15,14 @@ import { SortSelect } from "./sort-select"
 import { GearCard } from "@/components/gear/gear-card"
 import { GearListItem } from "./gear-list-item"
 import { InventorySkeleton } from "./gear-skeleton"
-import { getAllGear, type GearItem } from "@/lib/gear-data"
+import { useGear, type GearItem } from "@/lib/gear-context"
 import { trackSearch, trackFilterUsage } from "@/lib/analytics"
 
 function InventoryResults() {
   const searchParams = useSearchParams()
   const [view, setView] = useState<"grid" | "list">("grid")
   const [filtersOpen, setFiltersOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-
-  const allGear = getAllGear()
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 300)
-    return () => clearTimeout(timer)
-  }, [])
+  const { gear: allGear, isLoading } = useGear()
 
   const filteredGear = useMemo(() => {
     let results: GearItem[] = allGear

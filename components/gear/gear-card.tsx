@@ -7,7 +7,7 @@ import { Eye, MessageCircle, Scale, Check } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { type GearItem, formatPrice, getCategoryById } from "@/lib/gear-data"
+import { useGear, formatPrice, type GearItem } from "@/lib/gear-context"
 import { addToComparison, isInComparison, removeFromComparison } from "@/lib/comparison-utils"
 import { trackEvent } from "@/lib/analytics"
 import { QuickViewModal } from "./quick-view-modal"
@@ -20,6 +20,7 @@ type GearCardProps = {
 export function GearCard({ item }: GearCardProps) {
   const [showQuickView, setShowQuickView] = useState(false)
   const [inComparison, setInComparison] = useState(false)
+  const { getCategoryById } = useGear()
   const category = getCategoryById(item.category)
 
   useEffect(() => {

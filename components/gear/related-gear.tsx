@@ -1,7 +1,7 @@
 "use client"
 
 import { Sparkles } from "lucide-react"
-import { getGearById } from "@/lib/gear-data"
+import { useGear } from "@/lib/gear-context"
 import { getRecommendedGear } from "@/lib/recommendation-engine"
 import { GearCard } from "./gear-card"
 
@@ -11,6 +11,7 @@ type RelatedGearProps = {
 }
 
 export function RelatedGear({ currentId, category }: RelatedGearProps) {
+  const { getGearById } = useGear()
   const currentItem = getGearById(currentId)
   if (!currentItem) return null
 

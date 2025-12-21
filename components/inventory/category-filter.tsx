@@ -2,14 +2,14 @@
 
 import { useRouter, useSearchParams } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
-import { getAllCategories } from "@/lib/gear-data"
+import { useGear } from "@/lib/gear-context"
 import { cn } from "@/lib/utils"
 
 export function CategoryFilter() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const currentCategory = searchParams.get("category")
-  const categories = getAllCategories()
+  const { categories, isLoading } = useGear()
 
   const handleCategoryClick = (categoryId: string | null) => {
     const params = new URLSearchParams(searchParams.toString())
@@ -19,6 +19,10 @@ export function CategoryFilter() {
       params.delete("category")
     }
     router.push(`/inventory?${params.toString()}`)
+  }
+
+  if (isLoading) {
+    return <div className="flex gap-2"><Badge variant="outline" className="px-3 py-1.5">Loading...</Badge></div>
   }
 
   return (

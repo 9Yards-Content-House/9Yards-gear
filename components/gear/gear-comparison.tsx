@@ -14,11 +14,12 @@ import {
   compareGearItems,
   getValuePropositions,
 } from "@/lib/comparison-utils"
-import { getGearById, formatPrice } from "@/lib/gear-data"
+import { useGear, formatPrice } from "@/lib/gear-context"
 import { trackEvent } from "@/lib/analytics"
 
 export function GearComparison() {
   const [comparisonIds, setComparisonIds] = useState<string[]>([])
+  const { getGearById } = useGear()
 
   useEffect(() => {
     const updateComparison = () => {

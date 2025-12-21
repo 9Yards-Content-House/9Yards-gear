@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { type GearItem, formatPrice } from "@/lib/gear-data"
+import { formatPrice, type GearItem } from "@/lib/gear-context"
 import { hasDateConflict, isDateInPast, formatDateRange } from "@/lib/date-utils"
 import { cn } from "@/lib/utils"
 

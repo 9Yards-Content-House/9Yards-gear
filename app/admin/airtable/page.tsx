@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Check, X, Download, RefreshCw, Database, FileJson } from "lucide-react"
-import gearData from "@/data/gear.json"
+// import gearData from "@/data/gear.json"
 
 type ConnectionStatus = "idle" | "loading" | "connected" | "not_configured" | "error"
 
@@ -87,61 +87,13 @@ export default function AirtableMigrationPage() {
   }
 
   const downloadCategoriesCSV = () => {
-    const headers = ["id", "name", "icon"]
-    const rows = gearData.categories.map((cat) => 
-      [cat.id, cat.name, cat.icon].join(",")
-    )
-    const csv = [headers.join(","), ...rows].join("\n")
-    
-    const blob = new Blob([csv], { type: "text/csv" })
-    const url = URL.createObjectURL(blob)
-    const link = document.createElement("a")
-    link.href = url
-    link.download = "airtable-categories.csv"
-    link.click()
-    URL.revokeObjectURL(url)
+    // Deprecated: JSON migration helpers removed
+    alert("This feature is deprecated. All data is now managed in Airtable.")
   }
 
   const downloadGearCSV = () => {
-    const headers = [
-      "id",
-      "name",
-      "category",
-      "pricePerDay",
-      "pricePerWeek",
-      "description",
-      "specs",
-      "image",
-      "available",
-      "featured",
-      "bookedDates",
-    ]
-
-    const rows = gearData.gear.map((item) =>
-      [
-        item.id,
-        `"${item.name.replace(/"/g, '""')}"`,
-        item.category,
-        item.pricePerDay,
-        item.pricePerWeek,
-        `"${item.description.replace(/"/g, '""')}"`,
-        `"${JSON.stringify(item.specs).replace(/"/g, '""')}"`,
-        item.image,
-        item.available ? "true" : "false",
-        item.featured ? "true" : "false",
-        `"${JSON.stringify(item.bookedDates)}"`,
-      ].join(",")
-    )
-
-    const csv = [headers.join(","), ...rows].join("\n")
-    
-    const blob = new Blob([csv], { type: "text/csv" })
-    const url = URL.createObjectURL(blob)
-    const link = document.createElement("a")
-    link.href = url
-    link.download = "airtable-gear.csv"
-    link.click()
-    URL.revokeObjectURL(url)
+    // Deprecated: JSON migration helpers removed
+    alert("This feature is deprecated. All data is now managed in Airtable.")
   }
 
   const statusColors = {
@@ -377,22 +329,22 @@ export default function AirtableMigrationPage() {
           <CardContent>
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-muted rounded-lg p-4">
-                <p className="font-medium text-lg">{gearData.categories.length}</p>
+                {/* <p className="font-medium text-lg">{gearData.categories.length}</p> */}
                 <p className="text-sm text-muted-foreground">Categories</p>
               </div>
               <div className="bg-muted rounded-lg p-4">
-                <p className="font-medium text-lg">{gearData.gear.length}</p>
+                {/* <p className="font-medium text-lg">{gearData.gear.length}</p> */}
                 <p className="text-sm text-muted-foreground">Gear Items</p>
               </div>
             </div>
             <div className="mt-4">
               <p className="text-sm font-medium mb-2">Categories:</p>
               <div className="flex flex-wrap gap-2">
-                {gearData.categories.map((cat) => (
+                {/* {gearData.categories.map((cat) => (
                   <Badge key={cat.id} variant="outline">
                     {cat.name}
                   </Badge>
-                ))}
+                ))} */}
               </div>
             </div>
           </CardContent>

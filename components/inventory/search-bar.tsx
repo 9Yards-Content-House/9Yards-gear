@@ -8,7 +8,7 @@ import Fuse from "fuse.js"
 import { Search, X, Loader2 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { getAllGear, type GearItem } from "@/lib/gear-data"
+import { useGear, type GearItem } from "@/lib/gear-context"
 import { useDebounce } from "@/hooks/use-debounce"
 import { cn } from "@/lib/utils"
 
@@ -23,7 +23,7 @@ export function SearchBar() {
   const inputRef = useRef<HTMLInputElement>(null)
   const suggestionsRef = useRef<HTMLDivElement>(null)
 
-  const allGear = getAllGear()
+  const { gear: allGear } = useGear()
   
   // Debounce the search query to avoid excessive re-renders
   const debouncedQuery = useDebounce(query, 300)

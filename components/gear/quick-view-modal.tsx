@@ -4,7 +4,7 @@ import Link from "next/link"
 import { X, ExternalLink, Check, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { type GearItem, formatPrice, getCategoryById } from "@/lib/gear-data"
+import { useGear, formatPrice, type GearItem } from "@/lib/gear-context"
 import { cn } from "@/lib/utils"
 
 type QuickViewModalProps = {
@@ -14,6 +14,7 @@ type QuickViewModalProps = {
 }
 
 export function QuickViewModal({ item, isOpen, onClose }: QuickViewModalProps) {
+  const { getCategoryById } = useGear()
   const category = getCategoryById(item.category)
 
   if (!isOpen) return null

@@ -48,7 +48,7 @@ A fully static, blazing-fast Next.js 16 application for professional film and pr
 - âœ… Privacy & Terms links
 - âœ… Contact information
 
-## íº€ Quick Start
+## ï¿½ï¿½ï¿½ Quick Start
 
 \`\`\`bash
 # Install dependencies
@@ -61,14 +61,14 @@ pnpm dev
 pnpm build
 \`\`\`
 
-## í³¦ Deployment (Netlify)
+## ï¿½ï¿½ï¿½ Deployment (Netlify)
 
 **Build Command:** `next build`  
 **Publish Directory:** `out`
 
 The site is fully JAMStack compatible with static export enabled.
 
-## í» ï¸ Tech Stack
+## ï¿½ï¿½ï¿½ï¸ Tech Stack
 
 - Next.js 16 (App Router, Static Export)
 - TypeScript 5
@@ -78,7 +78,7 @@ The site is fully JAMStack compatible with static export enabled.
 - Flutterwave (Payments)
 - Google Analytics 4
 
-## í³Š Performance
+## ï¿½ï¿½ï¿½ Performance
 
 - 90+ Lighthouse Performance Score
 - Lazy-loaded images
@@ -86,10 +86,10 @@ The site is fully JAMStack compatible with static export enabled.
 - PWA ready
 - SEO optimized
 
-## í¾¨ Customization
+## ï¿½ï¿½ï¿½ Customization
 
 ### Update Equipment
-Edit `data/gear.json` to add/modify equipment.
+All equipment is now managed in Airtable. Use the Airtable admin interface to add or modify gear.
 
 ### Configure Payments
 Update Flutterwave key in `components/calculator/rental-calculator.tsx`:
@@ -103,7 +103,7 @@ Update tracking ID in `app/layout.tsx`:
 gtag('config', 'G-XXXXXXXXXX') // Your GA4 ID
 \`\`\`
 
-## í³ Contact
+## ï¿½ï¿½ï¿½ Contact
 
 **Email:** gear@9yards.co.ug  
 **WhatsApp:** +256 700 000 000  
@@ -113,4 +113,4 @@ gtag('config', 'G-XXXXXXXXXX') // Your GA4 ID
 
 Â© 2025 9Yards Film. All rights reserved.
 
-**Made with â¤ï¸ in Kampala, Uganda í·ºï¿½ï¿½**
+**Made with â¤ï¸ in Kampala, Uganda ï¿½ï¿½ï¿½ï¿½ï¿½**

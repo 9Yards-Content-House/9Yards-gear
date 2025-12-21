@@ -1,0 +1,241 @@
+"use client"
+
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react"
+import type { GearItem, GearCategory, GearSpecs } from "./airtable"
+import { formatPrice } from "./airtable"
+
+// Airtable API configuration
+const AIRTABLE_API_KEY = process.env.NEXT_PUBLIC_AIRTABLE_API_KEY
+const AIRTABLE_BASE_ID = process.env.NEXT_PUBLIC_AIRTABLE_BASE_ID
+
+interface GearContextType {
+  gear: GearItem[]
+  categories: GearCategory[]
+  isLoading: boolean
+  error: string | null
+  refetch: () => Promise<void>
+  getGearById: (id: string) => GearItem | undefined
+  getGearByCategory: (categoryId: string) => GearItem[]
+  getFeaturedGear: () => GearItem[]
+  getAvailableGear: () => GearItem[]
+  getCategoryById: (id: string) => GearCategory | undefined
+  getRelatedGear: (currentId: string, category: string, limit?: number) => GearItem[]
+  searchGear: (query: string) => GearItem[]
+  formatPrice: (price: number) => string
+}
+
+const GearContext = createContext<GearContextType | null>(null)
+
+// Re-export types for convenience
+export type { GearItem, GearCategory, GearSpecs }
+export { formatPrice }
+
+// Transform Airtable record to GearItem
+function transformGearRecord(record: any): GearItem {
+  const fields = record.fields || record
+  let specs: GearSpecs = {}
+  
+  if (fields.specs) {
+    if (typeof fields.specs === "string") {
+      try {
+        specs = JSON.parse(fields.specs)
+      } catch {
+        specs = {}
+      }
+    } else if (typeof fields.specs === "object") {
+      specs = fields.specs
+    }
+  }
+  
+  // Handle image - could be Airtable attachment or URL string
+  let image = "/placeholder.svg"
+  if (fields.image) {
+    if (Array.isArray(fields.image) && fields.image[0]?.url) {
+      image = fields.image[0].url
+    } else if (typeof fields.image === "string") {
+      image = fields.image
+    }
+  }
+  
+  // Handle booked dates
+  let bookedDates: string[] = []
+  if (fields.bookedDates) {
+    if (Array.isArray(fields.bookedDates)) {
+      bookedDates = fields.bookedDates
+    } else if (typeof fields.bookedDates === "string") {
+      try {
+        bookedDates = JSON.parse(fields.bookedDates)
+      } catch {
+        bookedDates = fields.bookedDates.split(",").map((d: string) => d.trim()).filter(Boolean)
+      }
+    }
+  }
+  
+  return {
+    id: fields.id || record.id,
+    name: fields.name || "",
+    category: fields.category || "",
+    pricePerDay: Number(fields.pricePerDay) || 0,
+    pricePerWeek: Number(fields.pricePerWeek) || 0,
+    description: fields.description || "",
+    specs,
+    image,
+    available: Boolean(fields.available),
+    featured: Boolean(fields.featured),
+    bookedDates,
+  }
+}
+
+// Transform Airtable record to GearCategory
+function transformCategoryRecord(record: any): GearCategory {
+  const fields = record.fields || record
+  return {
+    id: fields.id || record.id,
+    name: fields.name || "",
+    icon: fields.icon || "Package",
+  }
+}
+
+// Fetch from Airtable API directly (client-side)
+async function fetchFromAirtable(table: string, options?: { filterByFormula?: string }) {
+  if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
+    throw new Error("Airtable not configured. Set NEXT_PUBLIC_AIRTABLE_API_KEY and NEXT_PUBLIC_AIRTABLE_BASE_ID")
+  }
+
+  let url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(table)}`
+  
+  if (options?.filterByFormula) {
+    url += `?filterByFormula=${encodeURIComponent(options.filterByFormula)}`
+  }
+
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${AIRTABLE_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    cache: "no-store",
+  })
+
+  if (!response.ok) {
+    throw new Error(`Airtable error: ${response.status}`)
+  }
+
+  const data = await response.json()
+  return data.records || []
+}
+
+export function GearProvider({ children }: { children: React.ReactNode }) {
+  const [gear, setGear] = useState<GearItem[]>([])
+  const [categories, setCategories] = useState<GearCategory[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const fetchData = useCallback(async () => {
+    setIsLoading(true)
+    setError(null)
+    
+    try {
+      // Fetch gear and categories in parallel
+      const [gearRecords, categoryRecords] = await Promise.all([
+        fetchFromAirtable("Gear"),
+        fetchFromAirtable("Categories"),
+      ])
+      
+      setGear(gearRecords.map(transformGearRecord))
+      setCategories(categoryRecords.map(transformCategoryRecord))
+    } catch (err) {
+      console.error("Failed to fetch from Airtable:", err)
+      setError(err instanceof Error ? err.message : "Failed to load gear data")
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
+
+  // Helper functions that work with loaded data
+  const getGearById = useCallback(
+    (id: string) => gear.find((item) => item.id === id),
+    [gear]
+  )
+
+  const getGearByCategory = useCallback(
+    (categoryId: string) => gear.filter((item) => item.category === categoryId),
+    [gear]
+  )
+
+  const getFeaturedGear = useCallback(
+    () => gear.filter((item) => item.featured),
+    [gear]
+  )
+
+  const getAvailableGear = useCallback(
+    () => gear.filter((item) => item.available),
+    [gear]
+  )
+
+  const getCategoryById = useCallback(
+    (id: string) => categories.find((cat) => cat.id === id),
+    [categories]
+  )
+
+  const getRelatedGear = useCallback(
+    (currentId: string, category: string, limit = 4) =>
+      gear.filter((item) => item.id !== currentId && item.category === category).slice(0, limit),
+    [gear]
+  )
+
+  const searchGear = useCallback(
+    (query: string) => {
+      const lowerQuery = query.toLowerCase()
+      return gear.filter(
+        (item) =>
+          item.name.toLowerCase().includes(lowerQuery) ||
+          item.description.toLowerCase().includes(lowerQuery) ||
+          item.category.toLowerCase().includes(lowerQuery)
+      )
+    },
+    [gear]
+  )
+
+  const value: GearContextType = {
+    gear,
+    categories,
+    isLoading,
+    error,
+    refetch: fetchData,
+    getGearById,
+    getGearByCategory,
+    getFeaturedGear,
+    getAvailableGear,
+    getCategoryById,
+    getRelatedGear,
+    searchGear,
+    formatPrice,
+  }
+
+  return <GearContext.Provider value={value}>{children}</GearContext.Provider>
+}
+
+// Hook to use gear context
+export function useGear() {
+  const context = useContext(GearContext)
+  if (!context) {
+    throw new Error("useGear must be used within a GearProvider")
+  }
+  return context
+}
+
+// Convenience hook for a single gear item
+export function useGearItem(id: string) {
+  const { getGearById, isLoading, error } = useGear()
+  return { item: getGearById(id), isLoading, error }
+}
+
+// Convenience hook for categories
+export function useCategories() {
+  const { categories, isLoading, error } = useGear()
+  return { categories, isLoading, error }
+}

@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { getAllGear, getAllCategories, formatPrice, type GearItem } from "@/lib/gear-data"
+import { useGear, formatPrice, type GearItem } from "@/lib/gear-context"
 import { getQuoteItems, addToQuote, removeFromQuote, updateQuoteItemQuantity, clearQuote } from "@/lib/quote-utils"
 
 type CartItem = {
@@ -39,8 +39,7 @@ export function RentalCalculator() {
   const [customerName, setCustomerName] = useState("")
   const [showPaymentForm, setShowPaymentForm] = useState(false)
 
-  const allGear = getAllGear()
-  const categories = getAllCategories()
+  const { gear: allGear, categories, isLoading: gearLoading } = useGear()
 
   // Load items from quote/localStorage on mount
   useEffect(() => {
@@ -275,7 +274,7 @@ export function RentalCalculator() {
         {/* Add Equipment */}
         <div className="flex flex-col sm:flex-row gap-2">
           <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="w-full sm:w-[140px]">
+            <SelectTrigger className="w-full sm:w-35">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>

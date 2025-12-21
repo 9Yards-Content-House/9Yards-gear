@@ -1,8 +1,10 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { type GearItem, formatPrice, getCategoryById } from "@/lib/gear-data"
+import { useGear, formatPrice, type GearItem } from "@/lib/gear-context"
 import { ArrowRight } from "lucide-react"
 
 type GearListItemProps = {
@@ -10,6 +12,7 @@ type GearListItemProps = {
 }
 
 export function GearListItem({ item }: GearListItemProps) {
+  const { getCategoryById } = useGear()
   const category = getCategoryById(item.category)
 
   return (
