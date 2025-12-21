@@ -49,11 +49,11 @@ const itemKeywordRecommendations: Record<string, string[]> = {
   drone: ["battery", "monitor", "landing pad"],
 }
 
-export function getRecommendedGear(currentItem: GearItem, limit = 6): GearItem[] {
-  const allGear = getAllGear()
+export async function getRecommendedGear(currentItem: GearItem, limit = 6): Promise<GearItem[]> {
+  const allGear = await getAllGear()
   const scoredGear: Array<{ item: GearItem; score: number }> = []
 
-  allGear.forEach((item) => {
+  allGear.forEach((item: GearItem) => {
     if (item.id === currentItem.id) return
 
     let score = 0
@@ -112,13 +112,13 @@ export function getRecommendedGear(currentItem: GearItem, limit = 6): GearItem[]
     .map((sg) => sg.item)
 }
 
-export function getBundleRecommendations(category: string): GearItem[] {
-  const allGear = getAllGear()
+export async function getBundleRecommendations(category: string): Promise<GearItem[]> {
+  const allGear = await getAllGear()
 
   // Get popular items from the target category
   const categoryGear = allGear
-    .filter((item) => item.category === category && item.available)
-    .sort((a, b) => {
+    .filter((item: GearItem) => item.category === category && item.available)
+    .sort((a: GearItem, b: GearItem) => {
       // Prioritize featured and availability
       if (a.featured && !b.featured) return -1
       if (!a.featured && b.featured) return 1
@@ -129,15 +129,15 @@ export function getBundleRecommendations(category: string): GearItem[] {
   // Add complementary items
   const complementaryCategories = complementaryGear[category] || []
   const complementaryItems = allGear
-    .filter((item) => complementaryCategories.includes(item.category) && item.available && item.featured)
+    .filter((item: GearItem) => complementaryCategories.includes(item.category) && item.available && item.featured)
     .slice(0, 3)
 
   return [...categoryGear, ...complementaryItems].slice(0, 6)
 }
 
 // Get frequently rented together (mock implementation - would use real data in production)
-export function getFrequentlyRentedTogether(currentItem: GearItem): GearItem[] {
+export async function getFrequentlyRentedTogether(currentItem: GearItem): Promise<GearItem[]> {
   // This would typically query a database of rental history
   // For now, use the recommendation engine
-  return getRecommendedGear(currentItem, 4)
+  return await getRecommendedGear(currentItem, 4)
 }

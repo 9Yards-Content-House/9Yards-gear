@@ -52,11 +52,11 @@ export function AdminDashboard() {
         </TabsList>
 
         <TabsContent value="overview">
-          <OverviewTab />
+          <OverviewTab allGear={allGear} isLoading={gearLoading} />
         </TabsContent>
 
         <TabsContent value="inventory">
-          <InventoryTab />
+          <InventoryTab gear={allGear} isLoading={gearLoading} />
         </TabsContent>
 
         <TabsContent value="bookings">
@@ -71,20 +71,20 @@ export function AdminDashboard() {
   )
 }
 
-function OverviewTab() {
+function OverviewTab({ allGear, isLoading }: { allGear: GearItem[]; isLoading: boolean }) {
   const [stats, setStats] = useState<any>(null)
 
   useEffect(() => {
+    if (isLoading) return
     const bookingStats = getBookingStats()
-    const gear = getAllGear()
-    const availableGear = gear.filter(g => g.available).length
+    const availableGear = allGear.filter((g: GearItem) => g.available).length
 
     setStats({
       ...bookingStats,
-      totalGear: gear.length,
+      totalGear: allGear.length,
       availableGear,
     })
-  }, [])
+  }, [allGear, isLoading])
 
   if (!stats) return <div>Loading stats...</div>
 
@@ -145,12 +145,10 @@ function OverviewTab() {
   )
 }
 
-function InventoryTab() {
-  const [gear, setGear] = useState<GearItem[]>([])
-
-  useEffect(() => {
-    setGear(getAllGear())
-  }, [])
+function InventoryTab({ gear, isLoading }: { gear: GearItem[]; isLoading: boolean }) {
+  if (isLoading) {
+    return <div>Loading inventory...</div>
+  }
 
   return (
     <div className="mt-4 space-y-4">

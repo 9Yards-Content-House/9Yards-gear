@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import type { GearItem, GearCategory, GearSpecs } from "./airtable"
 import { formatPrice } from "./airtable"
 
-// Airtable API configuration
+// Airtable API configuration (for client-side fetching - requires NEXT_PUBLIC_ env vars)
 const AIRTABLE_API_KEY = process.env.NEXT_PUBLIC_AIRTABLE_API_KEY
 const AIRTABLE_BASE_ID = process.env.NEXT_PUBLIC_AIRTABLE_BASE_ID
 
@@ -96,10 +96,11 @@ function transformCategoryRecord(record: any): GearCategory {
   }
 }
 
-// Fetch from Airtable API directly (client-side)
+// Fetch from Airtable API directly (client-side) - only works with NEXT_PUBLIC_ env vars
 async function fetchFromAirtable(table: string, options?: { filterByFormula?: string }) {
   if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
-    throw new Error("Airtable not configured. Set NEXT_PUBLIC_AIRTABLE_API_KEY and NEXT_PUBLIC_AIRTABLE_BASE_ID")
+    console.warn("Client-side Airtable not configured. Set NEXT_PUBLIC_AIRTABLE_API_KEY and NEXT_PUBLIC_AIRTABLE_BASE_ID for client-side fetching.")
+    return []
   }
 
   let url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(table)}`
@@ -124,13 +125,25 @@ async function fetchFromAirtable(table: string, options?: { filterByFormula?: st
   return data.records || []
 }
 
-export function GearProvider({ children }: { children: React.ReactNode }) {
-  const [gear, setGear] = useState<GearItem[]>([])
-  const [categories, setCategories] = useState<GearCategory[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+interface GearProviderProps {
+  children: React.ReactNode
+  initialGear?: GearItem[]
+  initialCategories?: GearCategory[]
+}
+
+export function GearProvider({ children, initialGear, initialCategories }: GearProviderProps) {
+  const [gear, setGear] = useState<GearItem[]>(initialGear || [])
+  const [categories, setCategories] = useState<GearCategory[]>(initialCategories || [])
+  const [isLoading, setIsLoading] = useState(!initialGear)
   const [error, setError] = useState<string | null>(null)
 
   const fetchData = useCallback(async () => {
+    // Skip fetching if we already have initial data
+    if (initialGear && initialGear.length > 0) {
+      setIsLoading(false)
+      return
+    }
+    
     setIsLoading(true)
     setError(null)
     
@@ -141,15 +154,19 @@ export function GearProvider({ children }: { children: React.ReactNode }) {
         fetchFromAirtable("Categories"),
       ])
       
-      setGear(gearRecords.map(transformGearRecord))
-      setCategories(categoryRecords.map(transformCategoryRecord))
+      if (gearRecords.length > 0) {
+        setGear(gearRecords.map(transformGearRecord))
+      }
+      if (categoryRecords.length > 0) {
+        setCategories(categoryRecords.map(transformCategoryRecord))
+      }
     } catch (err) {
       console.error("Failed to fetch from Airtable:", err)
       setError(err instanceof Error ? err.message : "Failed to load gear data")
     } finally {
       setIsLoading(false)
     }
-  }, [])
+  }, [initialGear])
 
   useEffect(() => {
     fetchData()

@@ -1,7 +1,8 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { Sparkles } from "lucide-react"
-import { useGear } from "@/lib/gear-context"
+import { useGear, type GearItem } from "@/lib/gear-context"
 import { getRecommendedGear } from "@/lib/recommendation-engine"
 import { GearCard } from "./gear-card"
 
@@ -13,10 +14,28 @@ type RelatedGearProps = {
 export function RelatedGear({ currentId, category }: RelatedGearProps) {
   const { getGearById } = useGear()
   const currentItem = getGearById(currentId)
-  if (!currentItem) return null
+  const [relatedItems, setRelatedItems] = useState<GearItem[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
-  const relatedItems = getRecommendedGear(currentItem, 6)
+  useEffect(() => {
+    async function fetchRelatedGear() {
+      if (!currentItem) {
+        setIsLoading(false)
+        return
+      }
+      try {
+        const items = await getRecommendedGear(currentItem, 6)
+        setRelatedItems(items)
+      } catch (error) {
+        console.error("Failed to fetch related gear:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchRelatedGear()
+  }, [currentItem])
 
+  if (!currentItem || isLoading) return null
   if (relatedItems.length === 0) return null
 
   return (
@@ -30,7 +49,7 @@ export function RelatedGear({ currentId, category }: RelatedGearProps) {
         <p className="text-muted-foreground mt-1">Gear that works perfectly with {currentItem.name}</p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {relatedItems.map((item) => (
+        {relatedItems.map((item: GearItem) => (
           <GearCard key={item.id} item={item} />
         ))}
       </div>
