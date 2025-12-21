@@ -19,6 +19,7 @@ const footerLinks = {
     { name: "How It Works", href: "/how-it-works" },
     { name: "Production Packages", href: "/packages" },
     { name: "Rental Policies", href: "/policies" },
+    { name: "Equipment Care", href: "/equipment-care" },
     { name: "FAQ", href: "/faq" },
     { name: "Calculator", href: "/calculator" },
   ],
