@@ -1,7 +1,7 @@
 import type React from "react"
 import Link from "next/link"
 import { Camera, Aperture, Lightbulb, Mic, Plane, Move, Package, Battery } from "lucide-react"
-import { getAllCategories, getGearByCategory } from "@/lib/gear-data"
+import { getAllCategoriesAsync, getGearByCategoryAsync } from "@/lib/gear-data"
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Camera,
@@ -14,8 +14,16 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Battery,
 }
 
-export function CategoriesSection() {
-  const categories = getAllCategories()
+export async function CategoriesSection() {
+  const categories = await getAllCategoriesAsync()
+  
+  // Get item counts for each category
+  const categoriesWithCounts = await Promise.all(
+    categories.map(async (category) => {
+      const items = await getGearByCategoryAsync(category.id)
+      return { ...category, itemCount: items.length }
+    })
+  )
 
   return (
     <section className="py-24 bg-card">
@@ -26,9 +34,8 @@ export function CategoriesSection() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {categories.map((category) => {
+          {categoriesWithCounts.map((category) => {
             const Icon = iconMap[category.icon] || Package
-            const itemCount = getGearByCategory(category.id).length
 
             return (
               <Link
@@ -43,7 +50,7 @@ export function CategoriesSection() {
                   {category.name}
                 </h3>
                 <p className="text-sm text-muted-foreground mt-1">
-                  {itemCount} {itemCount === 1 ? "item" : "items"} available
+                  {category.itemCount} {category.itemCount === 1 ? "item" : "items"} available
                 </p>
               </Link>
             )

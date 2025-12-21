@@ -2,10 +2,11 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { GearCard } from "@/components/gear/gear-card"
-import { getFeaturedGear } from "@/lib/gear-data"
+import { getFeaturedGearAsync } from "@/lib/gear-data"
 
-export function FeaturedGear() {
-  const featuredItems = getFeaturedGear().slice(0, 6)
+export async function FeaturedGear() {
+  const allFeatured = await getFeaturedGearAsync()
+  const featuredItems = allFeatured.slice(0, 6)
 
   return (
     <section className="py-24 bg-background">

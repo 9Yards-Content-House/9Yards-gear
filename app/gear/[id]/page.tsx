@@ -11,14 +11,19 @@ import { RelatedGear } from "@/components/gear/related-gear"
 import { AddToQuoteButton } from "@/components/gear/add-to-quote-button"
 import { GearViewTracker } from "@/components/gear/gear-view-tracker"
 import { ProductSchema } from "@/components/seo/schema-org"
-import { getGearById, getCategoryById, formatPrice, getAllGear } from "@/lib/gear-data"
+import { 
+  getGearByIdAsync, 
+  getCategoryByIdAsync, 
+  formatPrice, 
+  getAllGearAsync 
+} from "@/lib/gear-data"
 
 type Props = {
   params: Promise<{ id: string }>
 }
 
 export async function generateStaticParams() {
-  const allGear = getAllGear()
+  const allGear = await getAllGearAsync()
   return allGear.map((item) => ({
     id: item.id,
   }))
@@ -26,7 +31,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
-  const item = getGearById(id)
+  const item = await getGearByIdAsync(id)
 
   if (!item) {
     return {
@@ -42,13 +47,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function GearDetailPage({ params }: Props) {
   const { id } = await params
-  const item = getGearById(id)
+  const item = await getGearByIdAsync(id)
 
   if (!item) {
     notFound()
   }
 
-  const category = getCategoryById(item.category)
+  const category = await getCategoryByIdAsync(item.category)
 
   return (
     <>
