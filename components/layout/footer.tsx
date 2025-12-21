@@ -1,11 +1,11 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Instagram, Youtube, Mail, Phone, MapPin, Send } from "lucide-react"
+import { Instagram, Youtube, Mail, Phone, MapPin, Send, Clock, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 const footerLinks = {
-  inventory: [
+  equipment: [
     { name: "Cameras", href: "/inventory?category=cameras" },
     { name: "Lenses", href: "/inventory?category=lenses" },
     { name: "Lighting", href: "/inventory?category=lighting" },
@@ -15,23 +15,31 @@ const footerLinks = {
     { name: "Accessories & Monitors", href: "/inventory?category=accessories" },
     { name: "Power & Media", href: "/inventory?category=power" },
   ],
+  rentalInfo: [
+    { name: "How It Works", href: "/how-it-works" },
+    { name: "Production Packages", href: "/packages" },
+    { name: "Rental Policies", href: "/policies" },
+    { name: "FAQ", href: "/faq" },
+    { name: "Calculator", href: "/calculator" },
+  ],
   company: [
     { name: "About Us", href: "/about" },
-    { name: "Contact", href: "/contact" },
-    { name: "Calculator", href: "/calculator" },
+    { name: "Contact Us", href: "/contact" },
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
   ],
   network: [
     { name: "9Yards Film", href: "https://film.9yards.co.ug", external: true },
+    { name: "9Yards Food", href: "https://food.9yards.co.ug", external: true },
+    { name: "9Yards Content House", href: "https://contenthouse.9yards.co.ug", external: true },
     { name: "9Yards Main", href: "https://9yards.co.ug", external: true },
   ],
 }
 
 const socialLinks = [
   { name: "Instagram", href: "https://instagram.com/9yardsfilm", icon: Instagram },
-  { name: "WhatsApp", href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '256783791730'}`, icon: Phone },
-  { name: "TikTok", href: "https://tiktok.com/@9yardsfilm", icon: Youtube },
+  { name: "WhatsApp", href: "https://wa.me/256700488870", icon: MessageCircle },
+  { name: "YouTube", href: "https://youtube.com/@9yardsfilm", icon: Youtube },
 ]
 
 export function Footer() {
@@ -39,80 +47,76 @@ export function Footer() {
     <footer className="bg-card border-t border-border">
       <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
-          {/* Brand */}
+          {/* Brand & Contact */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <Image
                 src="/logo.png"
-                alt="9Yards Film"
+                alt="9Yards Gear"
                 width={200}
                 height={70}
                 className="h-12 w-auto sm:h-14 md:h-16"
               />
             </Link>
-            <p className="text-sm text-muted-foreground mb-6 max-w-sm">
-              Premium film and production equipment rental in Uganda. Empowering creators with professional gear at
-              affordable rates.
+            <p className="text-sm text-muted-foreground mb-4 max-w-sm">
+              Professional film equipment rental in Kampala. Empowering Uganda's creators with premium gear.
             </p>
 
-            {/* Newsletter */}
-            <div className="mb-6">
-              <h3 className="text-sm font-semibold text-foreground mb-3">Stay Updated</h3>
-              <p className="text-xs text-muted-foreground mb-3">
-                Get notifications about new gear, special offers, and production tips.
-              </p>
-              {/* Mailchimp Embed */}
-              <div id="mc_embed_shell">
-                <div id="mc_embed_signup">
-                  <form
-                    action="https://9yards.us12.list-manage.com/subscribe/post?u=YOUR_USER_ID&amp;id=YOUR_LIST_ID"
-                    method="post"
-                    id="mc-embedded-subscribe-form"
-                    name="mc-embedded-subscribe-form"
-                    className="validate flex gap-2"
-                    target="_blank"
-                  >
-                    <Input
-                      type="email"
-                      name="EMAIL"
-                      id="mce-EMAIL"
-                      placeholder="your@email.com"
-                      required
-                      className="flex-1 bg-background"
-                    />
-                    <Button type="submit" size="icon" className="shrink-0">
-                      <Send className="h-4 w-4" />
-                    </Button>
-                  </form>
+            {/* Contact Info */}
+            <ul className="space-y-2 mb-4">
+              <li className="flex items-center gap-2">
+                <Phone className="h-4 w-4 text-primary shrink-0" />
+                <a
+                  href="tel:+256700488870"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors font-medium"
+                >
+                  0700 488 870
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="h-4 w-4 text-primary shrink-0" />
+                <a
+                  href="mailto:gear@9yards.co.ug"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  gear@9yards.co.ug
+                </a>
+              </li>
+              <li className="flex items-start gap-2">
+                <MapPin className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                <span className="text-sm text-muted-foreground">Kampala, Uganda</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Clock className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                <div className="text-sm text-muted-foreground">
+                  <p>Mon-Fri: 9AM-6PM</p>
+                  <p>Sat: 10AM-4PM</p>
                 </div>
-              </div>
-            </div>
+              </li>
+            </ul>
 
-            {/* Social Links */}
-            <div>
-              <h3 className="text-sm font-semibold text-foreground mb-3">Follow Us</h3>
-              <div className="flex gap-3">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-background hover:bg-primary hover:text-primary-foreground transition-all duration-300 text-muted-foreground border border-border hover:border-primary"
-                    aria-label={social.name}
-                  >
-                    <social.icon className="h-5 w-5" />
-                  </a>
-                ))}
-              </div>
+            {/* Social Icons */}
+            <div className="flex gap-3">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-background hover:bg-primary hover:text-primary-foreground transition-all duration-300 text-muted-foreground border border-border hover:border-primary"
+                  aria-label={social.name}
+                >
+                  <social.icon className="h-5 w-5" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Quick Links - Inventory */}
+          {/* Equipment Categories */}
           <div>
-            <h3 className="text-sm font-semibold text-foreground mb-4">Browse by Category</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-4">Equipment</h3>
             <ul className="space-y-2.5">
-              {footerLinks.inventory.map((link) => (
+              {footerLinks.equipment.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
@@ -125,7 +129,24 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Company Links */}
+          {/* Rental Info (NEW) */}
+          <div>
+            <h3 className="text-sm font-semibold text-foreground mb-4">Rental Info</h3>
+            <ul className="space-y-2.5">
+              {footerLinks.rentalInfo.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors inline-block"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company & Network */}
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-4">Company</h3>
             <ul className="space-y-2.5">
@@ -158,45 +179,13 @@ export function Footer() {
               </ul>
             </div>
           </div>
-
-          {/* Contact */}
-          <div>
-            <h3 className="text-sm font-semibold text-foreground mb-4">Get in Touch</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2">
-                <MapPin className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                <span className="text-sm text-muted-foreground">Kampala, Uganda</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-primary shrink-0" />
-                <a
-                  href="tel:+256783791730"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
-                  +256 700 000 000
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-primary shrink-0" />
-                <a
-                  href="mailto:gear@9yards.co.ug"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
-                  gear@9yards.co.ug
-                </a>
-              </li>
-            </ul>
-            <Button asChild className="w-full mt-6" variant="outline">
-              <Link href="/contact">Contact Us</Link>
-            </Button>
-          </div>
         </div>
 
-        {/* Bottom */}
+        {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
             <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} 9Yards Film. All rights reserved. Empowering African storytellers.
+              © {new Date().getFullYear()} 9Yards Gear · Part of 9Yards Group
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/privacy" className="text-xs text-muted-foreground hover:text-primary transition-colors">
@@ -209,9 +198,13 @@ export function Footer() {
                 Support
               </Link>
             </div>
+            <p className="text-xs text-muted-foreground hidden md:block">
+              Made with ❤️ in Kampala, Uganda
+            </p>
           </div>
         </div>
       </div>
     </footer>
   )
 }
+

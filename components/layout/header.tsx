@@ -14,13 +14,16 @@ import { cn } from "@/lib/utils"
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Inventory", href: "/inventory" },
-  { name: "Calculator", href: "/calculator" },
+  { name: "Packages", href: "/packages" },
+  { name: "How It Works", href: "/how-it-works" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ]
 
 const parentSites = [
   { name: "9Yards Film", href: "https://film.9yards.co.ug" },
+  { name: "9Yards Food", href: "https://food.9yards.co.ug" },
+  { name: "9Yards Content House", href: "https://contenthouse.9yards.co.ug" },
   { name: "9Yards Main", href: "https://9yards.co.ug" },
 ]
 
@@ -102,7 +105,6 @@ export function Header() {
                 pathname === item.href ? "text-primary" : "text-muted-foreground hover:text-foreground",
               )}
             >
-              {item.name === "Calculator" && <Calculator className="h-3.5 w-3.5" />}
               {item.name}
               {pathname === item.href && (
                 <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
@@ -138,8 +140,8 @@ export function Header() {
             </Link>
           </Button>
           <AuthButton />
-          <Button asChild>
-            <Link href="/inventory">Browse Gear</Link>
+          <Button asChild className="bg-orange-600 hover:bg-orange-700 text-white">
+            <Link href="/contact">Book Now</Link>
           </Button>
         </div>
       </nav>
@@ -179,8 +181,8 @@ export function Header() {
               </a>
             ))}
           </div>
-          <Button asChild className="w-full mt-4">
-            <Link href="/inventory">Browse Gear</Link>
+          <Button asChild className="w-full mt-4 bg-orange-600 hover:bg-orange-700 text-white">
+            <Link href="/contact">Book Now</Link>
           </Button>
         </div>
       </div>
