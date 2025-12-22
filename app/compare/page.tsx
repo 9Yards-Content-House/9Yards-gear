@@ -4,8 +4,13 @@ import { Footer } from "@/components/layout/footer"
 import { GearComparison } from "@/components/gear/gear-comparison"
 
 export const metadata: Metadata = {
-  title: "Compare Equipment | 9Yards Gear",
-  description: "Compare professional film and production equipment side-by-side. View specs, pricing, and availability.",
+  title: "Compare Equipment | Side-by-Side Comparison",
+  description: "Compare film equipment specs, pricing, and availability side-by-side. Make informed decisions about cameras, lenses, and gear for your production.",
+  openGraph: {
+    title: "Compare Equipment - 9Yards Gear",
+    description: "Compare film equipment specs, pricing, and availability side-by-side.",
+    url: "https://gear.9yards.co.ug/compare",
+  },
 }
 
 export default function ComparePage() {
