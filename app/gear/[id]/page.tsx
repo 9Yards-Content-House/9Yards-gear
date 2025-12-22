@@ -10,6 +10,8 @@ import { SyncedBookingSection } from "@/components/gear/synced-booking-section"
 import { RelatedGear } from "@/components/gear/related-gear"
 import { AddToQuoteButton } from "@/components/gear/add-to-quote-button"
 import { GearViewTracker } from "@/components/gear/gear-view-tracker"
+import { WhatsIncluded, CareGuidelines, RentalTermsSummary } from "@/components/gear/gear-info-sections"
+import { GearFinalCTA } from "@/components/gear/gear-final-cta"
 import { ProductSchema } from "@/components/seo/schema-org"
 import { 
   getGearByIdAsync, 
@@ -90,7 +92,7 @@ export default async function GearDetailPage({ params }: Props) {
 
               {/* Specs */}
               <div className="bg-card border border-border rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-4">Specifications</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-4">Technical Specifications</h3>
                 <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {Object.entries(item.specs).map(([key, value]) => (
                     <div key={key}>
@@ -100,6 +102,12 @@ export default async function GearDetailPage({ params }: Props) {
                   ))}
                 </dl>
               </div>
+
+              {/* What's Included */}
+              <WhatsIncluded itemName={item.name} category={item.category} />
+
+              {/* Care Guidelines */}
+              <CareGuidelines itemName={item.name} category={item.category} />
             </div>
 
             {/* Right column - Info and booking */}
@@ -151,11 +159,17 @@ export default async function GearDetailPage({ params }: Props) {
               <AddToQuoteButton item={item} />
 
               <SyncedBookingSection item={item} />
+
+              {/* Rental Terms Summary */}
+              <RentalTermsSummary dailyRate={item.pricePerDay} />
             </div>
           </div>
 
           {/* Related gear */}
           <RelatedGear currentId={item.id} category={item.category} />
+
+          {/* Final CTA */}
+          <GearFinalCTA itemName={item.name} pricePerDay={item.pricePerDay} />
         </div>
       </main>
       <Footer />
