@@ -288,7 +288,7 @@ export function RentalCalculator() {
           </Select>
           <Select value={selectedItemId} onValueChange={setSelectedItemId}>
             <SelectTrigger className="flex-1 w-full">
-              <SelectValue placeholder="Select equipment..." />
+              <SelectValue placeholder="Search by equipment name, brand, or category..." />
             </SelectTrigger>
             <SelectContent>
               {filteredGear.map((item) => (
@@ -585,10 +585,14 @@ export function RentalCalculator() {
         )}
 
         {cart.length === 0 && (
-          <div className="text-center py-8 text-muted-foreground">
-            <Calculator className="h-12 w-12 mx-auto mb-3 opacity-30" />
-            <p className="font-medium">Add equipment to calculate rental costs</p>
-            <p className="text-sm mt-1">Select a category and item above to get started</p>
+          <div className="text-center py-8">
+            <Package className="h-12 w-12 mx-auto mb-3 text-muted-foreground/30" />
+            <p className="font-medium text-foreground">No equipment added yet</p>
+            <p className="text-sm text-muted-foreground mt-1">Search and add equipment above to start building your quote.</p>
+            <p className="text-xs text-muted-foreground mt-4">
+              Not sure what you need?{" "}
+              <Link href="/packages" className="text-primary hover:underline">Browse Production Packages →</Link>
+            </p>
           </div>
         )}
       </CardContent>
