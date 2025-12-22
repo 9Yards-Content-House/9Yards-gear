@@ -12,8 +12,13 @@ import {
 } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Film Equipment Packages Kampala | Save 20% - 9Yards Gear",
-  description: "Pre-curated production packages for music videos, documentaries, commercials & more. Cinema cameras, lighting, audio bundled at 15-20% savings. Book online in Kampala.",
+  title: "Production Packages | Film Equipment Bundles Uganda",
+  description: "Save up to 20% with curated production packages. Music video, documentary, commercial & aerial bundles. Everything you need in one rental. Book now.",
+  openGraph: {
+    title: "Production Packages - Save up to 20% | 9Yards Gear",
+    description: "Curated film equipment bundles for music videos, documentaries, commercials & aerial productions. Save up to 20% vs individual rentals.",
+    url: "https://gear.9yards.co.ug/packages",
+  },
 }
 
 const packages = [

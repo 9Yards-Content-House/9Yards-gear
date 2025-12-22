@@ -12,8 +12,13 @@ import {
 } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Rental Calculator - Estimate Your Costs | 9Yards Gear",
-  description: "Estimate your equipment rental costs with our interactive calculator. Select gear, choose dates, and get instant quotes. Plan your production budget with confidence.",
+  title: "Rental Cost Calculator | Estimate Your Equipment Quote",
+  description: "Calculate your film equipment rental cost instantly. Select gear, choose duration, see pricing. Transparent rates with no hidden fees. Start your quote now.",
+  openGraph: {
+    title: "Equipment Rental Cost Calculator - 9Yards Gear",
+    description: "Estimate your rental cost instantly. Select equipment, choose duration, see transparent pricing with no hidden fees.",
+    url: "https://gear.9yards.co.ug/calculator",
+  },
 }
 
 const steps = [

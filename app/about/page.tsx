@@ -11,9 +11,14 @@ import {
 } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "About Us | 9Yards Gear - Uganda's Premier Film Equipment Rental",
+  title: "About 9Yards Gear | Uganda's Premier Equipment Rental House",
   description:
-    "Learn about 9Yards Gear - Uganda's premier film equipment rental house. Our story, mission, and commitment to empowering Uganda's storytellers with professional gear.",
+    "Part of 9Yards Film. 50+ professional equipment pieces, 200+ productions supported. Empowering Uganda's storytellers with cinema-quality gear since 2020.",
+  openGraph: {
+    title: "About 9Yards Gear - Uganda's Premier Film Equipment Rental",
+    description: "Empowering Uganda's storytellers since 2020. 50+ equipment pieces, 200+ productions supported. Learn our story.",
+    url: "https://gear.9yards.co.ug/about",
+  },
 }
 
 const whyChooseUs = [

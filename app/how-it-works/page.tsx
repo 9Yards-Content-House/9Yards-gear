@@ -13,8 +13,13 @@ import {
 } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "How It Works - Rental Guide | 9Yards Gear",
-  description: "Learn how to rent professional film equipment from 9Yards Gear. Simple 4-step process: Browse, Book, Pickup, Return. No hidden fees, transparent pricing.",
+  title: "How to Rent Film Equipment | Simple 4-Step Process",
+  description: "Renting professional gear is easy: Browse, Book, Pickup, Create. Learn our process, pricing, deposit requirements & rental policies. Call: 0700488870",
+  openGraph: {
+    title: "How to Rent Film Equipment - 9Yards Gear",
+    description: "Simple 4-step rental process: Browse, Book, Pickup, Create. Learn everything about renting professional film gear in Kampala.",
+    url: "https://gear.9yards.co.ug/how-it-works",
+  },
 }
 
 const steps = [

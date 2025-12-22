@@ -5,9 +5,14 @@ import { Footer } from "@/components/layout/footer"
 import { InventoryContent } from "@/components/inventory/inventory-content"
 
 export const metadata: Metadata = {
-  title: "Equipment Inventory | 9Yards Gear",
+  title: "Film Equipment Inventory | Cameras, Lenses & Lighting",
   description:
-    "Browse our professional film and production equipment. Cameras, lenses, lighting, audio, drones, and more available for rent in Uganda.",
+    "Browse 50+ cinema cameras, lenses, lighting, audio gear & drones. Real-time availability, transparent pricing. ARRI, RED, Sony, Canon & more. Book today.",
+  openGraph: {
+    title: "Film Equipment Inventory - 9Yards Gear",
+    description: "Browse 50+ professional cinema cameras, lenses, lighting, audio gear & drones. Real-time availability in Kampala.",
+    url: "https://gear.9yards.co.ug/inventory",
+  },
 }
 
 export default function InventoryPage() {

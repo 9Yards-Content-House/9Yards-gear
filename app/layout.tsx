@@ -9,12 +9,38 @@ import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
 
+const siteUrl = "https://gear.9yards.co.ug"
+
 export const metadata: Metadata = {
-  title: "9Yards Gear | Professional Equipment Rental Uganda",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Professional Film Equipment Rental Kampala | 9Yards Gear",
+    template: "%s | 9Yards Gear"
+  },
   description:
-    "Premium film and production equipment rental in Uganda. Cameras, lenses, lighting, audio, drones and more for professional filmmakers and content creators.",
-  keywords: ["gear rental", "film equipment", "camera rental", "Uganda", "production equipment", "9Yards", "cinema camera rental", "video equipment Kampala"],
-  authors: [{ name: "9Yards Film" }],
+    "Rent cinema cameras, lenses, lighting & audio gear in Kampala. Trusted by 200+ productions. Transparent pricing, well-maintained equipment. Book now: 0700488870",
+  keywords: [
+    "film equipment rental Uganda",
+    "camera rental Kampala",
+    "cinema camera rental",
+    "production equipment Uganda",
+    "ARRI rental Uganda",
+    "Sony FX6 rental",
+    "video equipment Kampala",
+    "lighting rental Uganda",
+    "audio gear rental",
+    "drone rental Kampala",
+    "9Yards Gear",
+    "9Yards Film"
+  ],
+  authors: [{ name: "9Yards Film", url: "https://film.9yards.co.ug" }],
+  creator: "9Yards Gear",
+  publisher: "9Yards",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   robots: {
     index: true,
     follow: true,
@@ -27,25 +53,101 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "9Yards Gear | Professional Equipment Rental Uganda",
-    description: "Premium film and production equipment rental in Uganda.",
-    url: "https://gear.9yards.co.ug",
-    siteName: "9Yards Gear",
     type: "website",
     locale: "en_UG",
+    url: siteUrl,
+    siteName: "9Yards Gear",
+    title: "Professional Film Equipment Rental Kampala | 9Yards Gear",
+    description: "Uganda's premier film equipment rental house. Cinema cameras, lighting, audio gear & more. Trusted by 200+ productions. Book professional gear today.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "9Yards Gear - Professional Film Equipment Rental in Kampala, Uganda",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "9Yards Gear | Professional Equipment Rental Uganda",
-    description: "Premium film and production equipment rental in Uganda.",
+    title: "Professional Film Equipment Rental Kampala | 9Yards Gear",
+    description: "Rent cinema cameras, lenses, lighting & audio gear. Trusted by 200+ Uganda productions.",
+    images: ["/twitter-card.jpg"],
+    creator: "@9yards_ug",
   },
-  generator: "v0.app",
+  alternates: {
+    canonical: siteUrl,
+  },
+  category: "Film Equipment Rental",
+  other: {
+    "geo.region": "UG-C",
+    "geo.placename": "Kampala",
+    "geo.position": "0.3476;32.5825",
+    "ICBM": "0.3476, 32.5825",
+  },
 }
 
 export const viewport: Viewport = {
-  themeColor: "#1A1A1A",
+  themeColor: "#D4AF37",
   width: "device-width",
   initialScale: 1,
+  maximumScale: 5,
+}
+
+// JSON-LD Schema for the entire site
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": `${siteUrl}/#organization`,
+  name: "9Yards Gear",
+  alternateName: "9Yards Film Equipment Rental",
+  description: "Professional film equipment rental in Kampala, Uganda. Cinema cameras, lenses, lighting, audio gear & drones for filmmakers and content creators.",
+  url: siteUrl,
+  logo: `${siteUrl}/logo.png`,
+  image: `${siteUrl}/og-image.jpg`,
+  telephone: "+256700488870",
+  email: "gear@9yards.co.ug",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Kampala",
+    addressRegion: "Central Region",
+    addressCountry: "UG"
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: "0.3476",
+    longitude: "32.5825"
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Saturday",
+      opens: "10:00",
+      closes: "16:00"
+    }
+  ],
+  priceRange: "USh 40,000 - USh 500,000",
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "5",
+    reviewCount: "47"
+  },
+  sameAs: [
+    "https://www.instagram.com/9yards.ug",
+    "https://www.tiktok.com/@9yards",
+    "https://www.youtube.com/@9yardscontenthouse"
+  ],
+  parentOrganization: {
+    "@type": "Organization",
+    name: "9Yards",
+    url: "https://9yards.co.ug"
+  }
 }
 
 export default async function RootLayout({
@@ -62,6 +164,11 @@ export default async function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
+        {/* JSON-LD Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {/* Google Analytics 4 */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TQZXSDWSF"></script>
         <script
@@ -80,8 +187,9 @@ export default async function RootLayout({
         <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
         {/* PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#D4AF37" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       </head>
       <body className={`${inter.className} antialiased min-h-screen bg-background text-foreground`}>
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md">
@@ -96,4 +204,3 @@ export default async function RootLayout({
     </html>
   )
 }
-
