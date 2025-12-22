@@ -61,7 +61,7 @@ const steps = [
     number: "04",
     title: "Create Amazing Work, Return on Time",
     icon: Camera,
-    description: "Now the fun part—use the gear to bring your vision to life. When you're done, return everything during our business hours in the same condition you received it.",
+    description: "Now the fun part use the gear to bring your vision to life. When you're done, return everything during our business hours in the same condition you received it.",
     features: [
       "Treat the gear as if it were your own",
       "Contact us immediately if anything malfunctions",
@@ -122,7 +122,7 @@ export default function HowItWorksPage() {
                 Renting Professional Gear Made Simple
               </h1>
               <p className="text-lg text-muted-foreground mb-4">
-                From browsing to booking to shooting—here&apos;s exactly what to expect when you rent from 9Yards Gear.
+                From browsing to booking to shooting here&apos;s exactly what to expect when you rent from 9Yards Gear.
               </p>
               <p className="text-sm text-muted-foreground">
                 No confusing forms. No hidden fees. Just straightforward access to the equipment you need.
@@ -293,7 +293,7 @@ export default function HowItWorksPage() {
                   <AccordionItem value="inspection">
                     <AccordionTrigger>The Inspection Process</AccordionTrigger>
                     <AccordionContent className="text-muted-foreground">
-                      We&apos;ll check every item together—camera sensor, lens glass, light functionality, audio connections—and document the condition. This protects both you and us. Takes about 5-10 minutes.
+                      We&apos;ll check every item together camera sensor, lens glass, light functionality, audio connections and document the condition. This protects both you and us. Takes about 5-10 minutes.
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>

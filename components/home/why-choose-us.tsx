@@ -24,7 +24,7 @@ const benefits = [
     icon: PhoneCall,
     title: "24/7 Support",
     description: "Questions during your shoot? We're here to help.",
-    detail: "Reach us by phone or WhatsApp anytime—even on weekends and evenings."
+    detail: "Reach us by phone or WhatsApp anytime even on weekends and evenings."
   },
   {
     icon: Rocket,
@@ -47,7 +47,7 @@ export function WhyChooseUs() {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-foreground">Why Choose 9Yards Gear?</h2>
           <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
-            More than just equipment rental—we&apos;re your production partner
+            More than just equipment rental we&apos;re your production partner
           </p>
         </div>
 

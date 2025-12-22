@@ -20,7 +20,7 @@ const packages = [
   {
     id: "music-video-starter",
     name: "Music Video Starter Package",
-    description: "Everything you need for a professional music video shoot—from smooth camera movement to cinematic lighting.",
+    description: "Everything you need for a professional music video shoot from smooth camera movement to cinematic lighting.",
     icon: Video,
     badge: "Most Popular",
     badgeColor: "bg-yellow-500",
@@ -224,7 +224,7 @@ const packages = [
 const faqs = [
   {
     question: "How much do I save with a package vs. renting items individually?",
-    answer: "Package bundles save you 15-20% compared to renting each item separately. The exact savings depend on the package and rental duration. Weekly rentals save even more—up to 23% total."
+    answer: "Package bundles save you 15-20% compared to renting each item separately. The exact savings depend on the package and rental duration. Weekly rentals save even more up to 23% total."
   },
   {
     question: "Can I swap items in a package?",
@@ -232,7 +232,7 @@ const faqs = [
   },
   {
     question: "Do packages include delivery and setup?",
-    answer: "Packages include all listed equipment ready for pickup at our Kampala studio. Delivery is available for an additional fee (rates depend on location). Setup assistance can be arranged for larger packages—contact us for pricing."
+    answer: "Packages include all listed equipment ready for pickup at our Kampala studio. Delivery is available for an additional fee (rates depend on location). Setup assistance can be arranged for larger packages contact us for pricing."
   },
   {
     question: "What if I need the package for multiple days or weeks?",
@@ -280,7 +280,7 @@ export default function PackagesPage() {
                 Save Up to 20% with Production Packages
               </h1>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
-                Pre-curated equipment bundles for every production type. Get everything you need in one booking—cameras, lenses, lighting, audio, and support gear at bundle pricing.
+                Pre-curated equipment bundles for every production type. Get everything you need in one booking cameras, lenses, lighting, audio, and support gear at bundle pricing.
               </p>
 
               {/* Key Benefits Bar */}
@@ -422,7 +422,7 @@ export default function PackagesPage() {
               </div>
               <h2 className="text-3xl font-bold text-foreground mb-4">Need Something Custom?</h2>
               <p className="text-muted-foreground mb-6">
-                Every production is unique. Tell us what you&apos;re shooting, and we&apos;ll build the perfect equipment package for your needs—at bundle pricing.
+                Every production is unique. Tell us what you&apos;re shooting, and we&apos;ll build the perfect equipment package for your needs at bundle pricing.
               </p>
               <div className="flex flex-wrap justify-center gap-4 mb-6">
                 <div className="flex items-center gap-2 text-sm">

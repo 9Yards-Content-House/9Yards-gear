@@ -137,7 +137,7 @@ export function CareGuidelines({ itemName, category }: CareGuidelinesProps) {
             <AccordionContent className="text-sm text-muted-foreground space-y-2">
               <p>• Allow equipment to acclimate to temperature changes (15 min)</p>
               <p>• Format memory cards in-device before use</p>
-              <p>• Monitor battery levels—swap before fully depleted</p>
+              <p>• Monitor battery levels swap before fully depleted</p>
               <p>• Use protective covers when not actively in use</p>
             </AccordionContent>
           </AccordionItem>
