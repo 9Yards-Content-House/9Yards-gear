@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   },
 }
 
+// Enable ISR with 1-hour revalidation
+export const revalidate = 3600 // Revalidate every hour
+
 export default function InventoryPage() {
   return (
     <>

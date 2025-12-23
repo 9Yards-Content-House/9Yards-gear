@@ -11,7 +11,7 @@ import {
   Package, Zap, DollarSign, Phone, MessageCircle, Plane, Users, Laptop,
   LucideIcon
 } from "lucide-react"
-import { getAllPackages, type Package as PackageType } from "@/lib/airtable"
+import { getAllPackagesAsync, type Package as PackageType } from "@/lib/gear-data"
 
 export const metadata: Metadata = {
   title: "Production Packages | Film Equipment Bundles Uganda",
@@ -22,6 +22,9 @@ export const metadata: Metadata = {
     url: "https://gear.9yards.co.ug/packages",
   },
 }
+
+// Enable ISR with 1-hour revalidation
+export const revalidate = 3600 // Revalidate every hour
 
 // Icon mapping for dynamic icons from Airtable
 const iconMap: Record<string, LucideIcon> = {
@@ -155,8 +158,8 @@ function PackageCard({ pkg }: { pkg: PackageType }) {
 }
 
 export default async function PackagesPage() {
-  // Fetch packages from Airtable
-  const packages = await getAllPackages()
+  // Fetch packages from Airtable via server-side wrapper
+  const packages = await getAllPackagesAsync()
 
   return (
     <>
