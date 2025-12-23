@@ -55,14 +55,12 @@ export function ReviewForm({ gearId, gearName, onSuccess }: ReviewFormProps) {
 
     try {
       await submitReview({
-        gearId,
-        userId: user.id,
-        userName: user.user_metadata?.full_name || user.email.split("@")[0],
-        userEmail: user.email,
+        gear_id: gearId,
+        user_email: user.email,
+        user_name: user.user_metadata?.full_name || user.email.split("@")[0],
         rating,
         title,
         comment,
-        verified: true, // User has account
       })
 
       setSuccess(true)

@@ -26,7 +26,7 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
+      setScrolled(window.scrollY > 10)
     }
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
@@ -52,11 +52,11 @@ export function Header() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-lg"
-          : "bg-background/80 backdrop-blur-md border-b border-border",
+          ? "bg-[#000000]/80 backdrop-blur-md border-b border-white/5"
+          : "bg-transparent",
       )}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-8">
+      <nav className="mx-auto flex h-[72px] max-w-[1240px] items-center justify-between px-6 lg:px-8">
         {/* Logo */}
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2 group">
@@ -65,7 +65,7 @@ export function Header() {
               alt="9Yards Film"
               width={180}
               height={60}
-              className="h-10 w-auto sm:h-12 md:h-14 transition-transform group-hover:scale-105"
+              className="h-[28px] w-auto transition-transform group-hover:scale-105 brightness-0 invert" 
               priority
             />
           </Link>
@@ -81,34 +81,35 @@ export function Header() {
               setMobileMenuOpen(!mobileMenuOpen)
             }}
             aria-label="Toggle menu"
+            className="text-white hover:bg-white/10 hover:text-white"
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>
 
         {/* Desktop navigation */}
-        <div className="hidden lg:flex lg:gap-x-8">
+        <div className="hidden lg:flex lg:gap-x-7">
           {navigation.map((item) => (
             <Link
               key={item.name}
               href={item.href}
               className={cn(
-                "text-sm font-medium transition-colors flex items-center gap-1 relative py-1",
-                pathname === item.href ? "text-primary" : "text-muted-foreground hover:text-foreground",
+                "text-[14.5px] font-medium transition-colors relative",
+                pathname === item.href ? "text-white" : "text-[#B4B4B4] hover:text-white",
               )}
             >
               {item.name}
-              {pathname === item.href && (
-                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
-              )}
             </Link>
           ))}
         </div>
 
         {/* Right side */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-4 lg:items-center">
-          <Button asChild>
-            <Link href="/contact">Book Now</Link>
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-5 lg:items-center">
+          <Link href="/login" className="text-[14.5px] font-medium text-[#B4B4B4] hover:text-white transition-colors">
+            Log in
+          </Link>
+          <Button asChild className="bg-white text-black hover:bg-[#F2F2F2] rounded-full px-[18px] h-8 text-[13px] font-medium transition-all">
+            <Link href="/contact">Sign up</Link>
           </Button>
         </div>
       </nav>
@@ -116,23 +117,31 @@ export function Header() {
       {/* Mobile menu */}
       <div
         className={cn(
-          "lg:hidden absolute top-full left-0 right-0 bg-background border-b border-border transition-all duration-300 ease-in-out overflow-hidden",
-          mobileMenuOpen ? "max-h-100 opacity-100" : "max-h-0 opacity-0",
+          "lg:hidden absolute top-full left-0 right-0 bg-[#000000] border-b border-white/10 transition-all duration-300 ease-in-out overflow-hidden",
+          mobileMenuOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0",
         )}
       >
-        <div className="px-4 py-4 space-y-2">
+        <div className="px-6 py-4 space-y-4">
           {navigation.map((item) => (
             <Link
               key={item.name}
               href={item.href}
               className={cn(
                 "block py-2 text-base font-medium transition-colors",
-                pathname === item.href ? "text-primary" : "text-muted-foreground hover:text-foreground",
+                pathname === item.href ? "text-white" : "text-[#B4B4B4] hover:text-white",
               )}
             >
               {item.name}
             </Link>
           ))}
+          <div className="pt-4 flex flex-col gap-3">
+             <Link href="/login" className="block py-2 text-base font-medium text-[#B4B4B4] hover:text-white transition-colors">
+              Log in
+            </Link>
+            <Button asChild className="w-full bg-white text-black hover:bg-[#F2F2F2] rounded-full">
+              <Link href="/contact">Sign up</Link>
+            </Button>
+          </div>
         </div>
       </div>
     </header>

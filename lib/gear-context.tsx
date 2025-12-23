@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react"
 
 // Define types locally to avoid importing from server-side airtable.ts
-export type GearSpecs = Record<string, string | number | boolean>
+export type GearSpecs = Record<string, string | number | boolean | undefined>
 
 export type GearImage = {
   url: string

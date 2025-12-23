@@ -1014,6 +1014,7 @@ export async function submitReview(
     | "helpful_count"
     | "status"
     | "verified"
+    | "review_id"
   >
 ): Promise<Review | null> {
   try {

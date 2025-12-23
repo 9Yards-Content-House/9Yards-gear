@@ -54,7 +54,7 @@ export async function checkReviewEligibility(
  * Only verified renters can submit reviews
  */
 export async function submitReview(
-  review: Omit<Review, "id" | "airtableRecordId" | "review_id" | "created_at" | "status" | "helpful_count" | "verified">
+  review: Omit<Review, "id" | "airtableRecordId" | "review_id" | "created_at" | "status" | "helpful_count" | "verified"> & { userId?: string }
 ): Promise<{ success: boolean; review?: Review; error?: string }> {
   try {
     // Verify eligibility first

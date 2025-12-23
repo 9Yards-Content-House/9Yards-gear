@@ -190,7 +190,15 @@ function BookingsTab() {
   const [bookings, setBookings] = useState<any[]>([])
 
   useEffect(() => {
-    setBookings(getAllBookings())
+    const fetchBookings = async () => {
+      try {
+        const data = await getAllBookings()
+        setBookings(data)
+      } catch (err) {
+        console.error("Failed to fetch bookings", err)
+      }
+    }
+    fetchBookings()
   }, [])
 
   return (
