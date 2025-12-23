@@ -36,12 +36,12 @@ export function ReviewsList({ gearId }: ReviewsListProps) {
   const sortedReviews = [...reviews].sort((a, b) => {
     switch (sortBy) {
       case "helpful":
-        return b.helpful - a.helpful
+        return b.helpful_count - a.helpful_count
       case "rating":
         return b.rating - a.rating
       case "recent":
       default:
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     }
   })
 
@@ -141,10 +141,10 @@ function ReviewCard({ review, onHelpful }: { review: Review; onHelpful: () => vo
   const [marking, setMarking] = useState(false)
 
   const handleHelpful = async () => {
-    if (!review.id) return
+    if (!review.review_id) return
     setMarking(true)
     try {
-      await markReviewHelpful(review.id, review.helpful)
+      await markReviewHelpful(review.review_id)
       onHelpful()
     } catch (error) {
       console.error("Failed to mark helpful:", error)
@@ -158,7 +158,7 @@ function ReviewCard({ review, onHelpful }: { review: Review; onHelpful: () => vo
       <div className="flex items-start justify-between mb-3">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="font-semibold text-foreground">{review.userName}</span>
+            <span className="font-semibold text-foreground">{review.user_name}</span>
             {review.verified && (
               <Badge variant="secondary" className="text-xs">
                 Verified Renter
@@ -178,7 +178,7 @@ function ReviewCard({ review, onHelpful }: { review: Review; onHelpful: () => vo
               ))}
             </div>
             <span className="text-sm text-muted-foreground">
-              {new Date(review.createdAt).toLocaleDateString()}
+              {new Date(review.created_at).toLocaleDateString()}
             </span>
           </div>
         </div>
@@ -196,7 +196,7 @@ function ReviewCard({ review, onHelpful }: { review: Review; onHelpful: () => vo
           className="text-muted-foreground hover:text-foreground"
         >
           <ThumbsUp className="h-4 w-4 mr-2" />
-          Helpful ({review.helpful})
+          Helpful ({review.helpful_count})
         </Button>
       </div>
     </div>

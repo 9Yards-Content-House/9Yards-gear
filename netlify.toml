@@ -1,18 +1,19 @@
 [build]
-  command = "pnpm build"
-  publish = "out"
+  command = "npm run build"
+  publish = ".next"
 
 [build.environment]
   NODE_VERSION = "20"
   NODE_ENV = "production"
+  NPM_FLAGS = "--legacy-peer-deps"
 
+# Next.js Runtime
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Ensure environment variables are available
+[functions]
+  node_bundler = "esbuild"
 
 [[headers]]
   for = "/*"

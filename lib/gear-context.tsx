@@ -1,8 +1,44 @@
 "use client"
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react"
-import type { GearItem, GearCategory, GearSpecs } from "./airtable"
-import { formatPrice } from "./airtable"
+
+// Define types locally to avoid importing from server-side airtable.ts
+export type GearSpecs = Record<string, string | number | boolean>
+
+export type GearImage = {
+  url: string
+  filename?: string
+}
+
+export type GearItem = {
+  id: string
+  name: string
+  category: string
+  pricePerDay: number
+  pricePerWeek: number
+  description: string
+  specs: GearSpecs
+  image: string
+  images?: GearImage[]
+  whatsIncluded?: string[]
+  available: boolean
+  featured: boolean
+  bookedDates: string[]
+  totalRentals?: number
+  totalRevenue?: number
+  lastRentedAt?: string
+}
+
+export type GearCategory = {
+  id: string
+  name: string
+  icon: string
+}
+
+// Price formatting utility
+export function formatPrice(amount: number): string {
+  return `USh ${amount.toLocaleString()}`
+}
 
 // Airtable API configuration (for client-side fetching - requires NEXT_PUBLIC_ env vars)
 const AIRTABLE_API_KEY = process.env.NEXT_PUBLIC_AIRTABLE_API_KEY
@@ -26,11 +62,6 @@ interface GearContextType {
 
 const GearContext = createContext<GearContextType | null>(null)
 
-// Re-export types for convenience
-export type { GearItem, GearCategory, GearSpecs }
-export { formatPrice }
-
-// Transform Airtable record to GearItem
 function transformGearRecord(record: any): GearItem {
   const fields = record.fields || record
   let specs: GearSpecs = {}
