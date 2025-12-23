@@ -10,9 +10,9 @@ export default function Loading() {
           <Image
             src="/logo.png"
             alt="9Yards Gear"
-            width={180}
-            height={60}
-            className="h-14 w-auto"
+            width={240}
+            height={80}
+            className="h-20 w-auto"
             priority
           />
         </div>

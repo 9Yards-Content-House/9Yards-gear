@@ -65,7 +65,7 @@ export function Header() {
               alt="9Yards Film"
               width={180}
               height={60}
-              className="h-[28px] w-auto transition-transform group-hover:scale-105 brightness-0 invert" 
+              className="h-[40px] w-auto transition-transform group-hover:scale-105 brightness-0 invert" 
               priority
             />
           </Link>
@@ -105,11 +105,8 @@ export function Header() {
 
         {/* Right side */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-5 lg:items-center">
-          <Link href="/login" className="text-[14.5px] font-medium text-[#B4B4B4] hover:text-white transition-colors">
-            Log in
-          </Link>
           <Button asChild className="bg-white text-black hover:bg-[#F2F2F2] rounded-full px-[18px] h-8 text-[13px] font-medium transition-all">
-            <Link href="/contact">Sign up</Link>
+            <Link href="/contact">Book Now</Link>
           </Button>
         </div>
       </nav>
@@ -135,11 +132,8 @@ export function Header() {
             </Link>
           ))}
           <div className="pt-4 flex flex-col gap-3">
-             <Link href="/login" className="block py-2 text-base font-medium text-[#B4B4B4] hover:text-white transition-colors">
-              Log in
-            </Link>
             <Button asChild className="w-full bg-white text-black hover:bg-[#F2F2F2] rounded-full">
-              <Link href="/contact">Sign up</Link>
+              <Link href="/contact">Book Now</Link>
             </Button>
           </div>
         </div>

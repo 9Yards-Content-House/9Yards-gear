@@ -18,6 +18,15 @@ import { GearCard } from "@/components/gear/gear-card"
 import { GearListItem } from "./gear-list-item"
 import { InventorySkeleton } from "./gear-skeleton"
 import { CantFindCTA } from "./cant-find-cta"
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
 import { useGear, type GearItem } from "@/lib/gear-context"
 import { trackSearch, trackFilterUsage } from "@/lib/analytics"
 
@@ -26,6 +35,8 @@ function InventoryResults() {
   const router = useRouter()
   const [view, setView] = useState<"grid" | "list">("grid")
   const [filtersOpen, setFiltersOpen] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 10
   const { gear: allGear, categories, isLoading } = useGear()
 
   const filteredGear = useMemo(() => {
@@ -99,7 +110,29 @@ function InventoryResults() {
     searchParams.has("category") ||
     searchParams.has("minPrice") ||
     searchParams.has("maxPrice") ||
+    searchParams.has("maxPrice") ||
     searchParams.has("available")
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchParams])
+
+  // Scroll to top when page changes
+  useEffect(() => {
+    const mainContent = document.getElementById("main-content")
+    if (mainContent) {
+      mainContent.scrollIntoView({ behavior: "smooth" })
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+  }, [currentPage])
+
+  const totalPages = Math.ceil(filteredGear.length / itemsPerPage)
+  const paginatedGear = filteredGear.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  )
 
   const clearFilters = () => {
     window.location.href = "/inventory"
@@ -246,7 +279,7 @@ function InventoryResults() {
               </div>
             ) : view === "grid" ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredGear.map((item, index) => (
+                {paginatedGear.map((item, index) => (
                   <div
                     key={item.id}
                     className="animate-in fade-in-0 slide-in-from-bottom-4"
@@ -258,7 +291,7 @@ function InventoryResults() {
               </div>
             ) : (
               <div className="space-y-4">
-                {filteredGear.map((item, index) => (
+                {paginatedGear.map((item, index) => (
                   <div
                     key={item.id}
                     className="animate-in fade-in-0 slide-in-from-bottom-4"
@@ -267,6 +300,70 @@ function InventoryResults() {
                     <GearListItem item={item} />
                   </div>
                 ))}
+              </div>
+            )}
+
+            {/* Pagination */}
+            {!isLoading && totalPages > 1 && (
+              <div className="mt-8">
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          if (currentPage > 1) setCurrentPage(p => p - 1)
+                        }}
+                        className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        aria-disabled={currentPage === 1}
+                      />
+                    </PaginationItem>
+                    
+                    {Array.from({ length: totalPages }).map((_, i) => {
+                      const page = i + 1
+                      // Show first page, last page, current page, and pages around current
+                      if (
+                        page === 1 ||
+                        page === totalPages ||
+                        (page >= currentPage - 1 && page <= currentPage + 1)
+                      ) {
+                        return (
+                          <PaginationItem key={page}>
+                            <PaginationLink
+                              href="#"
+                              isActive={page === currentPage}
+                              onClick={(e) => {
+                                e.preventDefault()
+                                setCurrentPage(page)
+                              }}
+                            >
+                              {page}
+                            </PaginationLink>
+                          </PaginationItem>
+                        )
+                      } else if (
+                        page === currentPage - 2 ||
+                        page === currentPage + 2
+                      ) {
+                        return <PaginationItem key={page}><PaginationEllipsis /></PaginationItem>
+                      }
+                      return null
+                    })}
+
+                    <PaginationItem>
+                      <PaginationNext
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          if (currentPage < totalPages) setCurrentPage(p => p + 1)
+                        }}
+                        className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        aria-disabled={currentPage === totalPages}
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
               </div>
             )}
 
