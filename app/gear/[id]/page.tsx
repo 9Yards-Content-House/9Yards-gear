@@ -88,7 +88,7 @@ export default async function GearDetailPage({ params }: Props) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Left column - Image and details */}
             <div className="space-y-6">
-              <GearImageGallery image={item.image} name={item.name} />
+              <GearImageGallery image={item.image} images={item.images} name={item.name} />
 
               {/* Specs */}
               <div className="bg-card border border-border rounded-xl p-6">
@@ -104,7 +104,7 @@ export default async function GearDetailPage({ params }: Props) {
               </div>
 
               {/* What's Included */}
-              <WhatsIncluded itemName={item.name} category={item.category} />
+              <WhatsIncluded itemName={item.name} category={item.category} whatsIncluded={item.whatsIncluded} />
 
               {/* Care Guidelines */}
               <CareGuidelines itemName={item.name} category={item.category} />

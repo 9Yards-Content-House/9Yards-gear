@@ -1,114 +1,130 @@
 /**
  * Advanced booking management system
  * Handles bookings, reservations, and conflict detection
+ * Now integrated with Airtable for centralized management
  */
 
-export type Booking = {
-  id: string
-  customerId: string
-  customerEmail: string
-  customerPhone: string
-  customerName: string
-  items: {
-    gearId: string
-    gearName: string
-    quantity: number
-    pricePerDay: number
-  }[]
-  startDate: string // YYYY-MM-DD
-  endDate: string // YYYY-MM-DD
-  totalAmount: number
-  depositAmount: number
-  status: "pending" | "confirmed" | "in_progress" | "completed" | "cancelled"
-  paymentTx?: string
-  createdAt: number
-  updatedAt: number
-  notes?: string
-  estimatedPickupTime?: string
-  estimatedReturnTime?: string
-}
+import {
+  createBooking as createAirtableBooking,
+  getBookingById as getAirtableBookingById,
+  getBookingsByEmail,
+  getBookingsByStatus,
+  getAllBookingsFromAirtable,
+  updateBookingStatus as updateAirtableBookingStatus,
+  updateGearBookedDates,
+  getOrCreateCustomer,
+  updateCustomerStats,
+  type Booking,
+  type BookingItem,
+} from "./airtable"
 
-const BOOKINGS_KEY = "bookings"
-const BOOKING_CONFLICTS_KEY = "bookingConflicts"
+// Re-export types for backward compatibility
+export type { Booking, BookingItem }
 
 /**
- * Create a new booking
+ * Generate a unique booking ID
  */
-export function createBooking(booking: Omit<Booking, "id" | "createdAt" | "updatedAt">): Booking {
-  const newBooking: Booking = {
-    ...booking,
-    id: `book_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-    createdAt: Date.now(),
-    updatedAt: Date.now(),
-  }
-
-  try {
-    const bookings = getAllBookings()
-    bookings.push(newBooking)
-    saveBookings(bookings)
-  } catch (error) {
-    console.warn("Failed to create booking", error)
-  }
-
-  return newBooking
+function generateBookingId(): string {
+  return `book_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
 }
 
 /**
- * Get all bookings
+ * Calculate deposit amount (50% of total)
  */
-export function getAllBookings(): Booking[] {
-  if (typeof window === "undefined") return []
-  try {
-    const stored = localStorage.getItem(BOOKINGS_KEY)
-    return stored ? JSON.parse(stored) : []
-  } catch {
-    return []
+function calculateDeposit(totalAmount: number): number {
+  return Math.round(totalAmount * 0.5)
+}
+
+/**
+ * Create a new booking in Airtable
+ */
+export async function createBooking(
+  bookingData: Omit<Booking, "id" | "airtableRecordId" | "booking_id" | "created_at" | "updated_at" | "deposit_amount">
+): Promise<Booking | null> {
+  const bookingId = generateBookingId()
+  const depositAmount = calculateDeposit(bookingData.total_amount)
+
+  // Create or get customer record
+  await getOrCreateCustomer(
+    bookingData.customer_email,
+    bookingData.customer_phone,
+    bookingData.customer_name
+  )
+
+  const booking = await createAirtableBooking({
+    ...bookingData,
+    booking_id: bookingId,
+    deposit_amount: depositAmount,
+  })
+
+  if (booking) {
+    // Update booked dates for each gear item
+    for (const item of bookingData.gear_items) {
+      const dates = getDateRange(bookingData.start_date, bookingData.end_date)
+      // Note: This would need to merge with existing dates - simplified for now
+      await updateGearBookedDates(item.gearId, dates)
+    }
   }
+
+  return booking
+}
+
+/**
+ * Get all bookings (from Airtable)
+ */
+export async function getAllBookings(): Promise<Booking[]> {
+  return getAllBookingsFromAirtable()
 }
 
 /**
  * Get booking by ID
  */
-export function getBooking(id: string): Booking | undefined {
-  return getAllBookings().find(b => b.id === id)
+export async function getBooking(bookingId: string): Promise<Booking | undefined> {
+  return getAirtableBookingById(bookingId)
 }
 
 /**
- * Get bookings for customer
+ * Get bookings for customer by email
  */
-export function getCustomerBookings(customerId: string): Booking[] {
-  return getAllBookings().filter(b => b.customerId === customerId)
+export async function getCustomerBookings(email: string): Promise<Booking[]> {
+  return getBookingsByEmail(email)
 }
 
 /**
  * Get bookings for gear item
  */
-export function getGearBookings(gearId: string): Booking[] {
-  return getAllBookings()
-    .filter(b => b.items.some(item => item.gearId === gearId))
-    .filter(b => ["pending", "confirmed", "in_progress"].includes(b.status))
+export async function getGearBookings(gearId: string): Promise<Booking[]> {
+  try {
+    const allBookings = await getAllBookingsFromAirtable()
+    return allBookings
+      .filter(b => b.gear_items.some(item => item.gearId === gearId))
+      .filter(b => ["pending", "confirmed", "in_progress"].includes(b.status))
+  } catch (error) {
+    console.error("Error fetching gear bookings:", error)
+    return []
+  }
 }
 
 /**
  * Check for booking conflicts
  */
-export function checkBookingConflict(
+export async function checkBookingConflict(
   gearId: string,
   startDate: string,
   endDate: string,
   excludeBookingId?: string
-): Booking[] {
-  const bookings = getGearBookings(gearId)
+): Promise<Booking[]> {
+  const bookings = await getGearBookings(gearId)
   const conflicts: Booking[] = []
 
   const newStart = new Date(startDate)
   const newEnd = new Date(endDate)
 
   bookings.forEach(booking => {
-    if (excludeBookingId && booking.id === excludeBookingId) return
+    if (excludeBookingId && booking.booking_id === excludeBookingId) return
 
-    const existingStart = new Date(booking.startDate)
-    const existingEnd = new Date(booking.endDate)
+    const existingStart = new Date(booking.start_date)
+    const existingEnd = new Date(booking.end_date)
 
     // Check for overlap
     if (newStart <= existingEnd && newEnd >= existingStart) {
@@ -122,46 +138,39 @@ export function checkBookingConflict(
 /**
  * Update booking status
  */
-export function updateBookingStatus(
-  id: string,
+export async function updateBookingStatus(
+  bookingId: string,
   status: Booking["status"],
-  updates?: Partial<Booking>
-): Booking | null {
-  try {
-    const bookings = getAllBookings()
-    const index = bookings.findIndex(b => b.id === id)
-
-    if (index === -1) return null
-
-    bookings[index] = {
-      ...bookings[index],
-      ...updates,
-      status,
-      updatedAt: Date.now(),
-    }
-
-    saveBookings(bookings)
-    return bookings[index]
-  } catch (error) {
-    console.warn("Failed to update booking status", error)
-    return null
+  updates?: Partial<Pick<Booking, "payment_reference" | "notes">>
+): Promise<Booking | null> {
+  const booking = await updateAirtableBookingStatus(bookingId, status, updates)
+  
+  if (booking && status === "completed") {
+    // Update customer stats when booking completes
+    await updateCustomerStats(
+      booking.customer_email,
+      booking.total_amount,
+      booking.gear_items[0]?.gearId // Track first category
+    )
   }
+  
+  return booking
 }
 
 /**
  * Cancel booking
  */
-export function cancelBooking(id: string, reason?: string): boolean {
-  const booking = updateBookingStatus(id, "cancelled", { notes: reason })
+export async function cancelBooking(bookingId: string, reason?: string): Promise<boolean> {
+  const booking = await updateAirtableBookingStatus(bookingId, "cancelled", { notes: reason })
   return booking !== null
 }
 
 /**
  * Get booking statistics
  */
-export function getBookingStats() {
+export async function getBookingStats() {
   try {
-    const bookings = getAllBookings()
+    const bookings = await getAllBookingsFromAirtable()
 
     return {
       totalBookings: bookings.length,
@@ -169,10 +178,10 @@ export function getBookingStats() {
       confirmedBookings: bookings.filter(b => b.status === "confirmed").length,
       completedBookings: bookings.filter(b => b.status === "completed").length,
       cancelledBookings: bookings.filter(b => b.status === "cancelled").length,
-      totalRevenue: bookings.reduce((sum, b) => sum + b.totalAmount, 0),
-      averageBookingValue: bookings.length > 0 ? bookings.reduce((sum, b) => sum + b.totalAmount, 0) / bookings.length : 0,
+      totalRevenue: bookings.reduce((sum, b) => sum + b.total_amount, 0),
+      averageBookingValue: bookings.length > 0 ? bookings.reduce((sum, b) => sum + b.total_amount, 0) / bookings.length : 0,
       upcomingBookings: bookings.filter(b => {
-        const startDate = new Date(b.startDate)
+        const startDate = new Date(b.start_date)
         return startDate > new Date() && ["pending", "confirmed"].includes(b.status)
       }).length,
     }
@@ -193,20 +202,20 @@ export function getBookingStats() {
 /**
  * Export bookings to CSV format
  */
-export function exportBookingsToCSV(): string {
-  const bookings = getAllBookings()
+export async function exportBookingsToCSV(): Promise<string> {
+  const bookings = await getAllBookingsFromAirtable()
   const headers = ["Booking ID", "Customer", "Email", "Phone", "Start Date", "End Date", "Total Amount", "Status", "Created At"]
   
   const rows = bookings.map(b => [
-    b.id,
-    b.customerName,
-    b.customerEmail,
-    b.customerPhone,
-    b.startDate,
-    b.endDate,
-    b.totalAmount,
+    b.booking_id,
+    b.customer_name,
+    b.customer_email,
+    b.customer_phone,
+    b.start_date,
+    b.end_date,
+    b.total_amount,
     b.status,
-    new Date(b.createdAt).toISOString(),
+    b.created_at,
   ])
 
   const csv = [headers, ...rows]
@@ -219,8 +228,8 @@ export function exportBookingsToCSV(): string {
 /**
  * Get booking availability calendar
  */
-export function getAvailabilityCalendar(gearId: string, month: Date): Map<string, "available" | "booked"> {
-  const bookings = getGearBookings(gearId)
+export async function getAvailabilityCalendar(gearId: string, month: Date): Promise<Map<string, "available" | "booked">> {
+  const bookings = await getGearBookings(gearId)
   const calendar = new Map<string, "available" | "booked">()
 
   const startOfMonth = new Date(month.getFullYear(), month.getMonth(), 1)
@@ -232,8 +241,8 @@ export function getAvailabilityCalendar(gearId: string, month: Date): Map<string
   }
 
   bookings.forEach(booking => {
-    const start = new Date(booking.startDate)
-    const end = new Date(booking.endDate)
+    const start = new Date(booking.start_date)
+    const end = new Date(booking.end_date)
 
     for (let date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
       const dateStr = date.toISOString().split("T")[0]
@@ -247,26 +256,24 @@ export function getAvailabilityCalendar(gearId: string, month: Date): Map<string
 }
 
 /**
- * Helper: Save bookings to localStorage
+ * Get date range between two dates
  */
-function saveBookings(bookings: Booking[]): void {
-  try {
-    // Keep only last 5000 bookings
-    const recentBookings = bookings.slice(-5000)
-    localStorage.setItem(BOOKINGS_KEY, JSON.stringify(recentBookings))
-  } catch (error) {
-    console.warn("Failed to save bookings", error)
+function getDateRange(startDate: string, endDate: string): string[] {
+  const dates: string[] = []
+  const start = new Date(startDate)
+  const end = new Date(endDate)
+
+  for (let date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
+    dates.push(date.toISOString().split("T")[0])
   }
+
+  return dates
 }
 
 /**
- * Clear all booking data (careful!)
+ * Clear all booking data - DEPRECATED
+ * Data is now in Airtable - use Airtable interface to manage
  */
 export function clearAllBookings(): void {
-  try {
-    localStorage.removeItem(BOOKINGS_KEY)
-    localStorage.removeItem(BOOKING_CONFLICTS_KEY)
-  } catch (error) {
-    console.warn("Failed to clear bookings", error)
-  }
+  console.warn("clearAllBookings is deprecated. Manage bookings directly in Airtable.")
 }

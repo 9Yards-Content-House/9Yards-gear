@@ -1,71 +1,96 @@
-// Reviews and Ratings System
-// Handles submission, storage, and display of user reviews
+/**
+ * Reviews and Ratings System
+ * Handles submission, storage, and display of user reviews
+ * Integrated with Airtable - only verified renters can leave reviews
+ */
 
 "use client"
 
-import { callAirtable } from "./netlify-api"
+import {
+  verifyReviewEligibility,
+  submitReview as submitAirtableReview,
+  getGearReviews as getAirtableGearReviews,
+  getAllReviewsFromAirtable,
+  updateReviewStatus as updateAirtableReviewStatus,
+  incrementReviewHelpful,
+  type Review,
+} from "./airtable"
 
-export interface Review {
-  id?: string
-  gearId: string
-  userId: string
-  userName: string
-  userEmail: string
-  rating: number // 1-5
-  title: string
-  comment: string
-  photos?: string[]
-  verified: boolean
-  helpful: number
-  createdAt: string
-  status: "pending" | "approved" | "rejected"
-}
-
-const REVIEWS_TABLE = "Reviews"
+// Re-export types
+export type { Review }
 
 /**
- * Submit a new review
+ * Check if user is eligible to leave a review (has completed rental)
  */
-export async function submitReview(review: Omit<Review, "id" | "createdAt" | "status" | "helpful">): Promise<Review> {
+export async function checkReviewEligibility(
+  email: string,
+  gearId: string
+): Promise<{ eligible: boolean; bookingId?: string; message?: string }> {
   try {
-    const result = await callAirtable({
-      table: REVIEWS_TABLE,
-      action: "create",
-      data: {
-        ...review,
-        createdAt: new Date().toISOString(),
-        status: "pending",
-        helpful: 0,
-      },
-    })
-
-    return result.fields as Review
-  } catch (error) {
-    if (process.env.NODE_ENV === "development") {
-      console.error("Failed to submit review:", error)
+    const result = await verifyReviewEligibility(email, gearId)
+    
+    if (result.eligible) {
+      return {
+        eligible: true,
+        bookingId: result.bookingId,
+      }
+    } else {
+      return {
+        eligible: false,
+        message: "Only customers who have completed a rental of this item can leave a review.",
+      }
     }
-    throw new Error("Failed to submit review")
+  } catch (error) {
+    console.error("Error checking review eligibility:", error)
+    return {
+      eligible: false,
+      message: "Unable to verify rental history. Please try again later.",
+    }
   }
 }
 
 /**
- * Get reviews for a gear item
+ * Submit a new review
+ * Only verified renters can submit reviews
+ */
+export async function submitReview(
+  review: Omit<Review, "id" | "airtableRecordId" | "review_id" | "created_at" | "status" | "helpful_count" | "verified">
+): Promise<{ success: boolean; review?: Review; error?: string }> {
+  try {
+    // Verify eligibility first
+    const eligibility = await checkReviewEligibility(review.user_email, review.gear_id)
+    
+    if (!eligibility.eligible) {
+      return {
+        success: false,
+        error: eligibility.message || "You must complete a rental to leave a review.",
+      }
+    }
+
+    const result = await submitAirtableReview({
+      ...review,
+      booking_id: eligibility.bookingId,
+    })
+
+    if (result) {
+      return { success: true, review: result }
+    } else {
+      return { success: false, error: "Failed to submit review. Please try again." }
+    }
+  } catch (error) {
+    console.error("Failed to submit review:", error)
+    return { success: false, error: "An error occurred while submitting your review." }
+  }
+}
+
+/**
+ * Get approved reviews for a gear item
  */
 export async function getGearReviews(gearId: string): Promise<Review[]> {
   try {
-    const result = await callAirtable({
-      table: REVIEWS_TABLE,
-      action: "list",
-      data: {
-        filterByFormula: `AND({gearId}='${gearId}', {status}='approved')`,
-      },
-    })
-
-    return result.records?.map((r: any) => ({ id: r.id, ...r.fields })) || []
+    return await getAirtableGearReviews(gearId)
   } catch (error) {
-    if (process.env.NODE_ENV === "development") {
-      console.error("Failed to fetch reviews:", error)
-    }
+    console.error("Failed to fetch reviews:", error)
     return []
   }
 }
@@ -75,19 +100,9 @@ export async function getGearReviews(gearId: string): Promise<Review[]> {
  */
 export async function getAllReviews(status?: "pending" | "approved" | "rejected"): Promise<Review[]> {
   try {
-    const filterFormula = status ? `{status}='${status}'` : ""
-
-    const result = await callAirtable({
-      table: REVIEWS_TABLE,
-      action: "list",
-      data: status ? { filterByFormula: filterFormula } : undefined,
-    })
-
-    return result.records?.map((r: any) => ({ id: r.id, ...r.fields })) || []
+    return await getAllReviewsFromAirtable(status)
   } catch (error) {
-    if (process.env.NODE_ENV === "development") {
-      console.error("Failed to fetch reviews:", error)
-    }
+    console.error("Failed to fetch reviews:", error)
     return []
   }
 }
@@ -95,37 +110,24 @@ export async function getAllReviews(status?: "pending" | "approved" | "rejected"
 /**
  * Update review status (admin only)
  */
-export async function updateReviewStatus(reviewId: string, status: "approved" | "rejected"): Promise<void> {
+export async function updateReviewStatus(reviewId: string, status: "approved" | "rejected"): Promise<boolean> {
   try {
-    await callAirtable({
-      table: REVIEWS_TABLE,
-      action: "update",
-      recordId: reviewId,
-      data: { status },
-    })
+    return await updateAirtableReviewStatus(reviewId, status)
   } catch (error) {
-    if (process.env.NODE_ENV === "development") {
-      console.error("Failed to update review status:", error)
-    }
-    throw new Error("Failed to update review")
+    console.error("Failed to update review status:", error)
+    return false
   }
 }
 
 /**
  * Mark review as helpful
  */
-export async function markReviewHelpful(reviewId: string, currentCount: number): Promise<void> {
+export async function markReviewHelpful(reviewId: string): Promise<boolean> {
   try {
-    await callAirtable({
-      table: REVIEWS_TABLE,
-      action: "update",
-      recordId: reviewId,
-      data: { helpful: currentCount + 1 },
-    })
+    return await incrementReviewHelpful(reviewId)
   } catch (error) {
-    if (process.env.NODE_ENV === "development") {
-      console.error("Failed to mark review helpful:", error)
-    }
+    console.error("Failed to mark review helpful:", error)
+    return false
   }
 }
 
@@ -150,11 +152,30 @@ export function getRatingDistribution(reviews: Review[]): Record<number, number>
 }
 
 /**
+ * Get review stats for a gear item
+ */
+export async function getGearReviewStats(gearId: string): Promise<{
+  averageRating: number
+  totalReviews: number
+  distribution: Record<number, number>
+  verifiedCount: number
+}> {
+  const reviews = await getGearReviews(gearId)
+  
+  return {
+    averageRating: calculateAverageRating(reviews),
+    totalReviews: reviews.length,
+    distribution: getRatingDistribution(reviews),
+    verifiedCount: reviews.filter(r => r.verified).length,
+  }
+}
+
+/**
  * Perform sentiment analysis (basic)
  */
 export function analyzeSentiment(comment: string): "positive" | "neutral" | "negative" {
-  const positiveWords = ["great", "excellent", "amazing", "perfect", "love", "best", "good", "fantastic"]
-  const negativeWords = ["bad", "poor", "terrible", "worst", "disappointing", "broken", "awful"]
+  const positiveWords = ["great", "excellent", "amazing", "perfect", "love", "best", "good", "fantastic", "wonderful", "superb"]
+  const negativeWords = ["bad", "poor", "terrible", "worst", "disappointing", "broken", "awful", "horrible", "useless"]
 
   const lowerComment = comment.toLowerCase()
   const positiveCount = positiveWords.filter(word => lowerComment.includes(word)).length

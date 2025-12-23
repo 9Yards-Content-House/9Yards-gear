@@ -274,15 +274,15 @@ function ReviewsTab() {
 
       <div className="grid gap-4">
         {reviews.map((review) => (
-          <Card key={review.id}>
+          <Card key={review.review_id}>
             <CardContent className="p-4">
               <div className="flex justify-between items-start mb-2">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="font-semibold">{review.userName}</h3>
+                    <h3 className="font-semibold">{review.user_name}</h3>
                     <Badge variant="secondary">{review.rating} ★</Badge>
                   </div>
-                  <p className="text-sm text-muted-foreground">{review.userEmail}</p>
+                  <p className="text-sm text-muted-foreground">{review.user_email}</p>
                 </div>
                 <Badge>{review.status}</Badge>
               </div>
@@ -293,14 +293,14 @@ function ReviewsTab() {
                   <Button
                     variant="default"
                     size="sm"
-                    onClick={() => review.id && handleApprove(review.id)}
+                    onClick={() => review.review_id && handleApprove(review.review_id)}
                   >
                     Approve
                   </Button>
                   <Button
                     variant="destructive"
                     size="sm"
-                    onClick={() => review.id && handleReject(review.id)}
+                    onClick={() => review.review_id && handleReject(review.review_id)}
                   >
                     Reject
                   </Button>

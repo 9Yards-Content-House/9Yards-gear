@@ -7,9 +7,10 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 interface WhatsIncludedProps {
   itemName: string
   category: string
+  whatsIncluded?: string[] // Items from Airtable
 }
 
-const getIncludedItems = (category: string) => {
+const getDefaultIncludedItems = (category: string) => {
   const baseItems = [
     "Protective carrying case",
     "All necessary cables",
@@ -52,6 +53,21 @@ const getIncludedItems = (category: string) => {
       "Carrying bag / case",
       ...baseItems,
     ],
+    grip: [
+      "Complete support system",
+      "Quick release plate",
+      "Carrying bag / case",
+      ...baseItems,
+    ],
+    motion: [
+      "Drone with gimbal camera",
+      "4x flight batteries",
+      "Multi-charger hub",
+      "Controller with cables",
+      "ND filter set",
+      "Propeller guards",
+      ...baseItems,
+    ],
     drones: [
       "Drone with gimbal camera",
       "4x flight batteries",
@@ -68,14 +84,29 @@ const getIncludedItems = (category: string) => {
       "HDMI / SDI cables",
       ...baseItems,
     ],
+    accessories: [
+      "Monitor with sun hood",
+      "Battery plate / power solution",
+      "Mounting arm / clamp",
+      "HDMI / SDI cables",
+      ...baseItems,
+    ],
+    power: [
+      "Battery / media card",
+      "Charging cable or reader",
+      ...baseItems,
+    ],
     default: baseItems,
   }
 
   return categoryItems[category.toLowerCase()] || categoryItems.default
 }
 
-export function WhatsIncluded({ itemName, category }: WhatsIncludedProps) {
-  const includedItems = getIncludedItems(category)
+export function WhatsIncluded({ itemName, category, whatsIncluded }: WhatsIncludedProps) {
+  // Use Airtable data if provided, otherwise fall back to category defaults
+  const includedItems = whatsIncluded && whatsIncluded.length > 0 
+    ? whatsIncluded 
+    : getDefaultIncludedItems(category)
 
   return (
     <Card>

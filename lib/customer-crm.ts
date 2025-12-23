@@ -1,21 +1,20 @@
 /**
  * Premium customer relationship management (CRM)
  * Tracks customer behavior, preferences, and loyalty
+ * Integrated with Airtable for centralized management
  */
 
-export type Customer = {
-  id: string
-  email: string
-  phone: string
-  name: string
-  firstVisit: number
-  lastVisit: number
-  visitCount: number
-  totalSpent: number
-  favoriteCategories: string[]
-  preferredPaymentMethod?: string
-  notes?: string
-}
+import {
+  getOrCreateCustomer as getOrCreateAirtableCustomer,
+  getCustomerByEmail as getAirtableCustomerByEmail,
+  updateCustomerStats as updateAirtableCustomerStats,
+  getAllCustomersFromAirtable,
+  getBookingsByEmail,
+  type Customer,
+} from "./airtable"
+
+// Re-export types
+export type { Customer }
 
 export type CustomerActivity = {
   customerId: string
@@ -27,85 +26,40 @@ export type CustomerActivity = {
   sessionId: string
 }
 
-const CUSTOMERS_KEY = "customers"
 const ACTIVITIES_KEY = "customerActivities"
 const MAX_ACTIVITIES = 1000
 
 /**
- * Get or create customer profile
+ * Get or create customer profile in Airtable
  */
-export function getOrCreateCustomer(email: string, phone: string, name: string): Customer {
+export async function getOrCreateCustomer(email: string, phone: string, name: string): Promise<Customer | null> {
   try {
-    const customers = getAllCustomers()
-    let customer = customers.find(c => c.email === email)
-
-    if (!customer) {
-      customer = {
-        id: `cust_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-        email,
-        phone,
-        name,
-        firstVisit: Date.now(),
-        lastVisit: Date.now(),
-        visitCount: 1,
-        totalSpent: 0,
-        favoriteCategories: [],
-      }
-      customers.push(customer)
-      saveCustomers(customers)
-    } else {
-      customer.lastVisit = Date.now()
-      customer.visitCount += 1
-      saveCustomers(customers)
-    }
-
-    return customer
+    return await getOrCreateAirtableCustomer(email, phone, name)
   } catch (error) {
-    console.warn("Failed to get/create customer", error)
-    return {
-      id: `cust_temp_${Date.now()}`,
-      email,
-      phone,
-      name,
-      firstVisit: Date.now(),
-      lastVisit: Date.now(),
-      visitCount: 1,
-      totalSpent: 0,
-      favoriteCategories: [],
-    }
+    console.error("Failed to get/create customer:", error)
+    return null
   }
 }
 
 /**
- * Get all customers
+ * Get customer by email
  */
-function getAllCustomers(): Customer[] {
-  if (typeof window === "undefined") return []
+export async function getCustomerByEmail(email: string): Promise<Customer | undefined> {
   try {
-    const stored = localStorage.getItem(CUSTOMERS_KEY)
-    return stored ? JSON.parse(stored) : []
-  } catch {
-    return []
-  }
-}
-
-/**
- * Save customers to localStorage
- */
-function saveCustomers(customers: Customer[]): void {
-  try {
-    // Keep only last 1000 customers
-    const recentCustomers = customers.slice(-1000)
-    localStorage.setItem(CUSTOMERS_KEY, JSON.stringify(recentCustomers))
+    return await getAirtableCustomerByEmail(email)
   } catch (error) {
-    console.warn("Failed to save customers", error)
+    console.error("Failed to get customer:", error)
+    return undefined
   }
 }
 
 /**
- * Record customer activity
+ * Record customer activity (stored in localStorage for session tracking)
+ * For persistent tracking, use updateCustomerStats in Airtable
  */
 export function recordActivity(activity: CustomerActivity): void {
+  if (typeof window === "undefined") return
+  
   try {
     const activities = (() => {
       try {
@@ -129,9 +83,11 @@ export function recordActivity(activity: CustomerActivity): void {
 }
 
 /**
- * Get customer activity
+ * Get customer activity from session (localStorage)
  */
-export function getCustomerActivity(customerId: string, limit: number = 50): CustomerActivity[] {
+export function getSessionActivity(customerId: string, limit: number = 50): CustomerActivity[] {
+  if (typeof window === "undefined") return []
+  
   try {
     const activities = (() => {
       try {
@@ -150,90 +106,88 @@ export function getCustomerActivity(customerId: string, limit: number = 50): Cus
 }
 
 /**
- * Update customer preferences based on viewing history
+ * Update customer preferences based on category
  */
-export function updateCustomerPreferences(customerId: string, category: string): void {
+export async function updateCustomerPreferences(email: string, category: string): Promise<boolean> {
   try {
-    const customers = getAllCustomers()
-    const customer = customers.find(c => c.id === customerId)
-
-    if (customer) {
-      if (!customer.favoriteCategories.includes(category)) {
-        customer.favoriteCategories.push(category)
-      }
-      // Keep top 5 categories
-      if (customer.favoriteCategories.length > 5) {
-        // This is simplified - in production, you'd track frequency
-        customer.favoriteCategories = customer.favoriteCategories.slice(-5)
-      }
-      saveCustomers(customers)
-    }
+    return await updateAirtableCustomerStats(email, 0, category)
   } catch (error) {
-    console.warn("Failed to update customer preferences", error)
+    console.error("Failed to update customer preferences:", error)
+    return false
   }
 }
 
 /**
- * Update customer lifetime value
+ * Update customer lifetime value after a booking
  */
-export function updateCustomerLTV(customerId: string, amount: number): void {
+export async function updateCustomerLTV(email: string, amount: number, category?: string): Promise<boolean> {
   try {
-    const customers = getAllCustomers()
-    const customer = customers.find(c => c.id === customerId)
-
-    if (customer) {
-      customer.totalSpent += amount
-      saveCustomers(customers)
-    }
+    return await updateAirtableCustomerStats(email, amount, category)
   } catch (error) {
-    console.warn("Failed to update customer LTV", error)
+    console.error("Failed to update customer LTV:", error)
+    return false
   }
 }
 
 /**
- * Get customer insights
+ * Get customer insights combining Airtable data and session activity
  */
-export function getCustomerInsights(customerId: string) {
+export async function getCustomerInsights(email: string) {
   try {
-    const customers = getAllCustomers()
-    const customer = customers.find(c => c.id === customerId)
-    const activities = getCustomerActivity(customerId, 100)
+    const customer = await getAirtableCustomerByEmail(email)
+    if (!customer) return null
 
-    if (!customer) {
-      return null
-    }
+    const bookings = await getBookingsByEmail(email)
+    const sessionActivities = getSessionActivity(customer.customer_id, 100)
 
-    const viewEvents = activities.filter(a => a.action === "view").length
-    const cartEvents = activities.filter(a => a.action === "add_to_cart").length
-    const paymentEvents = activities.filter(a => a.action === "payment").length
+    const viewEvents = sessionActivities.filter(a => a.action === "view").length
+    const cartEvents = sessionActivities.filter(a => a.action === "add_to_cart").length
+    const paymentEvents = bookings.filter(b => b.status === "completed").length
     const conversionRate = viewEvents > 0 ? (paymentEvents / viewEvents) * 100 : 0
+
+    // Calculate days since last booking
+    const lastBookingDate = bookings.length > 0 
+      ? new Date(bookings[0].created_at) 
+      : customer.first_booking 
+        ? new Date(customer.first_booking) 
+        : new Date()
 
     return {
       customer,
+      bookings,
       metrics: {
         viewCount: viewEvents,
         cartAddCount: cartEvents,
         paymentCount: paymentEvents,
         conversionRate,
-        avgOrderValue: paymentEvents > 0 ? customer.totalSpent / paymentEvents : 0,
-        daysSinceLastVisit: Math.floor((Date.now() - customer.lastVisit) / (1000 * 60 * 60 * 24)),
+        avgOrderValue: paymentEvents > 0 ? customer.total_spent / paymentEvents : 0,
+        daysSinceLastVisit: Math.floor((Date.now() - lastBookingDate.getTime()) / (1000 * 60 * 60 * 24)),
       },
     }
   } catch (error) {
-    console.warn("Failed to get customer insights", error)
+    console.error("Failed to get customer insights:", error)
     return null
   }
 }
 
 /**
- * Get top customers by spending
+ * Get top customers by spending (from Airtable)
  */
-export function getTopCustomers(limit: number = 10) {
+export async function getTopCustomers(limit: number = 10): Promise<Customer[]> {
   try {
-    const customers = getAllCustomers()
-    return customers
-      .sort((a, b) => b.totalSpent - a.totalSpent)
-      .slice(0, limit)
+    const customers = await getAllCustomersFromAirtable()
+    return customers.slice(0, limit)
+  } catch {
+    return []
+  }
+}
+
+/**
+ * Get all customers (from Airtable)
+ */
+export async function getAllCustomers(): Promise<Customer[]> {
+  try {
+    return await getAllCustomersFromAirtable()
   } catch {
     return []
   }
@@ -242,18 +196,25 @@ export function getTopCustomers(limit: number = 10) {
 /**
  * Get customer cohort analytics
  */
-export function getCohortAnalytics() {
+export async function getCohortAnalytics() {
   try {
-    const customers = getAllCustomers()
+    const customers = await getAllCustomersFromAirtable()
     const cohorts = new Map<string, { count: number; totalSpent: number; avgSpent: number }>()
 
     customers.forEach(customer => {
-      const daysSinceFistVisit = Math.floor((Date.now() - customer.firstVisit) / (1000 * 60 * 60 * 24))
-      const cohortKey = `${daysSinceFistVisit}d`
+      const firstBooking = customer.first_booking ? new Date(customer.first_booking) : new Date()
+      const daysSinceFirstVisit = Math.floor((Date.now() - firstBooking.getTime()) / (1000 * 60 * 60 * 24))
+      
+      // Group into cohort buckets
+      let cohortKey: string
+      if (daysSinceFirstVisit < 7) cohortKey = "0-7 days"
+      else if (daysSinceFirstVisit < 30) cohortKey = "7-30 days"
+      else if (daysSinceFirstVisit < 90) cohortKey = "30-90 days"
+      else cohortKey = "90+ days"
 
       const cohort = cohorts.get(cohortKey) || { count: 0, totalSpent: 0, avgSpent: 0 }
       cohort.count += 1
-      cohort.totalSpent += customer.totalSpent
+      cohort.totalSpent += customer.total_spent
       cohort.avgSpent = cohort.totalSpent / cohort.count
       cohorts.set(cohortKey, cohort)
     })
@@ -265,13 +226,22 @@ export function getCohortAnalytics() {
 }
 
 /**
- * Clear all customer data (privacy)
+ * Clear session activity data
  */
-export function clearAllCustomerData(): void {
+export function clearSessionActivity(): void {
+  if (typeof window === "undefined") return
+  
   try {
-    localStorage.removeItem(CUSTOMERS_KEY)
     localStorage.removeItem(ACTIVITIES_KEY)
   } catch (error) {
-    console.warn("Failed to clear customer data", error)
+    console.warn("Failed to clear session activity", error)
   }
+}
+
+/**
+ * DEPRECATED: Customer data is now in Airtable
+ */
+export function clearAllCustomerData(): void {
+  console.warn("clearAllCustomerData is deprecated. Manage customers directly in Airtable.")
+  clearSessionActivity()
 }

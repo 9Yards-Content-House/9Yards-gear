@@ -4,7 +4,7 @@
 import * as airtable from "./airtable"
 
 // Re-export types from airtable
-export type { GearCategory, GearSpecs, GearItem } from "./airtable"
+export type { GearCategory, GearSpecs, GearItem, GearImage } from "./airtable"
 
 // Re-export formatPrice utility
 export { formatPrice } from "./airtable"
@@ -47,8 +47,14 @@ export async function searchGear(query: string) {
   return await airtable.searchGear(query)
 }
 
-// Booking management
-export { updateGearBookedDates, updateGearAvailability } from "./airtable"
+// Booking and analytics management
+export { 
+  updateGearBookedDates, 
+  updateGearAvailability, 
+  updateGearRentalStats,
+  getTopRentedGear,
+  getRevenueByGear,
+} from "./airtable"
 
 // Legacy async function aliases (for backward compatibility)
 export const getAllGearAsync = getAllGear
