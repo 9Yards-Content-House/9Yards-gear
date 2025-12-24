@@ -24,8 +24,8 @@ export function HeroSection() {
 
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
            <div className="mt-8 flex items-center justify-center gap-x-6">
-            <Button asChild className="bg-gradient-to-b from-white to-[#E4E4E4] hover:to-[#D4D4D4] text-black rounded-full h-[54px] px-10 text-[14px] font-semibold transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] hover:shadow-[0_0_0_4px_rgba(255,255,255,0.1)]">
-              <Link href="/inventory" className="flex items-center">
+            <Button asChild className="bg-gradient-to-b from-white to-[#E4E4E4] hover:to-[#D4D4D4] text-black rounded-full h-[54px] px-20 text-[14px] font-semibold transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] hover:shadow-[0_0_0_4px_rgba(255,255,255,0.1)]">
+              <Link href="/inventory" className="flex items-center justify-center">
                 Browse Equipment
                 <ChevronRight className="ml-2 h-4 w-4 text-black/50" />
               </Link>
