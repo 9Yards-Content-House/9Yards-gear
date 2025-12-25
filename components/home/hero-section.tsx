@@ -13,7 +13,13 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-[1240px] px-6 text-center flex flex-col items-center">
         
-        <h1 className="text-[40px] sm:text-[64px] md:text-[80px] font-semibold tracking-[-0.015em] text-white leading-[1.1] sm:leading-[1.05] text-balance">
+        <h1 
+          className="text-[36px] sm:text-[54px] font-[600] leading-[1.15] tracking-normal text-transparent bg-clip-text text-center text-balance pb-2"
+          style={{ 
+            backgroundImage: 'linear-gradient(87.11deg, #FFFFFF 17.87%, rgba(255, 255, 255, 0.9) 45.18%, rgba(255, 255, 255, 0.86) 57.76%)',
+            textShadow: '0px 4px 24px rgba(0, 0, 0, 1)'
+          }}
+        >
           World-Class Gear for Ugandan storytellers.
         </h1>
 
@@ -23,7 +29,7 @@ export function HeroSection() {
         </p>
 
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full sm:w-auto px-6 sm:px-0">
-          <Button asChild className="bg-gradient-to-b from-white to-[#E4E4E4] hover:to-[#D4D4D4] text-black rounded-full h-[54px] px-12 text-[14px] font-semibold transition-all flex items-center justify-center w-full sm:w-auto">
+          <Button asChild className="bg-gradient-to-b from-white to-[#E4E4E4] hover:to-white text-black rounded-full h-[54px] px-12 text-[14px] font-semibold transition-all duration-300 hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center justify-center w-full sm:w-auto">
             <Link href="/inventory">
               Browse Equipment
             </Link>
