@@ -92,7 +92,10 @@ export function GearCard({ item }: GearCardProps) {
               src={item.image || "/placeholder.svg"}
               alt={item.name}
               fill
-              className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+              className={cn(
+                "object-cover transition-transform duration-500 ease-out group-hover:scale-105",
+                !item.available && "grayscale-[0.5] opacity-80"
+              )}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               loading="lazy"
             />
@@ -109,7 +112,11 @@ export function GearCard({ item }: GearCardProps) {
                 {category.name}
               </Badge>
             )}
-            {!item.available && <Badge variant="destructive">Booked</Badge>}
+            {!item.available && (
+              <Badge variant="destructive" className="bg-red-500/90 text-white border-2 border-[#0A0A0A] shadow-sm">
+                Booked
+              </Badge>
+            )}
           </div>
           <div className="absolute top-3 right-3 flex flex-col gap-2 items-end">
             {item.featured && (
@@ -119,7 +126,7 @@ export function GearCard({ item }: GearCardProps) {
             )}
           </div>
 
-          <div className="absolute bottom-3 right-3 left-3 flex gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 ease-out translate-y-0 sm:translate-y-2 sm:group-hover:translate-y-0">
+          <div className="absolute bottom-3 right-3 left-3 flex gap-2 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-300 ease-out translate-y-0 lg:translate-y-2 lg:group-hover:translate-y-0">
             <Button
               variant={inComparison ? "default" : "secondary"}
               className={cn(
@@ -159,10 +166,10 @@ export function GearCard({ item }: GearCardProps) {
             {item.description}
           </p>
           <div className="mt-4 flex items-baseline gap-2 border-t border-white/5 pt-4">
-            <span className="text-lg font-semibold text-white tracking-tight">
+            <span className="text-xl font-bold text-white tracking-tight">
               {formatPrice(item.pricePerDay)}
             </span>
-            <span className="text-xs text-[#666] font-medium uppercase tracking-wider">/ day</span>
+            <span className="text-xs text-white/50 font-medium uppercase tracking-wider">/ day</span>
           </div>
         </CardContent>
       </Card>
