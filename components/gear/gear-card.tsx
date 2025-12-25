@@ -13,6 +13,7 @@ import { trackEvent } from "@/lib/analytics"
 import { QuickViewModal } from "./quick-view-modal"
 import { AddToCartButton } from "@/components/cart/add-to-cart-button"
 import { toast } from "sonner"
+import { cn } from "@/lib/utils"
 
 type GearCardProps = {
   item: GearItem
@@ -89,42 +90,26 @@ export function GearCard({ item }: GearCardProps) {
             )}
             {!item.available && <Badge variant="destructive">Booked</Badge>}
           </div>
-          {item.featured && (
-            <Badge className="absolute top-3 right-3 bg-primary text-primary-foreground">Featured</Badge>
-          )}
-
-          <div className="absolute bottom-3 right-3 left-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-            <Button
-              variant="secondary"
-              size="sm"
-              className="backdrop-blur-sm bg-background/90 hover:bg-background"
-              onClick={(e) => {
-                e.preventDefault()
-                setShowQuickView(true)
-              }}
-            >
-              <Eye className="h-4 w-4 mr-1" />
-              View
-            </Button>
+          <div className="absolute top-3 right-3 flex flex-col gap-2 items-end">
+            {item.featured && (
+              <Badge className="bg-primary text-primary-foreground shadow-sm">Featured</Badge>
+            )}
             <Button
               variant={inComparison ? "default" : "secondary"}
-              size="sm"
-              className="backdrop-blur-sm bg-background/90 hover:bg-background"
-              onClick={handleCompareToggle}
-            >
-              {inComparison ? (
-                <>
-                  <Check className="h-4 w-4 mr-1" />
-                  Added
-                </>
-              ) : (
-                <>
-                  <Scale className="h-4 w-4 mr-1" />
-                  Compare
-                </>
+              size="icon"
+              className={cn(
+                  "h-8 w-8 rounded-full shadow-sm transition-all duration-300",
+                  inComparison ? "bg-primary text-primary-foreground opacity-100" : "opacity-0 group-hover:opacity-100 bg-background/90"
               )}
+              onClick={handleCompareToggle}
+              title="Compare"
+            >
+               {inComparison ? <Check className="h-4 w-4" /> : <Scale className="h-4 w-4" />}
             </Button>
-            <AddToCartButton item={item} size="sm" className="flex-1" />
+          </div>
+          
+          <div className="absolute bottom-3 right-3 left-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+             <AddToCartButton item={item} className="w-full shadow-lg" />
           </div>
         </div>
         <CardContent className="p-4">
