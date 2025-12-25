@@ -80,18 +80,24 @@ export function Header() {
 
         {/* Center: Desktop navigation */}
         <div className="hidden lg:flex lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:gap-x-8">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={cn(
-                "text-[14px] font-medium transition-colors relative",
-                pathname === item.href ? "text-white" : "text-[#B4B4B4] hover:text-white",
-              )}
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navigation.map((item) => {
+            const isActive = item.href === '/' 
+              ? pathname === '/' 
+              : pathname === item.href || pathname.startsWith(item.href + '/');
+            
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={cn(
+                  "text-[14px] font-medium transition-colors relative",
+                  isActive ? "text-white" : "text-[#B4B4B4] hover:text-white",
+                )}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Right Section: Mobile/Desktop CTA & Controls */}
@@ -127,18 +133,24 @@ export function Header() {
         )}
       >
         <div className="px-6 py-4 space-y-4">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={cn(
-                "block py-2 text-base font-medium transition-colors",
-                pathname === item.href ? "text-white" : "text-[#B4B4B4] hover:text-white",
-              )}
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navigation.map((item) => {
+            const isActive = item.href === '/' 
+              ? pathname === '/' 
+              : pathname === item.href || pathname.startsWith(item.href + '/');
+              
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={cn(
+                  "block py-2 text-base font-medium transition-colors",
+                  isActive ? "text-white" : "text-[#B4B4B4] hover:text-white",
+                )}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
           <div className="pt-4 flex flex-col gap-3">
             <Button asChild className="w-full bg-white text-black hover:bg-[#F2F2F2] rounded-full">
               <Link href="/inventory">Browse Gear</Link>
