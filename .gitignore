@@ -16,13 +16,15 @@ out
 /build
 /dist
 
-# Environment variables
+# Environment variables (Critical Security)
 .env
-.env*.local
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+.env*.local
+.env.key
+.env.vault
 
 # Debug logs
 npm-debug.log*
@@ -61,14 +63,18 @@ Desktop.ini
 .settings/
 .loadpath
 
-# Misc
 *.log
-.cache
-.temp
-.tmp
 *.pid
 *.seed
 *.pid.lock
+.eslintcache
+*.bak
+*.tmp
+.temp
+.cache
+.npm
+.pnpm-store
+.yarn-cache
 
 # PWA
 sw.js.map

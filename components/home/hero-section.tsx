@@ -13,7 +13,7 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-[1240px] px-6 text-center flex flex-col items-center">
         
-        <h1 className="text-[56px] sm:text-[64px] md:text-[80px] font-semibold tracking-[-0.015em] text-white leading-[1.05] text-balance">
+        <h1 className="text-[40px] sm:text-[64px] md:text-[80px] font-semibold tracking-[-0.015em] text-white leading-[1.1] sm:leading-[1.05] text-balance">
           Professional Gear for
           <br />
           <span className="text-white/90">Extraordinary Productions</span>
