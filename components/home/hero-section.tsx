@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ChevronRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function HeroSection() {
@@ -14,14 +14,12 @@ export function HeroSection() {
       <div className="relative z-10 mx-auto max-w-[1240px] px-6 text-center flex flex-col items-center">
         
         <h1 className="text-[40px] sm:text-[64px] md:text-[80px] font-semibold tracking-[-0.015em] text-white leading-[1.1] sm:leading-[1.05] text-balance">
-          Professional Gear for
-          <br />
-          <span className="text-white/90">Extraordinary Productions</span>
+          World-Class Gear for Ugandan storytellers.
         </h1>
 
         <p className="mt-8 text-[20px] sm:text-[22px] text-[#B4B4B4] max-w-[640px] mx-auto leading-relaxed text-pretty font-medium">
-          Uganda&apos;s premier film equipment rental house. From cinema cameras to professional audio, 
-          access the gear that brings your vision to life.
+          Professional production equipment trusted by Uganda&apos;s leading filmmakers, 
+          agencies, and content creators.
         </p>
 
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -31,8 +29,8 @@ export function HeroSection() {
                 Browse Equipment
               </Link>
             </Button>
-            <Link href="/how-it-works" className="text-[15px] font-medium leading-6 text-[#B4B4B4] hover:text-white transition-colors flex items-center group">
-              See How It Works <span aria-hidden="true" className="ml-1 transition-transform group-hover:translate-x-1">→</span>
+            <Link href="/how-it-works" className="text-[15px] font-medium leading-6 text-[#B4B4B4] hover:text-white transition-all flex items-center px-6 h-[54px] rounded-full bg-white/5 hover:bg-white/10 group">
+              How It Works <span aria-hidden="true" className="ml-1 transition-transform group-hover:translate-x-1">→</span>
             </Link>
           </div>
         </div>

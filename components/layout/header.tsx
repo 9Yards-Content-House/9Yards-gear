@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Menu, X } from "lucide-react"
+import { Menu, X, ArrowLeft, FileText } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { CartSheet } from "@/components/cart/cart-sheet"
@@ -56,46 +56,36 @@ export function Header() {
           : "bg-transparent",
       )}
     >
-      <nav className="mx-auto flex h-[72px] max-w-[1240px] items-center justify-between px-6 lg:px-8">
-        {/* Logo */}
-        <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2 group">
+      <nav className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-6 lg:px-8 relative">
+        {/* Left Section: Back Link & Logo */}
+        <div className="flex items-center gap-8 lg:flex-1">
+          <Link 
+            href="https://film.9yards.co.ug" 
+            className="hidden xl:flex items-center gap-1.5 text-[12px] font-medium text-[#B4B4B4] hover:text-white transition-colors whitespace-nowrap"
+          >
+            ← Back to 9Yards Film
+          </Link>
+          
+          <Link href="/" className="-m-1.5 p-1.5 flex items-center group">
             <Image
               src="/logo.png"
-              alt="9Yards Film"
-              width={180}
-              height={60}
-              className="h-[40px] w-auto transition-transform group-hover:scale-105 brightness-0 invert" 
+              alt="9Yards Gear"
+              width={160}
+              height={50}
+              className="h-[32px] w-auto transition-transform group-hover:scale-105 brightness-0 invert" 
               priority
             />
           </Link>
         </div>
 
-        {/* Mobile menu button */}
-        <div className="flex items-center gap-4 lg:hidden">
-          <CartSheet />
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={(e) => {
-              e.stopPropagation()
-              setMobileMenuOpen(!mobileMenuOpen)
-            }}
-            aria-label="Toggle menu"
-            className="text-white hover:bg-white/10 hover:text-white"
-          >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
-        </div>
-
-        {/* Desktop navigation */}
-        <div className="hidden lg:flex lg:gap-x-7">
+        {/* Center: Desktop navigation */}
+        <div className="hidden lg:flex lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:gap-x-8">
           {navigation.map((item) => (
             <Link
               key={item.name}
               href={item.href}
               className={cn(
-                "text-[14.5px] font-medium transition-colors relative",
+                "text-[14px] font-medium transition-colors relative",
                 pathname === item.href ? "text-white" : "text-[#B4B4B4] hover:text-white",
               )}
             >
@@ -104,12 +94,28 @@ export function Header() {
           ))}
         </div>
 
-        {/* Right side */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-5 lg:items-center">
-          <Button asChild className="bg-white text-black hover:bg-[#F2F2F2] rounded-full px-[18px] h-8 text-[13px] font-medium transition-all">
-            <Link href="/contact">Book Now</Link>
+        {/* Right Section: Mobile/Desktop CTA & Controls */}
+        <div className="flex flex-1 justify-end items-center gap-x-4">
+          {/* Desktop/Mobile Browse Gear Button */}
+          <Button asChild className="flex bg-white text-black hover:bg-[#F2F2F2] rounded-full px-3 sm:px-5 h-8 sm:h-9 text-[11px] sm:text-[13px] font-semibold transition-all">
+            <Link href="/inventory">Browse Gear</Link>
           </Button>
+          
           <CartSheet />
+
+          {/* Mobile menu button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={(e) => {
+              e.stopPropagation()
+              setMobileMenuOpen(!mobileMenuOpen)
+            }}
+            aria-label="Toggle menu"
+            className="text-white hover:bg-white/10 hover:text-white lg:hidden"
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
         </div>
       </nav>
 
@@ -135,7 +141,7 @@ export function Header() {
           ))}
           <div className="pt-4 flex flex-col gap-3">
             <Button asChild className="w-full bg-white text-black hover:bg-[#F2F2F2] rounded-full">
-              <Link href="/contact">Book Now</Link>
+              <Link href="/inventory">Browse Gear</Link>
             </Button>
           </div>
         </div>
