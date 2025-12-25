@@ -30,14 +30,14 @@ export function HeroSection() {
           </p>
 
           <div className="mt-8 lg:mt-10 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto">
-            <Button asChild className="bg-gradient-to-b from-white to-[#E4E4E4] hover:to-white text-black rounded-full h-[54px] px-12 text-[14px] font-semibold transition-all duration-300 hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center justify-center w-full sm:w-auto">
+            <Button asChild className="bg-[#ECECEC] hover:bg-white text-black rounded-md h-[54px] px-12 text-[14px] font-semibold transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] flex items-center justify-center w-full sm:w-auto border border-transparent">
               <Link href="/inventory">
                 Browse Equipment
               </Link>
             </Button>
             <Link 
               href="/how-it-works" 
-              className="text-[14px] font-semibold leading-6 text-white transition-all flex items-center justify-center px-12 h-[54px] rounded-full bg-white/5 hover:bg-white/10 group w-full sm:w-auto"
+              className="text-[14px] font-semibold leading-6 text-white transition-all flex items-center justify-center px-12 h-[54px] rounded-md bg-white/5 hover:bg-white/10 group w-full sm:w-auto border border-transparent"
             >
               How It Works <span aria-hidden="true" className="ml-1 transition-transform group-hover:translate-x-1">→</span>
             </Link>

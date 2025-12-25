@@ -103,7 +103,7 @@ export function Header() {
         {/* Right Section: Mobile/Desktop CTA & Controls */}
         <div className="flex flex-1 justify-end items-center gap-x-4">
           {/* Desktop/Tablet Browse Gear Button */}
-          <Button asChild className="hidden md:flex bg-white text-black hover:bg-[#F2F2F2] rounded-full px-5 h-9 text-[13px] font-semibold transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+          <Button asChild className="hidden md:flex bg-[#ECECEC] hover:bg-white text-black rounded-md px-5 h-9 text-[13px] font-semibold transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.25)] border border-transparent">
             <Link href="/inventory">Browse Gear</Link>
           </Button>
           
@@ -152,7 +152,7 @@ export function Header() {
             );
           })}
           <div className="pt-4 flex flex-col gap-3">
-            <Button asChild className="w-full bg-white text-black hover:bg-[#F2F2F2] rounded-full">
+            <Button asChild className="w-full bg-white text-black hover:bg-[#F2F2F2] rounded-md">
               <Link href="/inventory">Browse Gear</Link>
             </Button>
           </div>
