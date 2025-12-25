@@ -18,7 +18,12 @@ export function CartSheet() {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline" size="icon" className="relative">
+        <Button 
+          variant="outline" 
+          size="icon" 
+          className="relative"
+          title="Open Rental Quote list"
+        >
           <FileText className="h-5 w-5" />
           {itemCount > 0 && (
             <Badge 
@@ -69,6 +74,7 @@ export function CartSheet() {
                                             size="icon" 
                                             className="h-7 w-7 -mt-1 -mr-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-full transition-colors"
                                             onClick={() => removeItem(cartItem.id)}
+                                            title="Remove from quote"
                                         >
                                             <X className="h-3.5 w-3.5" />
                                         </Button>
@@ -80,6 +86,7 @@ export function CartSheet() {
                                                 size="icon" 
                                                 className="h-7 w-7 rounded-none hover:bg-background/50"
                                                 onClick={() => updateQuantity(cartItem.id, Math.max(1, cartItem.quantity - 1))}
+                                                title="Decrease quantity"
                                             >
                                                 <Minus className="h-3 w-3" />
                                             </Button>
@@ -89,6 +96,7 @@ export function CartSheet() {
                                                 size="icon" 
                                                 className="h-7 w-7 rounded-none hover:bg-background/50"
                                                 onClick={() => updateQuantity(cartItem.id, cartItem.quantity + 1)}
+                                                title="Increase quantity"
                                             >
                                                 <Plus className="h-3 w-3" />
                                             </Button>

@@ -16,6 +16,7 @@ import {
 import { trackEvent } from "@/lib/analytics";
 import { QuickViewModal } from "./quick-view-modal";
 import { AddToCartButton } from "@/components/cart/add-to-cart-button";
+import { useCart } from "@/lib/cart-context";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
@@ -27,7 +28,9 @@ export function GearCard({ item }: GearCardProps) {
   const [showQuickView, setShowQuickView] = useState(false);
   const [inComparison, setInComparison] = useState(false);
   const { getCategoryById } = useGear();
+  const { items } = useCart();
   const category = getCategoryById(item.category);
+  const isInCart = items.some((i) => i.id === item.id);
 
   useEffect(() => {
     const updateComparisonStatus = () => {
@@ -125,7 +128,9 @@ export function GearCard({ item }: GearCardProps) {
               )}
               onClick={handleCompareToggle}
               title={
-                inComparison ? "Remove from comparison" : "Add to comparison"
+                inComparison
+                  ? "Remove from Comparison list"
+                  : "Add to Comparison list"
               }
             >
               {inComparison ? (
@@ -135,7 +140,11 @@ export function GearCard({ item }: GearCardProps) {
               )}
               {inComparison ? "Compared" : "Compare"}
             </Button>
-            <AddToCartButton item={item} className="flex-1 shadow-lg h-10 text-xs" />
+            <AddToCartButton
+              item={item}
+              className="flex-1 shadow-lg h-10 text-xs"
+              title={isInCart ? "Item in your Quote list" : "Add item to your Quote list"}
+            />
           </div>
         </div>
         <CardContent className="p-4">
