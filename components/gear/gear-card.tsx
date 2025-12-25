@@ -85,8 +85,8 @@ export function GearCard({ item }: GearCardProps) {
 
   return (
     <>
-      <Card className="group h-full overflow-hidden bg-[#0A0A0A] hover:bg-[#121212] border-white/5 hover:border-white/20 transition-colors duration-300 ease-out">
-        <div className="relative aspect-4/3 overflow-hidden bg-[#111]">
+      <Card className="group h-full overflow-hidden bg-[#0A0A0A] hover:bg-[#121212] border-white/5 hover:border-white/20 transition-colors duration-300 ease-out rounded-xl p-0 gap-0">
+        <div className="relative aspect-4/3 overflow-hidden bg-[#111] rounded-t-xl">
           <Link href={`/gear/${item.id}`}>
             <Image
               src={item.image || "/placeholder.svg"}
@@ -158,11 +158,17 @@ export function GearCard({ item }: GearCardProps) {
         </div>
         <CardContent className="p-5">
           <Link href={`/gear/${item.id}`}>
-            <h3 className="text-base font-medium text-white group-hover:text-white/90 transition-colors duration-200 line-clamp-1 tracking-tight">
+            <h3 
+              className="text-base font-medium text-white group-hover:text-white/90 transition-colors duration-200 line-clamp-1 tracking-tight"
+              title={item.name}
+            >
               {item.name}
             </h3>
           </Link>
-          <p className="text-sm text-[#888] mt-1.5 line-clamp-2 leading-relaxed">
+          <p 
+            className="text-sm text-[#888] mt-1.5 line-clamp-2 leading-relaxed"
+            title={item.description}
+          >
             {item.description}
           </p>
           <div className="mt-4 flex items-baseline gap-2 border-t border-white/5 pt-4">
