@@ -1,0 +1,61 @@
+   ▲ Next.js 16.0.10 (Turbopack)
+   - Environments: .env.local, .env.production
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+   Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 2 errors:
+./lib/airtable.ts:47:16
+Parsing ecmascript source code failed
+[0m [90m 45 |[39m
+ [90m 46 |[39m   totalRevenue[33m:[39m number[33m;[39m
+[31m[1m>[22m[39m[90m 47 |[39m   lastRentedAt[33m?[39m[33m:[39m string[33m;[39m
+ [90m    |[39m                [31m[1m^[22m[39m
+ [90m 48 |[39m }[33m;[39m
+ [90m 49 |[39m
+ [90m 50 |[39m [36mexport[39m type [33mBookingItem[39m [33m=[39m {[0m
+
+Expression expected
+
+Import traces:
+  Server Component:
+    ./lib/airtable.ts
+    ./lib/gear-data.ts
+    ./app/layout.tsx
+
+  Client Component Browser:
+    ./lib/airtable.ts [Client Component Browser]
+    ./components/inventory/price-filter.tsx [Client Component Browser]
+    ./components/inventory/inventory-content.tsx [Client Component Browser]
+    ./components/inventory/inventory-content.tsx [Server Component]
+    ./app/inventory/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/airtable.ts [Client Component SSR]
+    ./components/inventory/price-filter.tsx [Client Component SSR]
+    ./components/inventory/inventory-content.tsx [Client Component SSR]
+    ./components/inventory/inventory-content.tsx [Server Component]
+    ./app/inventory/page.tsx [Server Component]
+
+
+./app/page.tsx:6:1
+Module not found: Can't resolve '@/components/bundles/gear-bundles'
+[0m [90m 4 |[39m [36mimport[39m { [33mFeaturedGear[39m } [36mfrom[39m [32m"@/components/home/featured-gear"[39m
+ [90m 5 |[39m [36mimport[39m { [33mCategoriesSection[39m } [36mfrom[39m [32m"@/components/home/categories-section"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mGearBundles[39m } [36mfrom[39m [32m"@/components/bundles/gear-bundles"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mHowItWorks[39m } [36mfrom[39m [32m"@/components/home/how-it-works"[39m
+ [90m 8 |[39m [36mimport[39m { [33mTestimonialsSection[39m } [36mfrom[39m [32m"@/components/home/testimonials-section"[39m
+ [90m 9 |[39m [36mimport[39m { [33mWhyChooseUs[39m } [36mfrom[39m [32m"@/components/home/why-choose-us"[39m[0m
+
+Import map: aliased to relative './components/bundles/gear-bundles' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (./lib/airtable.ts:47:16)
+    at <unknown> (./app/page.tsx:6:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)

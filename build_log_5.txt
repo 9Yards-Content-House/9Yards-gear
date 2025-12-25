@@ -1,0 +1,43 @@
+   ▲ Next.js 16.0.10 (Turbopack)
+   - Environments: .env.local, .env.production
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+   Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 1 errors:
+./lib/airtable.ts:426:3
+Parsing ecmascript source code failed
+[0m [90m 424 |[39m }
+ [90m 425 |[39m
+[31m[1m>[22m[39m[90m 426 |[39m   }[33m;[39m
+ [90m     |[39m   [31m[1m^[22m[39m
+ [90m 427 |[39m }
+ [90m 428 |[39m
+ [90m 429 |[39m [36mfunction[39m transformBookingRecord([0m
+
+Expression expected
+
+Import traces:
+  Server Component:
+    ./lib/airtable.ts
+    ./lib/gear-data.ts
+    ./app/layout.tsx
+
+  Client Component Browser:
+    ./lib/airtable.ts [Client Component Browser]
+    ./components/inventory/price-filter.tsx [Client Component Browser]
+    ./components/inventory/inventory-content.tsx [Client Component Browser]
+    ./components/inventory/inventory-content.tsx [Server Component]
+    ./app/inventory/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/airtable.ts [Client Component SSR]
+    ./components/inventory/price-filter.tsx [Client Component SSR]
+    ./components/inventory/inventory-content.tsx [Client Component SSR]
+    ./components/inventory/inventory-content.tsx [Server Component]
+    ./app/inventory/page.tsx [Server Component]
+
+
+    at <unknown> (./lib/airtable.ts:426:3)

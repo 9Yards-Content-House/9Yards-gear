@@ -568,7 +568,7 @@ export function RentalCalculator() {
             <p className="text-sm text-muted-foreground mt-1">Search and add equipment above to start building your quote.</p>
             <p className="text-xs text-muted-foreground mt-4">
               Not sure what you need?{" "}
-              <Link href="/packages" className="text-primary hover:underline">Browse Production Packages →</Link>
+              <Link href="/contact" className="text-primary hover:underline">Contact our gear experts for advice →</Link>
             </p>
           </div>
         )}

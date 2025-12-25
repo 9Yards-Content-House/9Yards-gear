@@ -84,8 +84,8 @@ export default function MessageSentPage() {
                 </Link>
               </Button>
               <Button asChild variant="outline" className="bg-transparent">
-                <Link href="/packages">
-                  View Packages
+                <Link href="/how-it-works">
+                  See How It Works
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Link>
               </Button>

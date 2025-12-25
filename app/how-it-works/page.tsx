@@ -34,7 +34,7 @@ const steps = [
       "Compare equipment specs side-by-side",
       "Use our calculator to estimate your total rental cost",
     ],
-    proTip: "Not sure what you need? Browse our pre-curated production packages or contact us for recommendations based on your project type.",
+    proTip: "Not sure what you need? Browse our categories or contact us for recommendations based on your project type.",
   },
   {
     number: "02",
@@ -223,7 +223,7 @@ export default function HowItWorksPage() {
                   <div className="space-y-2 text-sm">
                     <p><strong>Standard:</strong> 50% of equipment value</p>
                     <p><strong>Small items:</strong> Flat UGX 200,000 deposit</p>
-                    <p><strong>Packages:</strong> 40% of bundle value</p>
+                    <p><strong>Lenses/Audio:</strong> Flat UGX 100,000 deposit</p>
                   </div>
                   <div className="bg-green-500/10 rounded-lg p-3">
                     <p className="text-sm text-green-600">
@@ -454,9 +454,6 @@ export default function HowItWorksPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button asChild size="lg">
                 <Link href="/inventory">Browse Equipment</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="bg-transparent">
-                <Link href="/packages">See Packages</Link>
               </Button>
             </div>
             <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">

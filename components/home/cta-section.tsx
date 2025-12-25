@@ -33,7 +33,7 @@ export function CTASection() {
           </Button>
         </div>
         <p className="mt-6 text-sm text-muted-foreground">
-          Need a custom package? <a href="tel:+256700488870" className="text-primary font-medium hover:underline">Contact us at 0700 488 870</a>
+          Need a custom quote? <a href="tel:+256700488870" className="text-primary font-medium hover:underline">Contact us at 0700 488 870</a>
         </p>
       </div>
     </section>

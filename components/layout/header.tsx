@@ -12,7 +12,6 @@ import { CartSheet } from "@/components/cart/cart-sheet"
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Inventory", href: "/inventory" },
-  { name: "Packages", href: "/packages" },
   { name: "How It Works", href: "/how-it-works" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },

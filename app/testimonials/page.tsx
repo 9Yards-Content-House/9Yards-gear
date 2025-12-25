@@ -27,7 +27,7 @@ const testimonials = [
     title: "Music Video Director",
     type: "musician",
     image: "/testimonials/sarah.jpg",
-    quote: "I've rented from 9Yards for 3 music videos now. Their equipment is always reliable, and the pricing is fair. The production packages save me so much time.",
+    quote: "I've rented from 9Yards for 3 music videos now. Their equipment is always reliable, and the pricing is fair. The online inventory makes planning so much easier.",
     project: "Music Video",
     rating: 5,
   },

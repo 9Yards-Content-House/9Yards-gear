@@ -43,24 +43,6 @@ export type GearItem = {
   lastRentedAt?: string;
 };
 
-export type Package = {
-  id: string;
-  name: string;
-  description: string;
-  icon: string;
-  badge?: string;
-  badgeColor?: string;
-  includes: string[];
-  individualPrice: number;
-  bundlePrice: number;
-  weeklyPrice: number;
-  savings: number;
-  bestFor: string;
-  note?: string;
-  active: boolean;
-  sortOrder: number;
-};
-
 export type BookingItem = {
   gearId: string;
   gearName: string;
@@ -168,23 +150,6 @@ type AirtableGearFields = {
   lastRentedAt?: string;
 };
 
-type AirtablePackageFields = {
-  id: string;
-  name: string;
-  description: string;
-  icon: string;
-  badge?: string;
-  badgeColor?: string;
-  includes: string;
-  individualPrice: number;
-  bundlePrice: number;
-  weeklyPrice: number;
-  savings: number;
-  bestFor: string;
-  note?: string;
-  active: boolean;
-  sortOrder: number;
-};
 
 type AirtableBookingFields = {
   booking_id: string;
@@ -455,46 +420,6 @@ function transformCategoryRecord(
     id: record.fields.id,
     name: record.fields.name,
     icon: record.fields.icon,
-  };
-}
-
-function transformPackageRecord(
-  record: AirtableRecord<AirtablePackageFields>
-): Package {
-  const fields = record.fields;
-
-  let includes: string[] = [];
-  try {
-    if (fields.includes) {
-      if (fields.includes.startsWith("[")) {
-        includes = JSON.parse(fields.includes);
-      } else {
-        includes = fields.includes
-          .split(",")
-          .map((d) => d.trim())
-          .filter(Boolean);
-      }
-    }
-  } catch {
-    console.warn(`Failed to parse includes for package ${fields.id}`);
-  }
-
-  return {
-    id: fields.id,
-    name: fields.name,
-    description: fields.description || "",
-    icon: fields.icon || "Package",
-    badge: fields.badge,
-    badgeColor: fields.badgeColor,
-    includes,
-    individualPrice: fields.individualPrice || 0,
-    bundlePrice: fields.bundlePrice || 0,
-    weeklyPrice: fields.weeklyPrice || 0,
-    savings: fields.savings || 0,
-    bestFor: fields.bestFor || "",
-    note: fields.note,
-    active: fields.active ?? true,
-    sortOrder: fields.sortOrder || 0,
   };
 }
 
@@ -807,34 +732,6 @@ export async function getCategoryById(
     return transformCategoryRecord(records[0]);
   } catch (error) {
     console.error(`Error fetching category ${id}:`, error);
-    return undefined;
-  }
-}
-
-// ============ Package Functions ============
-
-export async function getAllPackages(): Promise<Package[]> {
-  try {
-    const records = await fetchAirtable<AirtablePackageFields>("Packages", {
-      filterByFormula: `{active} = TRUE()`,
-      sort: [{ field: "sortOrder", direction: "asc" }],
-    });
-    return records.map(transformPackageRecord);
-  } catch (error) {
-    console.error("Error fetching packages:", error);
-    return [];
-  }
-}
-
-export async function getPackageById(id: string): Promise<Package | undefined> {
-  try {
-    const records = await fetchAirtable<AirtablePackageFields>("Packages", {
-      filterByFormula: `{id} = "${id}"`,
-    });
-    if (records.length === 0) return undefined;
-    return transformPackageRecord(records[0]);
-  } catch (error) {
-    console.error(`Error fetching package ${id}:`, error);
     return undefined;
   }
 }
