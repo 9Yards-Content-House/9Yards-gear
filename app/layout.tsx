@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import { FloatingActions } from "@/components/ui/floating-actions"
 import { PWARegister } from "@/components/pwa-register"
 import { GearProvider } from "@/lib/gear-context"
+import { CartProvider } from "@/lib/cart-context"
 import { getAllGear, getAllCategories } from "@/lib/gear-data"
 import "./globals.css"
 
@@ -200,7 +201,9 @@ export default async function RootLayout({
           Skip to main content
         </a>
         <GearProvider initialGear={initialGear} initialCategories={initialCategories}>
-          {children}
+          <CartProvider>
+            {children}
+          </CartProvider>
         </GearProvider>
         <FloatingActions />
         <PWARegister />

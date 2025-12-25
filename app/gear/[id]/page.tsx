@@ -7,7 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { Badge } from "@/components/ui/badge";
 import { GearImageGallery } from "@/components/gear/gear-image-gallery";
 import { SyncedBookingSection } from "@/components/gear/synced-booking-section";
-import { AddToQuoteButton } from "@/components/gear/add-to-quote-button";
+import { AddToCartButton } from "@/components/cart/add-to-cart-button";
 import { GearViewTracker } from "@/components/gear/gear-view-tracker";
 import {
   WhatsIncluded,
@@ -191,7 +191,7 @@ export default async function GearDetailPage({ params }: Props) {
                 </p>
               </div>
 
-              <AddToQuoteButton item={item} />
+              <AddToCartButton item={item} size="lg" className="w-full text-lg h-12" />
 
               <SyncedBookingSection item={item} />
 

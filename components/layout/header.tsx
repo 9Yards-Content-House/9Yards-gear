@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { CartSheet } from "@/components/cart/cart-sheet"
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -72,7 +73,8 @@ export function Header() {
         </div>
 
         {/* Mobile menu button */}
-        <div className="flex lg:hidden">
+        <div className="flex items-center gap-4 lg:hidden">
+          <CartSheet />
           <Button
             variant="ghost"
             size="icon"
@@ -108,6 +110,7 @@ export function Header() {
           <Button asChild className="bg-white text-black hover:bg-[#F2F2F2] rounded-full px-[18px] h-8 text-[13px] font-medium transition-all">
             <Link href="/contact">Book Now</Link>
           </Button>
+          <CartSheet />
         </div>
       </nav>
 

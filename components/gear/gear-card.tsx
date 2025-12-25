@@ -11,6 +11,7 @@ import { useGear, formatPrice, type GearItem } from "@/lib/gear-context"
 import { addToComparison, isInComparison, removeFromComparison } from "@/lib/comparison-utils"
 import { trackEvent } from "@/lib/analytics"
 import { QuickViewModal } from "./quick-view-modal"
+import { AddToCartButton } from "@/components/cart/add-to-cart-button"
 import { toast } from "sonner"
 
 type GearCardProps = {
@@ -123,10 +124,7 @@ export function GearCard({ item }: GearCardProps) {
                 </>
               )}
             </Button>
-            <Button size="sm" className="flex-1" onClick={handleQuickBook}>
-              <MessageCircle className="h-4 w-4 mr-1" />
-              Book
-            </Button>
+            <AddToCartButton item={item} size="sm" className="flex-1" />
           </div>
         </div>
         <CardContent className="p-4">

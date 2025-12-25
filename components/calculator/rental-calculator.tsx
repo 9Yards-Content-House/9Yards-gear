@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect } from "react"
 import Link from "next/link"
 import { Calculator, Plus, Trash2, Calendar as CalendarIcon, Package, Send, FileText, Sparkles, CreditCard, Loader2 } from "lucide-react"
-import { format, differenceInDays, addDays } from "date-fns"
+import { format, differenceInDays } from "date-fns"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
@@ -14,19 +14,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { useGear, formatPrice, type GearItem } from "@/lib/gear-context"
-import { getQuoteItems, addToQuote, removeFromQuote, updateQuoteItemQuantity, clearQuote } from "@/lib/quote-utils"
-
-type CartItem = {
-  id: string
-  item: GearItem
-  quantity: number
-}
+import { useCart } from "@/lib/cart-context"
 
 const TAX_RATE = 0.18 // 18% VAT in Uganda
 const INSURANCE_RATE = 0.05 // 5% insurance fee
 
 export function RentalCalculator() {
-  const [cart, setCart] = useState<CartItem[]>([])
+  const { items: cart, addItem: addToCart, removeItem: removeFromCart, updateQuantity: updateCartQuantity, clearCart } = useCart()
   const [selectedItemId, setSelectedItemId] = useState<string>("")
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()
@@ -41,31 +35,21 @@ export function RentalCalculator() {
 
   const { gear: allGear, categories, isLoading: gearLoading } = useGear()
 
-  // Load items from quote/localStorage on mount
+  // Check for bundle from localStorage (legacy support or external link)
   useEffect(() => {
-    const quoteItems = getQuoteItems()
-    if (quoteItems.length > 0) {
-      const cartItems: CartItem[] = quoteItems.map((qi) => {
-        const item = allGear.find((g) => g.id === qi.id)
-        return item ? { id: qi.id, item, quantity: qi.quantity } : null
-      }).filter(Boolean) as CartItem[]
-      setCart(cartItems)
-    }
-
-    // Check for bundle from localStorage
     const bundleData = localStorage.getItem("calculatorBundle")
     if (bundleData) {
       try {
         const bundle = JSON.parse(bundleData)
-        // You could pre-fill the calculator with bundle items
+        // We might want to add these to the cart if not present?
+        // For now, let's leave it as is, or maybe loop and add them?
+        // Given we switched to global cart, we should probably ignore this or import them once.
         localStorage.removeItem("calculatorBundle")
       } catch (e) {
-        if (process.env.NODE_ENV === "development") {
-          console.error("Failed to parse bundle data", e)
-        }
+        console.error("Failed to parse bundle data", e)
       }
     }
-  }, [allGear])
+  }, [])
 
   const filteredGear = categoryFilter === "all" ? allGear : allGear.filter((g) => g.category === categoryFilter)
 
@@ -74,30 +58,25 @@ export function RentalCalculator() {
     return Math.max(1, differenceInDays(endDate, startDate) + 1)
   }, [startDate, endDate])
 
-  const addItem = () => {
+  const handleAddItem = () => {
     if (!selectedItemId) return
     const item = allGear.find((g) => g.id === selectedItemId)
     if (!item) return
-
-    const existing = cart.find((c) => c.id === selectedItemId)
-    if (existing) {
-      setCart(cart.map((c) => (c.id === selectedItemId ? { ...c, quantity: c.quantity + 1 } : c)))
-    } else {
-      setCart([...cart, { id: selectedItemId, item, quantity: 1 }])
-    }
+    
+    addToCart(item)
     setSelectedItemId("")
   }
 
-  const removeItem = (id: string) => {
-    setCart(cart.filter((c) => c.id !== id))
+  const handleRemoveItem = (id: string) => {
+    removeFromCart(id)
   }
 
-  const updateQuantity = (id: string, quantity: number) => {
+  const handleUpdateQuantity = (id: string, quantity: number) => {
     if (quantity < 1) {
-      removeItem(id)
+      removeFromCart(id)
       return
     }
-    setCart(cart.map((c) => (c.id === id ? { ...c, quantity } : c)))
+    updateCartQuantity(id, quantity)
   }
 
   const { subtotal, weeklyDiscount, bundleDiscount, insurance, tax, total, depositAmount } = useMemo(() => {
@@ -236,8 +215,7 @@ export function RentalCalculator() {
             alert(`Payment successful! ✓\n\nTransaction Ref: ${data.tx_ref}\n\nWe'll contact you within 24 hours at ${customerEmail} to confirm your booking and arrange equipment pickup.`)
             
             // Clear cart and form after successful payment
-            setCart([])
-            clearQuote()
+            clearCart()
             setShowPaymentForm(false)
             setCustomerEmail("")
             setCustomerPhone("")
@@ -266,11 +244,10 @@ export function RentalCalculator() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Calculator className="h-5 w-5 text-primary" />
-          Rental Calculator
+          Rental Cost Estimator
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Add Equipment */}
         {/* Add Equipment */}
         <div className="flex flex-col sm:flex-row gap-2">
           <Select value={categoryFilter} onValueChange={setCategoryFilter}>
@@ -306,7 +283,7 @@ export function RentalCalculator() {
               ))}
             </SelectContent>
           </Select>
-          <Button onClick={addItem} disabled={!selectedItemId} className="w-full sm:w-auto">
+          <Button onClick={handleAddItem} disabled={!selectedItemId} className="w-full sm:w-auto">
             <Plus className="h-4 w-4" />
           </Button>
         </div>
@@ -407,10 +384,10 @@ export function RentalCalculator() {
                       min="1"
                       max="10"
                       value={c.quantity}
-                      onChange={(e) => updateQuantity(c.id, Number.parseInt(e.target.value) || 1)}
+                      onChange={(e) => handleUpdateQuantity(c.id, Number.parseInt(e.target.value) || 1)}
                       className="w-16 h-8 text-center"
                     />
-                    <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => removeItem(c.id)}>
+                    <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleRemoveItem(c.id)}>
                       <Trash2 className="h-4 w-4 text-destructive" />
                     </Button>
                   </div>
