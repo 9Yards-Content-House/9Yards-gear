@@ -85,24 +85,26 @@ export function GearCard({ item }: GearCardProps) {
 
   return (
     <>
-      <Card className="group h-full overflow-hidden bg-card hover:bg-secondary/50 transition-all duration-300 border-border hover:border-primary/50 hover:shadow-xl">
-        <div className="relative aspect-4/3 overflow-hidden">
+      <Card className="group h-full overflow-hidden bg-[#0A0A0A] hover:bg-[#121212] border-white/5 hover:border-white/20 transition-colors duration-300 ease-out">
+        <div className="relative aspect-4/3 overflow-hidden bg-[#111]">
           <Link href={`/gear/${item.id}`}>
             <Image
               src={item.image || "/placeholder.svg"}
               alt={item.name}
               fill
-              className="object-cover transition-opacity duration-300"
+              className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               loading="lazy"
             />
           </Link>
-          <div className="absolute inset-0 bg-linear-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          {/* Subtle Gradient Overlay */}
+          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out pointer-events-none" />
+          
           <div className="absolute top-3 left-3 flex gap-2">
             {category && (
               <Badge
                 variant="secondary"
-                className="bg-background/80 backdrop-blur-sm"
+                className="bg-black/50 backdrop-blur-md border-white/10 text-white/90 shadow-sm"
               >
                 {category.name}
               </Badge>
@@ -111,20 +113,20 @@ export function GearCard({ item }: GearCardProps) {
           </div>
           <div className="absolute top-3 right-3 flex flex-col gap-2 items-end">
             {item.featured && (
-              <Badge className="bg-primary text-primary-foreground shadow-sm">
+              <Badge className="bg-white/90 text-black border-none shadow-lg font-medium">
                 Featured
               </Badge>
             )}
           </div>
 
-          <div className="absolute bottom-3 right-3 left-3 flex gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 translate-y-0 sm:translate-y-2 sm:group-hover:translate-y-0">
+          <div className="absolute bottom-3 right-3 left-3 flex gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 ease-out translate-y-0 sm:translate-y-2 sm:group-hover:translate-y-0">
             <Button
               variant={inComparison ? "default" : "secondary"}
               className={cn(
-                "h-10 flex-1 rounded-md shadow-lg transition-all duration-300 text-xs font-medium",
+                "h-9 flex-1 rounded-md shadow-lg transition-all duration-200 text-xs font-medium cursor-pointer backdrop-blur-sm",
                 inComparison
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-background/90 hover:bg-background"
+                  ? "bg-white text-black hover:bg-white/90 border-transparent"
+                  : "bg-black/40 text-white border border-white/10 hover:bg-black/80 hover:border-white/30"
               )}
               onClick={handleCompareToggle}
               title={
@@ -134,33 +136,33 @@ export function GearCard({ item }: GearCardProps) {
               }
             >
               {inComparison ? (
-                <Check className="h-4 w-4 mr-2" />
+                <Check className="h-3.5 w-3.5 mr-2" />
               ) : (
-                <Scale className="h-4 w-4 mr-2" />
+                <Scale className="h-3.5 w-3.5 mr-2" />
               )}
               {inComparison ? "Compared" : "Compare"}
             </Button>
             <AddToCartButton
               item={item}
-              className="flex-1 shadow-lg h-10 text-xs"
+              className="flex-1 shadow-lg h-9 text-xs cursor-pointer bg-white text-black hover:bg-white/90 border-transparent transition-all duration-200"
               title={isInCart ? "Item in your Quote list" : "Add item to your Quote list"}
             />
           </div>
         </div>
-        <CardContent className="p-4">
+        <CardContent className="p-5">
           <Link href={`/gear/${item.id}`}>
-            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+            <h3 className="text-base font-medium text-white group-hover:text-white/90 transition-colors duration-200 line-clamp-1 tracking-tight">
               {item.name}
             </h3>
           </Link>
-          <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
+          <p className="text-sm text-[#888] mt-1.5 line-clamp-2 leading-relaxed">
             {item.description}
           </p>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-lg font-bold text-primary">
+          <div className="mt-4 flex items-baseline gap-2 border-t border-white/5 pt-4">
+            <span className="text-lg font-semibold text-white tracking-tight">
               {formatPrice(item.pricePerDay)}
             </span>
-            <span className="text-xs text-muted-foreground">/day</span>
+            <span className="text-xs text-[#666] font-medium uppercase tracking-wider">/ day</span>
           </div>
         </CardContent>
       </Card>
