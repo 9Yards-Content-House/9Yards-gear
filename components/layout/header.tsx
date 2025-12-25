@@ -61,7 +61,7 @@ export function Header() {
         <div className="flex items-center gap-8 lg:flex-1">
           <Link 
             href="https://film.9yards.co.ug" 
-            className="hidden xl:flex items-center gap-1.5 text-[12px] font-medium text-[#B4B4B4] hover:text-white transition-colors whitespace-nowrap"
+            className="hidden md:flex items-center gap-1.5 text-[12px] font-medium text-[#B4B4B4] hover:text-white transition-colors whitespace-nowrap"
           >
             ← Back to 9Yards Film
           </Link>
@@ -70,9 +70,9 @@ export function Header() {
             <Image
               src="/logo.png"
               alt="9Yards Gear"
-              width={160}
-              height={50}
-              className="h-[32px] w-auto transition-transform group-hover:scale-105 brightness-0 invert" 
+              width={180}
+              height={60}
+              className="h-[38px] sm:h-[44px] w-auto transition-transform group-hover:scale-105 brightness-0 invert" 
               priority
             />
           </Link>
@@ -96,8 +96,8 @@ export function Header() {
 
         {/* Right Section: Mobile/Desktop CTA & Controls */}
         <div className="flex flex-1 justify-end items-center gap-x-4">
-          {/* Desktop/Mobile Browse Gear Button */}
-          <Button asChild className="flex bg-white text-black hover:bg-[#F2F2F2] rounded-full px-3 sm:px-5 h-8 sm:h-9 text-[11px] sm:text-[13px] font-semibold transition-all">
+          {/* Desktop/Tablet Browse Gear Button */}
+          <Button asChild className="hidden md:flex bg-white text-black hover:bg-[#F2F2F2] rounded-full px-5 h-9 text-[13px] font-semibold transition-all">
             <Link href="/inventory">Browse Gear</Link>
           </Button>
           

@@ -22,17 +22,18 @@ export function HeroSection() {
           agencies, and content creators.
         </p>
 
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-           <div className="mt-8 flex items-center justify-center gap-x-6">
-            <Button asChild className="bg-gradient-to-b from-white to-[#E4E4E4] hover:to-[#D4D4D4] text-black rounded-full h-[54px] px-12 text-[14px] font-semibold transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] hover:shadow-[0_0_0_4px_rgba(255,255,255,0.1)] flex items-center justify-center">
-              <Link href="/inventory">
-                Browse Equipment
-              </Link>
-            </Button>
-            <Link href="/how-it-works" className="text-[15px] font-medium leading-6 text-[#B4B4B4] hover:text-white transition-all flex items-center px-6 h-[54px] rounded-full bg-white/5 hover:bg-white/10 group">
-              How It Works <span aria-hidden="true" className="ml-1 transition-transform group-hover:translate-x-1">→</span>
+        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full sm:w-auto px-6 sm:px-0">
+          <Button asChild className="bg-gradient-to-b from-white to-[#E4E4E4] hover:to-[#D4D4D4] text-black rounded-full h-[54px] px-12 text-[14px] font-semibold transition-all flex items-center justify-center w-full sm:w-auto">
+            <Link href="/inventory">
+              Browse Equipment
             </Link>
-          </div>
+          </Button>
+          <Link 
+            href="/how-it-works" 
+            className="text-[14px] font-semibold leading-6 text-white transition-all flex items-center justify-center px-12 h-[54px] rounded-full bg-white/5 hover:bg-white/10 group w-full sm:w-auto"
+          >
+            How It Works <span aria-hidden="true" className="ml-1 transition-transform group-hover:translate-x-1">→</span>
+          </Link>
         </div>
       </div>
     </section>

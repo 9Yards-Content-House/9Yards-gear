@@ -9,7 +9,7 @@ export async function FeaturedGear() {
   const featuredItems = allFeatured.slice(0, 6)
 
   return (
-    <section className="py-24 bg-background">
+    <section className="pb-24 pt-4 bg-background">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12">
           <div>
