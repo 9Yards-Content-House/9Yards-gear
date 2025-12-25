@@ -67,10 +67,11 @@ export async function submitReview(
       }
     }
 
+    const { userId, ...reviewData } = review
     const result = await submitAirtableReview({
-      ...review,
+      ...reviewData,
       booking_id: eligibility.bookingId,
-    })
+    } as any)
 
     if (result) {
       return { success: true, review: result }

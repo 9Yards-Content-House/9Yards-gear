@@ -211,12 +211,12 @@ function BookingsTab() {
             <CardContent className="p-4">
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-semibold">{booking.customerName}</h3>
-                  <p className="text-sm text-muted-foreground">{booking.customerEmail}</p>
+                  <h3 className="font-semibold">{booking.customer_name}</h3>
+                  <p className="text-sm text-muted-foreground">{booking.customer_email}</p>
                   <p className="text-sm mt-2">
-                    {booking.startDate} → {booking.endDate}
+                    {booking.start_date} → {booking.end_date}
                   </p>
-                  <p className="text-sm font-medium mt-1">{formatPrice(booking.totalAmount)}</p>
+                  <p className="text-sm font-medium mt-1">{formatPrice(booking.total_amount)}</p>
                 </div>
                 <Badge>{booking.status}</Badge>
               </div>
