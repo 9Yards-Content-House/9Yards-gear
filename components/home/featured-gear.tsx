@@ -13,8 +13,16 @@ export async function FeaturedGear() {
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12">
           <div>
-            <h2 className="text-3xl font-bold text-foreground">Featured Equipment</h2>
-            <p className="text-muted-foreground mt-2">Cinema-quality gear trusted by Uganda&apos;s leading filmmakers</p>
+            <h2 
+              className="text-3xl font-bold text-transparent bg-clip-text pb-1"
+              style={{ 
+                backgroundImage: 'linear-gradient(87.11deg, #FFFFFF 17.87%, rgba(255, 255, 255, 0.9) 45.18%, rgba(255, 255, 255, 0.86) 57.76%)',
+                textShadow: '0px 4px 24px rgba(0, 0, 0, 1)'
+              }}
+            >
+              Featured Equipment
+            </h2>
+            <p className="text-muted-foreground mt-2">Cinema-grade cameras, lenses, and motion gear powering Uganda&apos;s leading productions.</p>
           </div>
           <Button asChild variant="outline">
             <Link href="/inventory">
