@@ -30,7 +30,7 @@ export function HowItWorks() {
     <section className="py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-foreground">How Renting Works</h2>
+          <h2 className="text-3xl gradient-heading">How Renting Works</h2>
           <p className="text-muted-foreground mt-2">Getting professional gear for your production is simple</p>
         </div>
 

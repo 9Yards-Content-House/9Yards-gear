@@ -14,11 +14,7 @@ export async function FeaturedGear() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12">
           <div>
             <h2 
-              className="text-3xl font-bold text-transparent bg-clip-text pb-1"
-              style={{ 
-                backgroundImage: 'linear-gradient(87.11deg, #FFFFFF 17.87%, rgba(255, 255, 255, 0.9) 45.18%, rgba(255, 255, 255, 0.86) 57.76%)',
-                textShadow: '0px 4px 24px rgba(0, 0, 0, 1)'
-              }}
+              className="text-3xl gradient-heading pb-1"
             >
               Featured Equipment
             </h2>

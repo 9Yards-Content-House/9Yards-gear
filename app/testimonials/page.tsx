@@ -93,7 +93,7 @@ export default function TestimonialsPage() {
         {/* Hero */}
         <section className="py-16 bg-gradient-to-b from-background to-card">
           <div className="mx-auto max-w-7xl px-4 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <h1 className="text-4xl md:text-5xl gradient-heading mb-4">
               Trusted by Uganda's Top Creators
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -167,7 +167,7 @@ export default function TestimonialsPage() {
         {/* CTA */}
         <section className="py-16 bg-card">
           <div className="mx-auto max-w-7xl px-4 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Join Our Community of Creators</h2>
+            <h2 className="text-3xl gradient-heading mb-4">Join Our Community of Creators</h2>
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
               Ready to experience the 9Yards difference? Browse our equipment and start your next project today.
             </p>

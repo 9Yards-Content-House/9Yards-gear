@@ -123,7 +123,7 @@ export default function HowItWorksPage() {
             </nav>
 
             <div className="text-center max-w-3xl mx-auto">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              <h1 className="text-4xl md:text-5xl gradient-heading mb-4">
                 Renting Professional Gear Made Simple
               </h1>
               <p className="text-lg text-muted-foreground mb-4">
@@ -140,7 +140,7 @@ export default function HowItWorksPage() {
         <section className="py-16 bg-background">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">How Renting Works</h2>
+              <h2 className="text-3xl gradient-heading mb-4">How Renting Works</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 Getting professional gear for your production takes just four simple steps. Whether you&apos;re a first-time renter or a returning client, here&apos;s the complete process.
               </p>
@@ -187,7 +187,7 @@ export default function HowItWorksPage() {
         <section className="py-16 bg-card">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">Understanding Our Pricing</h2>
+              <h2 className="text-3xl gradient-heading mb-4">Understanding Our Pricing</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 Transparent pricing, no surprises. Here&apos;s exactly how our rental rates work.
               </p>
@@ -350,7 +350,7 @@ export default function HowItWorksPage() {
         <section className="py-16 bg-card">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">Visit Our Kampala Studio</h2>
+              <h2 className="text-3xl gradient-heading mb-4">Visit Our Kampala Studio</h2>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -447,7 +447,7 @@ export default function HowItWorksPage() {
         {/* Final CTA */}
         <section className="py-16 bg-background">
           <div className="mx-auto max-w-7xl px-4 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Ready to Book Your Equipment?</h2>
+            <h2 className="text-3xl gradient-heading mb-4">Ready to Book Your Equipment?</h2>
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
               Now that you know exactly how it works, browse our inventory and find the perfect gear for your production.
             </p>

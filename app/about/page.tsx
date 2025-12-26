@@ -106,7 +106,7 @@ export default function AboutPage() {
             </nav>
 
             <div className="max-w-3xl">
-              <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6">
+              <h1 className="text-4xl sm:text-5xl gradient-heading mb-6">
                 Empowering Uganda&apos;s Storytellers with Professional Gear
               </h1>
               <p className="text-xl text-muted-foreground mb-4">
@@ -129,7 +129,7 @@ export default function AboutPage() {
         <section className="py-16 bg-card">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="max-w-4xl">
-              <h2 className="text-3xl font-bold text-foreground mb-8">How 9Yards Gear Began</h2>
+              <h2 className="text-3xl gradient-heading mb-8">How 9Yards Gear Began</h2>
               
               <div className="space-y-6 text-muted-foreground">
                 <div>
@@ -170,7 +170,7 @@ export default function AboutPage() {
         <section className="py-16 bg-background">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">Why Creators Choose 9Yards Gear</h2>
+              <h2 className="text-3xl gradient-heading mb-4">Why Creators Choose 9Yards Gear</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 We&apos;re not the only equipment rental house in Uganda but we&apos;re the one filmmakers trust and recommend.
               </p>
@@ -199,7 +199,7 @@ export default function AboutPage() {
         <section className="py-16 bg-card">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">9Yards Gear in Numbers</h2>
+              <h2 className="text-3xl gradient-heading mb-4">9Yards Gear in Numbers</h2>
               <p className="text-muted-foreground">Here&apos;s what we&apos;ve built since opening our doors.</p>
             </div>
 
@@ -219,7 +219,7 @@ export default function AboutPage() {
         <section className="py-16 bg-background">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">How We Maintain Professional Standards</h2>
+              <h2 className="text-3xl gradient-heading mb-4">How We Maintain Professional Standards</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 Renting equipment is an act of trust. Here&apos;s how we earn that trust.
               </p>
@@ -274,7 +274,7 @@ export default function AboutPage() {
         <section className="py-16 bg-card">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">Part of the 9Yards Ecosystem</h2>
+              <h2 className="text-3xl gradient-heading mb-4">Part of the 9Yards Ecosystem</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 9Yards Gear is the equipment rental division of 9Yards Film, Uganda&apos;s leading video production house. We&apos;re part of a larger creative ecosystem.
               </p>
@@ -311,7 +311,7 @@ export default function AboutPage() {
         <section className="py-16 bg-background">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">Ready to Create Something Extraordinary?</h2>
+              <h2 className="text-3xl gradient-heading mb-4">Ready to Create Something Extraordinary?</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 Now that you know who we are and what we stand for, let&apos;s talk about your next production.
               </p>

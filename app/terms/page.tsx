@@ -24,12 +24,12 @@ export default function TermsPage() {
             Back to Home
           </Link>
 
-          <h1 className="text-4xl font-bold text-foreground mb-4">Terms of Service</h1>
+          <h1 className="text-4xl gradient-heading mb-4">Terms of Service</h1>
           <p className="text-muted-foreground mb-8">Last updated: December 2025</p>
 
           <div className="prose prose-invert max-w-none space-y-8">
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">1. Acceptance of Terms</h2>
+              <h2 className="text-2xl gradient-heading mb-4">1. Acceptance of Terms</h2>
               <p className="text-muted-foreground">
                 By accessing and using 9Yards Gear&apos;s services, you accept and agree to be bound by these Terms
                 of Service. If you do not agree to these terms, please do not use our services.
@@ -37,7 +37,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">2. Rental Agreement</h2>
+              <h2 className="text-2xl gradient-heading mb-4">2. Rental Agreement</h2>
               <p className="text-muted-foreground mb-4">
                 When renting equipment from 9Yards Gear, you agree to:
               </p>
@@ -51,7 +51,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">3. Booking and Payment</h2>
+              <h2 className="text-2xl gradient-heading mb-4">3. Booking and Payment</h2>
               <ul className="list-disc pl-6 text-muted-foreground space-y-2">
                 <li>A 50% deposit is required to confirm your booking</li>
                 <li>Full payment must be completed before equipment pickup</li>
@@ -61,7 +61,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">4. Cancellation Policy</h2>
+              <h2 className="text-2xl gradient-heading mb-4">4. Cancellation Policy</h2>
               <ul className="list-disc pl-6 text-muted-foreground space-y-2">
                 <li>Cancellations 48+ hours before pickup: Full refund</li>
                 <li>Cancellations within 48 hours: 25% of rental fee forfeited</li>
@@ -70,7 +70,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">5. Equipment Care and Liability</h2>
+              <h2 className="text-2xl gradient-heading mb-4">5. Equipment Care and Liability</h2>
               <p className="text-muted-foreground mb-4">
                 The renter is responsible for:
               </p>
@@ -83,7 +83,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">6. Insurance</h2>
+              <h2 className="text-2xl gradient-heading mb-4">6. Insurance</h2>
               <p className="text-muted-foreground">
                 Optional insurance coverage is available at 10% of the rental value. This covers accidental damage
                 but does not cover theft, loss, or damage due to negligence or misuse.
@@ -91,7 +91,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">7. Late Returns</h2>
+              <h2 className="text-2xl gradient-heading mb-4">7. Late Returns</h2>
               <p className="text-muted-foreground">
                 Equipment must be returned by 6 PM on the rental end date. Late returns will incur additional day
                 charges at the standard daily rate.
@@ -99,7 +99,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">8. Limitation of Liability</h2>
+              <h2 className="text-2xl gradient-heading mb-4">8. Limitation of Liability</h2>
               <p className="text-muted-foreground">
                 9Yards Gear shall not be liable for any indirect, incidental, or consequential damages arising from
                 the use of rented equipment. Our liability is limited to the rental fees paid.
@@ -107,14 +107,14 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">9. Governing Law</h2>
+              <h2 className="text-2xl gradient-heading mb-4">9. Governing Law</h2>
               <p className="text-muted-foreground">
                 These terms are governed by the laws of Uganda. Any disputes shall be resolved in Ugandan courts.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">10. Contact</h2>
+              <h2 className="text-2xl gradient-heading mb-4">10. Contact</h2>
               <p className="text-muted-foreground">
                 For questions about these Terms of Service, contact us at{" "}
                 <a href="mailto:gear@9yards.co.ug" className="text-primary hover:underline">

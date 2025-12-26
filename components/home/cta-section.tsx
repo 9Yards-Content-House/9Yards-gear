@@ -12,7 +12,7 @@ export function CTASection() {
       </div>
 
       <div className="relative mx-auto max-w-4xl px-4 lg:px-8 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-foreground text-balance">
+        <h2 className="text-3xl sm:text-4xl gradient-heading text-balance">
           Ready to Bring Your Vision to Life?
         </h2>
         <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">

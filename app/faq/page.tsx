@@ -105,7 +105,7 @@ export default function FAQPage() {
         {/* Hero */}
         <section className="py-16 bg-gradient-to-b from-background to-card">
           <div className="mx-auto max-w-7xl px-4 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <h1 className="text-4xl md:text-5xl gradient-heading mb-4">
               Frequently Asked Questions
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -144,7 +144,7 @@ export default function FAQPage() {
         {/* Still Have Questions */}
         <section className="py-16 bg-card">
           <div className="mx-auto max-w-7xl px-4 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Still Have Questions?</h2>
+            <h2 className="text-3xl gradient-heading mb-4">Still Have Questions?</h2>
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
               Can't find what you're looking for? Our team is here to help.
             </p>

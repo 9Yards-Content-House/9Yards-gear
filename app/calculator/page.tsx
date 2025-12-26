@@ -107,7 +107,7 @@ export default function CalculatorPage() {
             </nav>
 
             <div className="max-w-3xl">
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+              <h1 className="text-3xl md:text-4xl gradient-heading mb-3">
                 Estimate Your Rental Cost
               </h1>
               <p className="text-muted-foreground mb-4">
@@ -228,7 +228,7 @@ export default function CalculatorPage() {
         {/* FAQ Section */}
         <section className="py-12 bg-card">
           <div className="mx-auto max-w-3xl px-4 lg:px-8">
-            <h2 className="text-2xl font-bold text-foreground text-center mb-6 flex items-center justify-center gap-2">
+            <h2 className="text-2xl gradient-heading text-center mb-6 flex items-center justify-center gap-2">
               <HelpCircle className="h-5 w-5 text-primary" />
               Common Questions About Pricing
             </h2>

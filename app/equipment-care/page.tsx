@@ -96,7 +96,7 @@ export default function EquipmentCarePage() {
         {/* Hero */}
         <section className="py-16 bg-gradient-to-b from-background to-card">
           <div className="mx-auto max-w-7xl px-4 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <h1 className="text-4xl md:text-5xl gradient-heading mb-4">
               Equipment Care Guide
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -108,7 +108,7 @@ export default function EquipmentCarePage() {
         {/* General Guidelines */}
         <section className="py-16 bg-background">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
-            <h2 className="text-2xl font-bold text-foreground mb-8 text-center">General Care Guidelines</h2>
+            <h2 className="text-2xl gradient-heading mb-8 text-center">General Care Guidelines</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {generalGuidelines.map((item) => (
                 <Card key={item.title} className="text-center">
@@ -128,7 +128,7 @@ export default function EquipmentCarePage() {
         {/* Category-Specific */}
         <section className="py-16 bg-card">
           <div className="mx-auto max-w-5xl px-4 lg:px-8">
-            <h2 className="text-2xl font-bold text-foreground mb-8 text-center">Category-Specific Guidelines</h2>
+            <h2 className="text-2xl gradient-heading mb-8 text-center">Category-Specific Guidelines</h2>
             <Tabs defaultValue="cameras" className="w-full">
               <TabsList className="grid w-full grid-cols-4 mb-8">
                 <TabsTrigger value="cameras">Cameras</TabsTrigger>
@@ -167,7 +167,7 @@ export default function EquipmentCarePage() {
           <div className="mx-auto max-w-3xl px-4 lg:px-8">
             <div className="flex items-center justify-center gap-3 mb-8">
               <AlertTriangle className="h-6 w-6 text-orange-500" />
-              <h2 className="text-2xl font-bold text-foreground">Prohibited Actions</h2>
+              <h2 className="text-2xl gradient-heading">Prohibited Actions</h2>
             </div>
             <Card className="border-orange-500/50">
               <CardContent className="pt-6">
@@ -187,7 +187,7 @@ export default function EquipmentCarePage() {
         {/* Return Checklist */}
         <section className="py-16 bg-card">
           <div className="mx-auto max-w-3xl px-4 lg:px-8">
-            <h2 className="text-2xl font-bold text-foreground mb-8 text-center">Pre-Return Checklist</h2>
+            <h2 className="text-2xl gradient-heading mb-8 text-center">Pre-Return Checklist</h2>
             <Card>
               <CardContent className="pt-6">
                 <ul className="space-y-3">
@@ -206,7 +206,7 @@ export default function EquipmentCarePage() {
         {/* Emergency */}
         <section className="py-16 bg-primary/10">
           <div className="mx-auto max-w-7xl px-4 lg:px-8 text-center">
-            <h2 className="text-2xl font-bold text-foreground mb-4">Something Went Wrong?</h2>
+            <h2 className="text-2xl gradient-heading mb-4">Something Went Wrong?</h2>
             <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
               If equipment malfunctions or gets damaged, contact us immediately. Don't attempt repairs yourself.
             </p>

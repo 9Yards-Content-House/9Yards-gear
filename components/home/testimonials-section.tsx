@@ -58,7 +58,7 @@ export function TestimonialsSection() {
     <section className="py-24 bg-card">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-foreground">Trusted by Uganda&apos;s Top Creators</h2>
+          <h2 className="text-3xl gradient-heading">Trusted by Uganda&apos;s Top Creators</h2>
           <p className="text-muted-foreground mt-2">Don&apos;t just take our word for it hear from filmmakers, musicians, and brands who&apos;ve rented from us</p>
         </div>
 

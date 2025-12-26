@@ -62,7 +62,7 @@ export default function ContactPage() {
         {/* Hero */}
         <section className="bg-card border-b border-border">
           <div className="mx-auto max-w-7xl px-4 py-16 lg:px-8 text-center">
-            <h1 className="text-4xl font-bold text-foreground mb-4">Get in Touch</h1>
+            <h1 className="text-4xl gradient-heading mb-4">Get in Touch</h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Have questions about our equipment or rental process? We&apos;re here to help you find the perfect gear
               for your production.

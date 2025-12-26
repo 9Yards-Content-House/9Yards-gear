@@ -70,7 +70,7 @@ export default function BookingConfirmedPage() {
             <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="h-10 w-10 text-green-500" />
             </div>
-            <h1 className="text-3xl font-bold text-foreground mb-2">
+            <h1 className="text-3xl gradient-heading mb-2">
               Booking Request Received!
             </h1>
             <p className="text-muted-foreground">

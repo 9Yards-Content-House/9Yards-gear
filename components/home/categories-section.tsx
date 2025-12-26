@@ -29,7 +29,7 @@ export async function CategoriesSection() {
     <section className="py-24 bg-card">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-foreground">Browse by Category</h2>
+          <h2 className="text-3xl gradient-heading">Browse by Category</h2>
           <p className="text-muted-foreground mt-2">Find the perfect equipment for your production needs</p>
         </div>
 

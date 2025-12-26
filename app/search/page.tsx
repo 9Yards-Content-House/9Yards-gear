@@ -89,7 +89,7 @@ export default function SearchPage() {
 
           {/* Search Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-foreground mb-4">
+            <h1 className="text-3xl gradient-heading mb-4">
               {query ? `Results for: "${query}"` : "Search Equipment"}
             </h1>
             
@@ -192,7 +192,7 @@ export default function SearchPage() {
           ) : query ? (
             <div className="text-center py-16">
               <Package className="h-16 w-16 text-muted-foreground/30 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-foreground mb-2">No results found</h2>
+              <h2 className="text-2xl gradient-heading mb-2">No results found</h2>
               <p className="text-muted-foreground mb-6">
                 We couldn&apos;t find any equipment matching &quot;{query}&quot;
               </p>
@@ -243,7 +243,7 @@ export default function SearchPage() {
           ) : (
             <div className="text-center py-16">
               <Search className="h-16 w-16 text-muted-foreground/30 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-foreground mb-2">Start your search</h2>
+              <h2 className="text-2xl gradient-heading mb-2">Start your search</h2>
               <p className="text-muted-foreground mb-6">
                 Search for cameras, lenses, lighting, audio equipment, and more
               </p>

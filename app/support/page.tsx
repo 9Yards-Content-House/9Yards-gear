@@ -50,7 +50,7 @@ export default function SupportPage() {
         {/* Hero */}
         <section className="py-16 bg-gradient-to-b from-background to-card">
           <div className="mx-auto max-w-7xl px-4 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <h1 className="text-4xl md:text-5xl gradient-heading mb-4">
               How Can We Help?
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
@@ -71,7 +71,7 @@ export default function SupportPage() {
         {/* Quick Links */}
         <section className="py-16 bg-background">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
-            <h2 className="text-2xl font-bold text-foreground mb-8 text-center">Quick Links</h2>
+            <h2 className="text-2xl gradient-heading mb-8 text-center">Quick Links</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {quickLinks.map((link) => (
                 <Link key={link.title} href={link.href}>
@@ -93,7 +93,7 @@ export default function SupportPage() {
         {/* Popular Articles */}
         <section className="py-16 bg-card">
           <div className="mx-auto max-w-3xl px-4 lg:px-8">
-            <h2 className="text-2xl font-bold text-foreground mb-8 text-center">Popular Articles</h2>
+            <h2 className="text-2xl gradient-heading mb-8 text-center">Popular Articles</h2>
             <div className="space-y-3">
               {popularArticles.map((article) => (
                 <Link 
@@ -112,7 +112,7 @@ export default function SupportPage() {
         {/* Contact Options */}
         <section className="py-16 bg-background">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
-            <h2 className="text-2xl font-bold text-foreground mb-8 text-center">Contact Support</h2>
+            <h2 className="text-2xl gradient-heading mb-8 text-center">Contact Support</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <Card className="text-center">
                 <CardContent className="pt-6">
