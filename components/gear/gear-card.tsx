@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { ImageWithFallback } from "@/components/ui/image-with-fallback";
 import { Eye, MessageCircle, Scale, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -88,7 +88,7 @@ export function GearCard({ item }: GearCardProps) {
       <Card className="group h-full overflow-hidden bg-[#0A0A0A] hover:bg-[#121212] border-white/5 hover:border-white/20 transition-colors duration-300 ease-out rounded-xl p-0 gap-0">
         <div className="relative aspect-4/3 overflow-hidden bg-[#111] rounded-t-xl">
           <Link href={`/gear/${item.id}`}>
-            <Image
+            <ImageWithFallback
               src={item.image || "/placeholder.svg"}
               alt={item.name}
               fill

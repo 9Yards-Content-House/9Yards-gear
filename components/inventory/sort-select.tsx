@@ -40,7 +40,7 @@ export function SortSelect() {
     <div className="flex items-center gap-2">
       <span className="text-sm text-muted-foreground hidden sm:inline">Sort by:</span>
       <Select value={currentSort} onValueChange={handleSortChange}>
-        <SelectTrigger className="w-45 bg-secondary border-border">
+        <SelectTrigger className="w-[180px] sm:w-[200px] bg-secondary border-border px-3">
           <div className="flex items-center gap-2">
             <Icon className="h-4 w-4" />
             <SelectValue />

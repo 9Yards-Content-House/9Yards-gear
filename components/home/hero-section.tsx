@@ -15,7 +15,7 @@ export function HeroSection() {
         {/* Left Column: Text */}
         <div className="flex flex-col items-center lg:items-start text-center lg:text-left w-full lg:flex-1">
            <h1 
-            className="text-[32px] sm:text-[40px] lg:text-[44px] leading-[1.15] gradient-heading pb-2 lg:pb-3"
+            className="text-[28px] sm:text-[40px] lg:text-[44px] leading-[1.15] gradient-heading pb-2 lg:pb-3"
           >
             World-Class Gear for Ugandan storytellers.
           </h1>
