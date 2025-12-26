@@ -93,7 +93,7 @@ export function GearCard({ item }: GearCardProps) {
               alt={item.name}
               fill
               className={cn(
-                "object-cover transition-transform duration-500 ease-out group-hover:scale-105",
+                "object-cover transition-transform duration-500 ease-out",
                 !item.available && "grayscale-[0.5] opacity-80"
               )}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

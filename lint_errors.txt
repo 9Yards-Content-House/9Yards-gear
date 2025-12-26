@@ -1,7 +1,0 @@
-
-> 9yards-gear@0.1.0 lint C:\Users\Stuart\Desktop\9YARDS\9Yards Official\9Yards-gear
-> eslint .
-
-'eslint' is not recognized as an internal or external command,
-operable program or batch file.
- ELIFECYCLE  Command failed with exit code 1.
