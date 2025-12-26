@@ -11,6 +11,7 @@ export type GearCategory = {
   id: string;
   name: string;
   icon: string;
+  image?: string;
 };
 
 export type GearSpecs = {
@@ -122,6 +123,7 @@ type AirtableCategoryFields = {
   id: string;
   name: string;
   icon: string;
+  image?: { url: string; filename?: string }[] | string;
 };
 
 type AirtableGearFields = {
@@ -416,10 +418,23 @@ function transformGearRecord(
 function transformCategoryRecord(
   record: AirtableRecord<AirtableCategoryFields>
 ): GearCategory {
+  const fields = record.fields;
+  
+  // Handle category image
+  let image = undefined;
+  if (fields.image) {
+    if (Array.isArray(fields.image) && fields.image[0]?.url) {
+      image = fields.image[0].url;
+    } else if (typeof fields.image === "string") {
+      image = fields.image;
+    }
+  }
+
   return {
-    id: record.fields.id,
-    name: record.fields.name,
-    icon: record.fields.icon,
+    id: fields.id,
+    name: fields.name,
+    icon: fields.icon,
+    image,
   };
 }
 

@@ -33,6 +33,7 @@ export type GearCategory = {
   id: string
   name: string
   icon: string
+  image?: string
 }
 
 // Price formatting utility
@@ -120,10 +121,22 @@ function transformGearRecord(record: any): GearItem {
 // Transform Airtable record to GearCategory
 function transformCategoryRecord(record: any): GearCategory {
   const fields = record.fields || record
+  
+  // Handle category image
+  let image = undefined
+  if (fields.image) {
+    if (Array.isArray(fields.image) && fields.image[0]?.url) {
+      image = fields.image[0].url
+    } else if (typeof fields.image === "string") {
+      image = fields.image
+    }
+  }
+
   return {
     id: fields.id || record.id,
     name: fields.name || "",
     icon: fields.icon || "Package",
+    image,
   }
 }
 
