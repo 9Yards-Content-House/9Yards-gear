@@ -1,7 +1,13 @@
-// Gear Data Module - Airtable Only
-// All data is fetched from Airtable - no local JSON storage
-
+// Gear Data Module - Hybrid (Local JSON + Airtable)
 import * as airtable from "./airtable"
+import * as localData from "./local-data"
+
+// Logic to determine source
+const USE_LOCAL_DATA = process.env.USE_LOCAL_DATA === "true" || process.env.NODE_ENV === "production";
+
+console.log(`[GearData] Using ${USE_LOCAL_DATA ? "Local JSON" : "Live Airtable"} data source.`);
+
+const dataSource = USE_LOCAL_DATA ? localData : airtable;
 
 // Re-export types from airtable
 export type { GearCategory, GearSpecs, GearItem, GearImage } from "./airtable"
@@ -9,54 +15,52 @@ export type { GearCategory, GearSpecs, GearItem, GearImage } from "./airtable"
 // Re-export formatPrice utility
 export { formatPrice } from "./airtable"
 
-// ============ All Functions are Async (Airtable) ============
+// ============ Data Functions ============
 
 export async function getAllGear() {
-  return await airtable.getAllGear()
+  return await dataSource.getAllGear()
 }
 
 export async function getGearById(id: string) {
-  return await airtable.getGearById(id)
+  return await dataSource.getGearById(id)
 }
 
 export async function getGearByCategory(categoryId: string) {
-  return await airtable.getGearByCategory(categoryId)
+  return await dataSource.getGearByCategory(categoryId)
 }
 
 export async function getFeaturedGear() {
-  return await airtable.getFeaturedGear()
+  return await dataSource.getFeaturedGear()
 }
 
 export async function getAvailableGear() {
-  return await airtable.getAvailableGear()
+  return await dataSource.getAvailableGear()
 }
 
 export async function getAllCategories() {
-  return await airtable.getAllCategories()
+  return await dataSource.getAllCategories()
 }
 
 export async function getCategoryById(id: string) {
-  return await airtable.getCategoryById(id)
+  return await dataSource.getCategoryById(id)
 }
 
 export async function getRelatedGear(currentId: string, category: string, limit = 4) {
-  return await airtable.getRelatedGear(currentId, category, limit)
+  return await dataSource.getRelatedGear(currentId, category, limit)
 }
 
 export async function searchGear(query: string) {
-  return await airtable.searchGear(query)
+  return await dataSource.searchGear(query)
 }
 
-// Booking and analytics management
-export { 
-  updateGearBookedDates, 
-  updateGearAvailability, 
-  updateGearRentalStats,
-  getTopRentedGear,
-  getRevenueByGear,
-} from "./airtable"
+// Write operations always go to Airtable (or get mocked/fail gracefully in local mode)
+export const updateGearBookedDates = airtable.updateGearBookedDates;
+export const updateGearAvailability = airtable.updateGearAvailability;
+export const updateGearRentalStats = airtable.updateGearRentalStats;
+export const getTopRentedGear = airtable.getTopRentedGear; // These might be empty in local
+export const getRevenueByGear = airtable.getRevenueByGear;
 
-// Legacy async function aliases (for backward compatibility)
+// Legacy async function aliases
 export const getAllGearAsync = getAllGear
 export const getGearByIdAsync = getGearById
 export const getGearByCategoryAsync = getGearByCategory
