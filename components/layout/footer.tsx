@@ -1,8 +1,24 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
-import { Instagram, Youtube, Mail, Phone, MapPin, Send, Clock, MessageCircle } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Instagram, Youtube, MapPin, Clock, MessageCircle, ExternalLink } from "lucide-react"
+
+// Custom TikTok icon since Lucide might not have it or it might be named differently
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+)
 
 const footerLinks = {
   equipment: [
@@ -17,29 +33,32 @@ const footerLinks = {
   ],
   rentalInfo: [
     { name: "How It Works", href: "/how-it-works" },
+    { name: "Pricing & Rates", href: "/calculator" },
     { name: "Rental Policies", href: "/policies" },
     { name: "Equipment Care", href: "/equipment-care" },
     { name: "FAQ", href: "/faq" },
     { name: "Calculator", href: "/calculator" },
+    { name: "Testimonials", href: "/#testimonials" }, // Linked to hash or page
   ],
   company: [
     { name: "About Us", href: "/about" },
-    { name: "Contact Us", href: "/contact" },
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Service", href: "/terms" },
+    { name: "Resources", href: "#" },
+    { name: "Careers", href: "#" },
   ],
   network: [
-    { name: "9Yards Film", href: "https://film.9yards.co.ug", external: true },
-    { name: "9Yards Food", href: "https://food.9yards.co.ug", external: true },
-    { name: "9Yards Content House", href: "https://contenthouse.9yards.co.ug", external: true },
-    { name: "9Yards Main", href: "https://9yards.co.ug", external: true },
+    { name: "9Yards Main", href: "https://9yards.co.ug" },
+    { name: "9Yards Content House", href: "https://contenthouse.9yards.co.ug" },
+    { name: "9Yards Food", href: "https://food.9yards.co.ug" },
+    { name: "9Yards Film", href: "https://film.9yards.co.ug" },
   ],
 }
 
+// Links set to '#' as requested "for now i dont want these links to go anywhere"
 const socialLinks = [
-  { name: "Instagram", href: "https://instagram.com/9yardsfilm", icon: Instagram },
-  { name: "WhatsApp", href: "https://wa.me/256700488870", icon: MessageCircle },
-  { name: "YouTube", href: "https://youtube.com/@9yardsfilm", icon: Youtube },
+  { name: "Instagram", href: "#", icon: Instagram },
+  { name: "TikTok", href: "#", icon: TikTokIcon },
+  { name: "YouTube", href: "#", icon: Youtube },
+  { name: "WhatsApp", href: "#", icon: MessageCircle },
 ]
 
 export function Footer() {
@@ -58,39 +77,24 @@ export function Footer() {
                 className="h-12 w-auto sm:h-14 md:h-16"
               />
             </Link>
-            <p className="text-sm text-muted-foreground mb-4 max-w-sm">
-              Professional film equipment rental in Kampala. Empowering Uganda's creators with premium gear.
+            <p className="text-sm text-muted-foreground mb-6 max-w-sm whitespace-pre-line">
+              Kampala&apos;s trusted equipment rental partner.{"\n"}
+              Premium gear. Fair rates. Expert support.
             </p>
 
-            {/* Contact Info */}
-            <ul className="space-y-2 mb-4">
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-primary shrink-0" />
-                <a
-                  href="tel:+256700488870"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors font-medium"
-                >
-                  0700 488 870
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-primary shrink-0" />
-                <a
-                  href="mailto:gear@9yards.co.ug"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
-                  gear@9yards.co.ug
-                </a>
-              </li>
-              <li className="flex items-start gap-2">
-                <MapPin className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+            {/* Contact Info (No phone number) */}
+            <ul className="space-y-4 mb-6">
+              <li className="flex items-start gap-3">
+                <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                 <span className="text-sm text-muted-foreground">Kampala, Uganda</span>
               </li>
-              <li className="flex items-start gap-2">
-                <Clock className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                <div className="text-sm text-muted-foreground">
+              <li className="flex items-start gap-3">
+                <Clock className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <p className="font-medium text-foreground">Business Hours</p>
                   <p>Mon-Fri: 9AM-6PM</p>
                   <p>Sat: 10AM-4PM</p>
+                  <p>Sun: By Appointment</p>
                 </div>
               </li>
             </ul>
@@ -101,10 +105,9 @@ export function Footer() {
                 <a
                   key={social.name}
                   href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="flex items-center justify-center w-10 h-10 rounded-lg bg-background hover:bg-primary hover:text-primary-foreground transition-all duration-300 text-muted-foreground border border-border hover:border-primary"
                   aria-label={social.name}
+                  onClick={(e) => social.href === '#' && e.preventDefault()}
                 >
                   <social.icon className="h-5 w-5" />
                 </a>
@@ -129,7 +132,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Rental Info (NEW) */}
+          {/* Rental Info */}
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-4">Rental Info</h3>
             <ul className="space-y-2.5">
@@ -155,24 +158,26 @@ export function Footer() {
                   <Link
                     href={link.href}
                     className="text-sm text-muted-foreground hover:text-primary transition-colors inline-block"
+                    onClick={(e) => link.href === '#' && e.preventDefault()}
                   >
                     {link.name}
                   </Link>
                 </li>
               ))}
             </ul>
-            <div className="mt-6">
-              <h4 className="text-sm font-semibold text-foreground mb-2.5">9Yards Network</h4>
-              <ul className="space-y-2">
+            <div className="mt-8">
+              <h4 className="text-sm font-semibold text-foreground mb-4">9Yards Network</h4>
+              <ul className="space-y-2.5">
                 {footerLinks.network.map((link) => (
                   <li key={link.name}>
                     <a
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-block"
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
                     >
                       {link.name}
+                      <ExternalLink className="h-3 w-3 opacity-50" />
                     </a>
                   </li>
                 ))}
@@ -187,24 +192,17 @@ export function Footer() {
             <p className="text-xs text-muted-foreground">
               © {new Date().getFullYear()} 9Yards Gear · Part of 9Yards Group
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-6">
               <Link href="/privacy" className="text-xs text-muted-foreground hover:text-primary transition-colors">
                 Privacy Policy
               </Link>
               <Link href="/terms" className="text-xs text-muted-foreground hover:text-primary transition-colors">
                 Terms of Service
               </Link>
-              <Link href="/contact" className="text-xs text-muted-foreground hover:text-primary transition-colors">
-                Support
-              </Link>
             </div>
-            <p className="text-xs text-muted-foreground hidden md:block">
-              Made with ❤️ in Kampala, Uganda
-            </p>
           </div>
         </div>
       </div>
     </footer>
   )
 }
-

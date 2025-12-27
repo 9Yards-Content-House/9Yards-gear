@@ -22,9 +22,10 @@ import { cn } from "@/lib/utils";
 
 type GearCardProps = {
   item: GearItem;
+  hideFeaturedBadge?: boolean;
 };
 
-export function GearCard({ item }: GearCardProps) {
+export function GearCard({ item, hideFeaturedBadge = false }: GearCardProps) {
   const [showQuickView, setShowQuickView] = useState(false);
   const [inComparison, setInComparison] = useState(false);
   const { getCategoryById } = useGear();
@@ -118,8 +119,8 @@ export function GearCard({ item }: GearCardProps) {
               </Badge>
             )}
           </div>
-          <div className="absolute top-3 right-3 flex flex-col gap-2 items-end">
-            {item.featured && (
+    <div className="absolute top-3 right-3 flex flex-col gap-2 items-end">
+            {!hideFeaturedBadge && item.featured && (
               <Badge className="bg-white/90 text-black border-none shadow-lg font-medium">
                 Featured
               </Badge>
