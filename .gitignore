@@ -82,12 +82,35 @@ sw.js.map
 workbox-*.js
 workbox-*.js.map
 
-# Local Netlify folder
+# Netlify
 .netlify
+/.netlify/
 
 # Temporary files
 *.tmp
+*.log
+*.txt
+*.webp
+*.png
+*.jpg
+*.jpeg
+*.mp4
+*.mov
 9Yards-Film-2D-Logo*.png
+
+# Diagnostic outputs
+lint_output.txt
+tsc_output.txt
+output.txt
+
+# Gemini / Antigravity
+.gemini/
+.antigravity/
+.brain/
+brain/
+implementation_plan.md
+task.md
+walkthrough.md
 
 # Sentry
 .sentryclirc

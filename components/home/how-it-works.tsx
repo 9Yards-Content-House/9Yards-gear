@@ -6,22 +6,22 @@ const steps = [
   {
     icon: Search,
     title: "Browse & Select",
-    description: "Explore our inventory and check real-time availability. Compare specs and find the perfect gear for your project.",
+    description: "Browse our inventory, check real-time availability, and compare specs to find your perfect setup.",
   },
   {
     icon: Calendar,
     title: "Book Online",
-    description: "Select your dates, review pricing, and complete your booking. We'll confirm within 2 hours via call or WhatsApp.",
+    description: "Select your dates, review pricing, and book online. We'll confirm within 2 hours via call or WhatsApp.",
   },
   {
     icon: Package,
     title: "Pick Up Your Gear",
-    description: "Visit our Kampala studio with your ID and deposit. We'll inspect the equipment together and provide care guidelines.",
+    description: "Visit our office with your ID and deposit. We'll inspect equipment together and share care guidelines.",
   },
   {
     icon: Film,
     title: "Create & Return",
-    description: "Use the gear to bring your vision to life. Return on time, pass inspection, and get your deposit back the same day.",
+    description: "Create your project, return on time, pass inspection, get your deposit back same day.",
   },
 ]
 
@@ -30,8 +30,8 @@ export function HowItWorks() {
     <section className="py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl gradient-heading">How Renting Works</h2>
-          <p className="text-muted-foreground mt-2">Getting professional gear for your production is simple</p>
+          <h2 className="text-3xl gradient-heading">How It Works</h2>
+          <p className="text-muted-foreground mt-2">Professional gear in four simple steps. Browse online, pick up same day, create, and return.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -56,17 +56,13 @@ export function HowItWorks() {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Button asChild variant="outline">
-            <Link href="/how-it-works">See Full Rental Guide</Link>
+        <div className="flex justify-center mt-12">
+          <Button asChild className="bg-[#ECECEC] hover:bg-white text-black rounded-md h-12 px-10 text-[14px] font-semibold transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] border border-transparent w-fit mt-0">
+            <Link href="/how-it-works" className="flex items-center gap-2">
+              View Complete Rental Guide 
+              <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </Link>
           </Button>
-          <p className="mt-4 text-sm text-muted-foreground">
-            Need help choosing equipment? Call us at{" "}
-            <a href="tel:+256700488870" className="text-primary font-medium hover:underline">
-              0700 488 870
-            </a>{" "}
-            or WhatsApp anytime.
-          </p>
         </div>
       </div>
     </section>
