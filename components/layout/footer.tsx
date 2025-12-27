@@ -1,44 +1,18 @@
-"use client"
+
 
 import Link from "next/link"
 import Image from "next/image"
-import { Instagram, Youtube, MapPin, Clock, MessageCircle, ExternalLink } from "lucide-react"
+import { MapPin, Clock, ExternalLink } from "lucide-react"
+import { FaInstagram, FaTiktok, FaYoutube, FaWhatsapp } from "react-icons/fa6"
+import { getAllCategoriesAsync } from "@/lib/gear-data"
 
-// Custom TikTok icon since Lucide might not have it or it might be named differently
-const TikTokIcon = ({ className }: { className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
-  </svg>
-)
-
-const footerLinks = {
-  equipment: [
-    { name: "Cameras", href: "/inventory?category=cameras" },
-    { name: "Lenses", href: "/inventory?category=lenses" },
-    { name: "Lighting", href: "/inventory?category=lighting" },
-    { name: "Audio Equipment", href: "/inventory?category=audio" },
-    { name: "Motion & Drones", href: "/inventory?category=motion" },
-    { name: "Grip & Support", href: "/inventory?category=grip" },
-    { name: "Accessories & Monitors", href: "/inventory?category=accessories" },
-    { name: "Power & Media", href: "/inventory?category=power" },
-  ],
+const staticFooterLinks = {
   rentalInfo: [
     { name: "How It Works", href: "/how-it-works" },
     { name: "Pricing & Rates", href: "/calculator" },
     { name: "Rental Policies", href: "/policies" },
     { name: "Equipment Care", href: "/equipment-care" },
     { name: "FAQ", href: "/faq" },
-    { name: "Calculator", href: "/calculator" },
-    { name: "Testimonials", href: "/#testimonials" }, // Linked to hash or page
   ],
   company: [
     { name: "About Us", href: "/about" },
@@ -55,13 +29,19 @@ const footerLinks = {
 
 // Links set to '#' as requested "for now i dont want these links to go anywhere"
 const socialLinks = [
-  { name: "Instagram", href: "#", icon: Instagram },
-  { name: "TikTok", href: "#", icon: TikTokIcon },
-  { name: "YouTube", href: "#", icon: Youtube },
-  { name: "WhatsApp", href: "#", icon: MessageCircle },
+  { name: "Instagram", href: "#", icon: FaInstagram },
+  { name: "TikTok", href: "#", icon: FaTiktok },
+  { name: "YouTube", href: "#", icon: FaYoutube },
+  { name: "WhatsApp", href: "#", icon: FaWhatsapp },
 ]
 
-export function Footer() {
+export async function Footer() {
+  const allCategories = await getAllCategoriesAsync()
+  const footerCategories = allCategories.slice(0, 8).map(cat => ({
+    name: cat.name,
+    href: `/inventory?category=${cat.id}`
+  }))
+
   return (
     <footer className="bg-card border-t border-border">
       <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-16">
@@ -107,7 +87,6 @@ export function Footer() {
                   href={social.href}
                   className="flex items-center justify-center w-10 h-10 rounded-lg bg-background hover:bg-primary hover:text-primary-foreground transition-all duration-300 text-muted-foreground border border-border hover:border-primary"
                   aria-label={social.name}
-                  onClick={(e) => social.href === '#' && e.preventDefault()}
                 >
                   <social.icon className="h-5 w-5" />
                 </a>
@@ -119,7 +98,7 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-4">Equipment</h3>
             <ul className="space-y-2.5">
-              {footerLinks.equipment.map((link) => (
+              {footerCategories.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
@@ -136,7 +115,7 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-4">Rental Info</h3>
             <ul className="space-y-2.5">
-              {footerLinks.rentalInfo.map((link) => (
+              {staticFooterLinks.rentalInfo.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
@@ -153,12 +132,11 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-4">Company</h3>
             <ul className="space-y-2.5">
-              {footerLinks.company.map((link) => (
+              {staticFooterLinks.company.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
                     className="text-sm text-muted-foreground hover:text-primary transition-colors inline-block"
-                    onClick={(e) => link.href === '#' && e.preventDefault()}
                   >
                     {link.name}
                   </Link>
@@ -168,7 +146,7 @@ export function Footer() {
             <div className="mt-8">
               <h4 className="text-sm font-semibold text-foreground mb-4">9Yards Network</h4>
               <ul className="space-y-2.5">
-                {footerLinks.network.map((link) => (
+                {staticFooterLinks.network.map((link) => (
                   <li key={link.name}>
                     <a
                       href={link.href}
