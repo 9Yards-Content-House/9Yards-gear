@@ -57,6 +57,36 @@
     "totalRentals": 0
   },
   {
+    "id": "rec1wVF8k63noYMRv",
+    "name": "Zoom H4n Handheld Digital Recorder",
+    "category": "audio",
+    "pricePerDay": 10000,
+    "pricePerWeek": 50000,
+    "description": "Professional 4-track handheld audio recorder with built-in X/Y stereo microphones and two XLR/TRS combo inputs. Perfect for field recording, music, and high-quality dialogue for film.",
+    "brand": "Zoom",
+    "specs": {
+      "recording_tracks": "4-track simultaneous",
+      "mic_type": "Built-in X/Y Stereo (90° or 120°)",
+      "inputs": "2x XLR/TRS Combo, 1x 1/8\" Stereo Mic In",
+      "outputs": "1x 1/8\" Headphone/Line Out",
+      "resolution": "Up to 24-bit/96kHz",
+      "storage": "SD/SDHC Card (up to 32GB)",
+      "phantom_power": "+24V or +48V",
+      "interface": "USB Audio Interface Mode"
+    },
+    "image": "/gear/placeholder.jpg",
+    "images": [
+      {
+        "url": "/gear/placeholder.jpg"
+      }
+    ],
+    "available": true,
+    "featured": false,
+    "bookedDates": [],
+    "whatsIncluded": "[\"Zoom H4n Recorder\",\"Protective Case\",\"2x AA Batteries\",\"Windscreen (Foam)\",\"USB Cable\"]",
+    "totalRentals": 0
+  },
+  {
     "id": "rec7frPmrsyynuR4w",
     "name": "YoloLiv YoloBox Pro",
     "category": "accessories",
@@ -372,6 +402,57 @@
     "featured": false,
     "bookedDates": [],
     "whatsIncluded": "[\"B1 Easy Bear Rig Vest\",\"Height-Adjustable Support Bar\",\"Suspension Rope & Hook\",\"Portable Carrying Bag\",\"Assembly Tool Kit\"]",
+    "totalRentals": 0
+  },
+  {
+    "id": "recwrMhTPohfQtTpF",
+    "name": "Hollyland Mars 4K Wireless Video Transmission System",
+    "category": "accessories",
+    "pricePerDay": 35000,
+    "pricePerWeek": 110000,
+    "description": "Professional UHD 4K wireless video transmission system with a 450ft (150m) range and ultra-low 0.06s latency. Supports both HDMI and SDI inputs/outputs and allows real-time monitoring on up to 4 mobile devices via the Hollyview App.",
+    "brand": "Hollyland",
+    "specs": {
+      "transmission_range": "450ft (150m) LOS",
+      "latency": "0.06s",
+      "video_format": "Up to 4K UHD at 30fps",
+      "interfaces": "HDMI 1.4b, 3G-SDI",
+      "frequency": "5.1GHz-5.8GHz",
+      "display": "Color Touchscreen LCD",
+      "power_options": "DC (6-16V), USB-C (5V/2.5A), NP-F Battery",
+      "bitrate": "8Mbps - 20Mbps"
+    },
+    "image": "/cms/recwrMhTPohfQtTpF-main.jpg",
+    "images": [
+      {
+        "url": "/cms/recwrMhTPohfQtTpF-0.jpg",
+        "filename": "1684231832_1723129.jpg",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "url": "/cms/recwrMhTPohfQtTpF-1.jpg",
+        "filename": "1684232186_IMG_1997402.jpg",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "url": "/cms/recwrMhTPohfQtTpF-2.jpg",
+        "filename": "1684232186_IMG_1997401.jpg",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "url": "/cms/recwrMhTPohfQtTpF-3.jpg",
+        "filename": "1684232186_IMG_1997400.jpg",
+        "width": 500,
+        "height": 500
+      }
+    ],
+    "available": true,
+    "featured": true,
+    "bookedDates": [],
+    "whatsIncluded": "[\"Mars 4K Transmitter\",\"Mars 4K Receiver\",\"4x Antennas\",\"Cold Shoe Mount\",\"Type-C OTG Converter\",\"Self-Locking DC Adapter\",\"User Manual\",\"Carrying Case\"]",
     "totalRentals": 0
   }
 ]
