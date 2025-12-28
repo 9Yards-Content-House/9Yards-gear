@@ -23,6 +23,7 @@ export type GearItem = {
   whatsIncluded?: string[]
   available: boolean
   featured: boolean
+  brand?: string
   bookedDates: string[]
   totalRentals?: number
   totalRevenue?: number
@@ -178,12 +179,18 @@ interface GearProviderProps {
 export function GearProvider({ children, initialGear, initialCategories }: GearProviderProps) {
   const [gear, setGear] = useState<GearItem[]>(initialGear || [])
   const [categories, setCategories] = useState<GearCategory[]>(initialCategories || [])
+  const [brands, setBrands] = useState<string[]>([]) // Added brands state
   const [isLoading, setIsLoading] = useState(!initialGear)
   const [error, setError] = useState<string | null>(null)
 
   const fetchData = useCallback(async () => {
     // Skip fetching if we already have initial data
     if (initialGear && initialGear.length > 0) {
+      // Extract unique brands from initial data if available
+      const uniqueBrands = Array.from(new Set(
+        initialGear.map(item => item.brand).filter(Boolean) as string[]
+      )).sort()
+      setBrands(uniqueBrands)
       setIsLoading(false)
       return
     }
@@ -264,6 +271,7 @@ export function GearProvider({ children, initialGear, initialCategories }: GearP
   const value: GearContextType = {
     gear,
     categories,
+    brands,
     isLoading,
     error,
     refetch: fetchData,

@@ -12,6 +12,8 @@ import { SearchBar } from "./search-bar"
 import { CategoryFilter } from "./category-filter"
 import { PriceFilter } from "./price-filter"
 import { AvailabilityFilter } from "./availability-filter"
+import { BrandFilter } from "./brand-filter"
+import { FeaturedFilter } from "./featured-filter"
 import { ViewToggle } from "./view-toggle"
 import { SortSelect } from "./sort-select"
 import { GearCard } from "@/components/gear/gear-card"
@@ -52,10 +54,17 @@ function InventoryResults() {
       trackSearch(query, results.length)
     }
 
-    const category = searchParams.get("category")
-    if (category) {
-      results = results.filter((item) => item.category === category)
-      trackFilterUsage("category", category)
+    const categories = searchParams.get("category")?.split(",").filter(Boolean)
+    if (categories && categories.length > 0) {
+      results = results.filter((item) => categories.includes(item.category))
+      trackFilterUsage("category", categories.join(","))
+    }
+
+    const brands = searchParams.get("brands")?.split(",").filter(Boolean)
+    if (brands && brands.length > 0) {
+      // Case-insensitive brand matching
+      results = results.filter((item) => item.brand && brands.includes(item.brand))
+      trackFilterUsage("brand", brands.join(","))
     }
 
     const minPrice = Number(searchParams.get("minPrice")) || 0
@@ -68,6 +77,12 @@ function InventoryResults() {
     if (availableOnly) {
       results = results.filter((item) => item.available)
       trackFilterUsage("availability", "available-only")
+    }
+
+    const featuredOnly = searchParams.get("featured") === "true"
+    if (featuredOnly) {
+      results = results.filter((item) => item.featured)
+      trackFilterUsage("featured", "true")
     }
 
     // Apply sorting
@@ -88,6 +103,9 @@ function InventoryResults() {
       case "newest":
         // Assumes items added more recently have higher IDs or use a timestamp if available
         results.sort((a, b) => b.id.localeCompare(a.id))
+        break
+      case "most-rented":
+        results.sort((a, b) => (b.totalRentals || 0) - (a.totalRentals || 0))
         break
       case "featured":
       default:
@@ -140,16 +158,11 @@ function InventoryResults() {
 
   const FiltersContent = () => (
     <div className="space-y-6">
-      <div>
-        <h3 className="text-sm font-medium text-foreground mb-3">Categories</h3>
-        <CategoryFilter />
-      </div>
-      <div>
-        <PriceFilter />
-      </div>
-      <div>
-        <AvailabilityFilter />
-      </div>
+      <CategoryFilter />
+      <PriceFilter />
+      <AvailabilityFilter />
+      <BrandFilter />
+      <FeaturedFilter />
     </div>
   )
 

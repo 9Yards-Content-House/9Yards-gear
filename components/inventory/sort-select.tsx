@@ -9,22 +9,24 @@ import { trackFilterUsage } from "@/lib/analytics"
 export type SortOption = "featured" | "price-low" | "price-high" | "name-asc" | "name-desc" | "newest"
 
 const sortOptions = [
-  { value: "featured", label: "Featured First", icon: Star },
+  { value: "relevance", label: "Relevance", icon: Star },
+  { value: "most-rented", label: "Most Popular", icon: TrendingUp },
   { value: "price-low", label: "Price: Low to High", icon: TrendingDown },
   { value: "price-high", label: "Price: High to Low", icon: TrendingUp },
   { value: "name-asc", label: "Name: A to Z", icon: ArrowUpDown },
   { value: "name-desc", label: "Name: Z to A", icon: ArrowUpDown },
   { value: "newest", label: "Newest First", icon: Clock },
+  { value: "featured", label: "Featured Equipment", icon: Star },
 ]
 
 export function SortSelect() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const currentSort = searchParams.get("sort") || "featured"
+  const currentSort = searchParams.get("sort") || "relevance"
 
   const handleSortChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString())
-    if (value && value !== "featured") {
+    if (value && value !== "relevance") {
       params.set("sort", value)
     } else {
       params.delete("sort")

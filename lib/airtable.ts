@@ -399,6 +399,7 @@ function transformGearRecord(
     id: fields.id,
     name: fields.name,
     category: category || "",
+    brand: fields.brand, // Extracted brand property
     pricePerDay: fields.pricePerDay || 0,
     pricePerWeek: fields.pricePerWeek || 0,
     description: fields.description || "",

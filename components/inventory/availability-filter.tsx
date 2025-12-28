@@ -1,30 +1,38 @@
+
 "use client"
 
 import { useRouter, useSearchParams } from "next/navigation"
-import { Switch } from "@/components/ui/switch"
-import { Label } from "@/components/ui/label"
+import { SidebarFilter } from "./sidebar-filter"
 
 export function AvailabilityFilter() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const availableOnly = searchParams.get("available") === "true"
 
-  const handleToggle = (checked: boolean) => {
+  const handleSelectionChange = (_: string, checked: boolean) => {
     const params = new URLSearchParams(searchParams.toString())
     if (checked) {
       params.set("available", "true")
     } else {
       params.delete("available")
     }
-    router.push(`/inventory?${params.toString()}`)
+    router.push(`/inventory?${params.toString()}`, { scroll: false })
   }
 
+  // To simulate "Show All" vs "Available Now", we basically just toggle "Available Now".
+  // If "Available Now" is unchecked, it implies "Show All".
+  
+  const options = [
+    { label: "Available Now", value: "available" }
+  ]
+
   return (
-    <div className="flex items-center justify-between">
-      <Label htmlFor="available-only" className="text-sm font-medium text-foreground cursor-pointer">
-        Available only
-      </Label>
-      <Switch id="available-only" checked={availableOnly} onCheckedChange={handleToggle} />
-    </div>
+    <SidebarFilter
+      title="Availability"
+      options={options}
+      selectedValues={availableOnly ? ["available"] : []}
+      onSelectionChange={handleSelectionChange}
+      onCreateFilterUrl={() => {}}
+    />
   )
 }

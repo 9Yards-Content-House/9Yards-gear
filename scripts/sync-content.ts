@@ -137,6 +137,7 @@ async function processGear(records: any[]) {
       pricePerDay: fields.pricePerDay || 0,
       pricePerWeek: fields.pricePerWeek || 0,
       description: fields.description || "",
+      brand: fields.Brand || fields.brand,
       specs,
       image: imagePath,
       images: galleryImages, // Now contains local paths
