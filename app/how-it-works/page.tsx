@@ -8,13 +8,13 @@ import { Badge } from "@/components/ui/badge"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { 
   Search, Calendar, Package, Camera, CheckCircle, Phone, 
-  ChevronRight, Clock, MapPin, CreditCard, Truck, 
-  Shield, Users, Star, ArrowRight, Sparkles
+  ChevronRight, Clock, CreditCard, 
+  Shield, Users, Star, Sparkles
 } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "How to Rent Film Equipment | Simple 4-Step Process",
-  description: "Renting professional gear is easy: Browse, Book, Pickup, Create. Learn our process, pricing, deposit requirements & rental policies. Call: 0700488870",
+  description: "Renting professional gear is easy: Browse, Book, Pickup, Create. Learn our simple 4-step process and pickup requirements. Call: 0700488870",
   openGraph: {
     title: "How to Rent Film Equipment - 9Yards Gear",
     description: "Simple 4-step rental process: Browse, Book, Pickup, Create. Learn everything about renting professional film gear in Kampala.",
@@ -77,35 +77,8 @@ const steps = [
   },
 ]
 
-const pricingTiers = [
-  {
-    label: "Daily Rate",
-    description: "24-hour period from pickup. Perfect for single-day shoots.",
-    example: "Sony FX6: UGX 300,000/day",
-    highlight: false,
-  },
-  {
-    label: "3-Day Rate",
-    description: "Save 10-15% vs. daily rentals. Ideal for weekend productions.",
-    example: "Save ~UGX 90,000 on FX6",
-    highlight: false,
-  },
-  {
-    label: "Weekly Rate",
-    description: "7 days for the price of 5. Best value for longer shoots.",
-    example: "Save ~UGX 420,000 on FX6",
-    highlight: true,
-  },
-  {
-    label: "Monthly Rate",
-    description: "30+ days with significant discounts. Custom quotes available.",
-    example: "Contact for pricing",
-    highlight: false,
-  },
-]
-
 const trustIndicators = [
-  { icon: Users, label: "200+ Productions", description: "Supported" },
+  { icon: Users, label: "50+ Productions", description: "Supported" },
   { icon: CreditCard, label: "Same-Day", description: "Deposit Refunds" },
   { icon: Shield, label: "Well-Maintained", description: "Equipment" },
   { icon: Star, label: "5-Star", description: "Client Rating" },
@@ -128,13 +101,13 @@ export default function HowItWorksPage() {
               <span className="text-foreground font-medium">How It Works</span>
             </nav>
 
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
+            <h1 className="text-4xl md:text-6xl tracking-tight mb-6 gradient-heading pb-2">
               Renting Professional Gear <br className="hidden sm:block" />
-              <span className="text-primary">Made Simple</span>
+              Made Simple
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-              From browsing to booking to shooting—here's exactly what to expect when you rent from 9Yards Gear. No confusing forms, no hidden fees.
+              From browsing to booking to shooting, here's exactly what to expect when you rent from 9Yards Films. No confusing forms, no hidden fees.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -154,7 +127,7 @@ export default function HowItWorksPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {trustIndicators.map((item) => (
                 <div key={item.label} className="flex flex-col items-center text-center group">
-                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
                     <item.icon className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="font-semibold text-foreground mb-1">{item.label}</h3>
@@ -170,7 +143,7 @@ export default function HowItWorksPage() {
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="text-center mb-16">
               <Badge variant="secondary" className="mb-4">The Process</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">How Renting Works</h2>
+              <h2 className="text-3xl md:text-4xl mb-4 gradient-heading pb-1">How Renting Works</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 Getting professional gear for your production takes just four simple steps.
               </p>
@@ -230,214 +203,54 @@ export default function HowItWorksPage() {
           </div>
         </section>
 
-        {/* Pricing Section */}
+        {/* Pickup & Return Process */}
         <section className="py-24 bg-secondary/20">
-          <div className="mx-auto max-w-7xl px-4 lg:px-8">
-            <div className="text-center mb-16">
-              <Badge variant="secondary" className="mb-4">Pricing</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Transparent Pricing</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                No hidden fees. Here's exactly how our rental rates work.
+          <div className="mx-auto max-w-3xl px-4 lg:px-8">
+            <div className="text-center mb-12">
+              <Badge variant="secondary" className="mb-4">Logistics</Badge>
+              <h2 className="text-3xl md:text-4xl mb-4 gradient-heading pb-1">Pickup & Return Process</h2>
+              <p className="text-muted-foreground">
+                Everything you need to know about getting your gear.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {pricingTiers.map((tier) => (
-                <Card key={tier.label} className={`relative h-full transition-all duration-300 hover:-translate-y-1 ${tier.highlight ? 'border-primary shadow-md' : 'border-border/50'}`}>
-                  {tier.highlight && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
-                      Best Value
-                    </div>
-                  )}
-                  <CardHeader>
-                    <CardTitle className="text-lg">{tier.label}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-sm text-muted-foreground min-h-[40px]">{tier.description}</p>
-                    <div className="pt-4 border-t border-border/50">
-                      <Badge variant="outline" className="w-full justify-center py-1 font-normal">
-                        {tier.example}
-                      </Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            <div className="mt-12 text-center">
-              <Button asChild size="lg" className="gap-2">
-                <Link href="/calculator">
-                  <CreditCard className="h-4 w-4" />
-                  Calculate Your Rental Cost
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        {/* Logistics Grid */}
-        <section className="py-24 bg-background">
-          <div className="mx-auto max-w-7xl px-4 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-24">
-              
-              {/* Financials */}
-              <div className="space-y-8">
-                <div>
-                  <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-                    <Shield className="h-6 w-6 text-primary" />
-                    Deposits & Payments
-                  </h2>
-                  <div className="prose prose-sm text-muted-foreground">
-                    <p className="mb-4">
-                      All rentals require a refundable deposit to protect the equipment. Your deposit is fully refunded immediately after we inspect the returned gear.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <Card className="bg-card/50">
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-base">Deposit Rates</CardTitle>
-                    </CardHeader>
-                    <CardContent className="text-sm space-y-2">
-                      <div className="flex justify-between py-1 border-b border-border/50">
-                        <span>Standard</span>
-                        <span className="font-medium">50% value</span>
-                      </div>
-                      <div className="flex justify-between py-1 border-b border-border/50">
-                        <span>Small Items</span>
-                        <span className="font-medium">200k UGX</span>
-                      </div>
-                      <div className="flex justify-between py-1">
-                        <span>Lenses/Audio</span>
-                        <span className="font-medium">100k UGX</span>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="bg-card/50">
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-base">Payment Methods</CardTitle>
-                    </CardHeader>
-                    <CardContent className="text-sm space-y-2">
-                      {["Mobile Money", "Bank Transfer", "Cash (UGX/USD)", "Invoicing"].map((method) => (
-                        <div key={method} className="flex items-center gap-2">
-                          <CheckCircle className="h-3 w-3 text-green-500" />
-                          <span>{method}</span>
-                        </div>
-                      ))}
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-
-              {/* Pickup & Return Accordion */}
-              <div>
-                <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-                  <Clock className="h-6 w-6 text-primary" />
-                  Pickup & Return Process
-                </h2>
-                <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem value="pickup">
-                    <AccordionTrigger className="text-base">What to bring for pickup?</AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
-                      <ul className="list-disc pl-4 space-y-1">
-                        <li>Valid national ID or passport</li>
-                        <li>Deposit payment (mobile money, transfer, or cash)</li>
-                        <li>Rental fee payment (or partial as agreed)</li>
-                      </ul>
-                      <p className="mt-2 text-sm font-medium text-primary">Total time: ~15-20 mins</p>
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="inspection">
-                    <AccordionTrigger className="text-base">How does inspection work?</AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
-                      We check every item together—camera sensor, lens glass, light functionality, and audio connections. We document the condition to protect both parties.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="late">
-                    <AccordionTrigger className="text-base">What if I'm late?</AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
-                      <p className="mb-2">We offer a <strong>1-hour grace period</strong>. After that, late fees apply.</p>
-                      <p className="text-sm">Pro tip: Call us before your return time if you need an extension. We're flexible if the gear isn't booked!</p>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Location & Hours */}
-        <section className="py-24 bg-primary/5">
-          <div className="mx-auto max-w-7xl px-4 lg:px-8">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <Badge variant="outline" className="mb-4 bg-background">Visit Us</Badge>
-                <h2 className="text-3xl font-bold mb-6">Our Kampala Studio</h2>
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-background flex items-center justify-center shrink-0 shadow-sm">
-                      <MapPin className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold mb-1">Location</h3>
-                      <p className="text-muted-foreground">9Yards Gear Equipment Rental House</p>
-                      <p className="text-muted-foreground">Kampala, Uganda</p>
-                      <p className="text-xs text-muted-foreground mt-1">Free parking available on-site</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-background flex items-center justify-center shrink-0 shadow-sm">
-                      <Clock className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold mb-1">Hours</h3>
-                      <div className="grid grid-cols-2 gap-x-8 gap-y-1 text-sm text-muted-foreground">
-                        <span>Mon - Fri</span>
-                        <span>9:00 AM - 6:00 PM</span>
-                        <span>Saturday</span>
-                        <span>10:00 AM - 4:00 PM</span>
-                        <span>Sunday</span>
-                        <span>Appointment Only</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-background flex items-center justify-center shrink-0 shadow-sm">
-                      <Truck className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold mb-1">Delivery Available</h3>
-                      <p className="text-muted-foreground text-sm">
-                        Starting from UGX 50,000 for Central Kampala.
-                        <br />Same-day delivery for bookings before 12PM.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl border border-border/50 bg-card">
-                {/* Placeholder for map or studio image */}
-                <div className="absolute inset-0 flex items-center justify-center bg-secondary/30">
-                  <div className="text-center p-6">
-                    <MapPin className="h-12 w-12 text-primary/20 mx-auto mb-4" />
-                    <p className="text-muted-foreground font-medium">Map View</p>
-                    <p className="text-sm text-muted-foreground/60 mt-2">Interactive map loading...</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Accordion type="single" collapsible className="w-full bg-card rounded-xl border border-border/50 shadow-sm">
+              <AccordionItem value="pickup" className="px-4">
+                <AccordionTrigger className="text-base py-6">What to bring for pickup?</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
+                  <ul className="list-disc pl-4 space-y-1 mb-4">
+                    <li>Valid national ID or passport</li>
+                    <li>Deposit payment (mobile money, transfer, or cash)</li>
+                    <li>Rental fee payment (or partial as agreed)</li>
+                  </ul>
+                  <p className="text-sm font-medium text-primary flex items-center gap-2">
+                    <Clock className="h-4 w-4" /> Total time: ~15-20 mins
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="inspection" className="px-4">
+                <AccordionTrigger className="text-base py-6">How does inspection work?</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
+                  We check every item together: camera sensor, lens glass, light functionality, and audio connections. We document the condition to protect both parties.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="late" className="px-4 border-b-0">
+                <AccordionTrigger className="text-base py-6">What if I'm late?</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
+                  <p className="mb-2">We offer a <strong>1-hour grace period</strong>. After that, late fees apply.</p>
+                  <p className="text-sm bg-secondary/50 p-3 rounded-md">
+                    <span className="font-semibold text-foreground">Pro tip:</span> Call us before your return time if you need an extension. We're flexible if the gear isn't booked!
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </section>
 
         {/* Final CTA */}
         <section className="py-24 bg-background">
           <div className="mx-auto max-w-4xl px-4 lg:px-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Start Your Production?</h2>
+            <h2 className="text-3xl md:text-4xl mb-6 gradient-heading pb-1">Ready to Start Your Production?</h2>
             <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
               Browse our inventory of professional cameras, lenses, and lighting. 
               Book online or give us a call for a custom quote.
