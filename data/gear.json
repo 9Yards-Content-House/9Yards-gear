@@ -129,6 +129,36 @@
     "totalRentals": 0
   },
   {
+    "id": "rec7rtbWpzic27LV5",
+    "name": "Rotolight Anova V2 Bicolor Standard LED EcoFlood (V-Mount)",
+    "category": "lighting",
+    "pricePerDay": 35000,
+    "pricePerWeek": 175000,
+    "description": "Revolutionary Bi-Color LED flood light providing a soft, flicker-free output equivalent to 3.4kW tungsten. Features a signature circular 'catchlight' effect, built-in V-mount plate, and wired DMX/Wi-Fi control via the Magic Eye iOS app.",
+    "brand": "Rotolight",
+    "specs": {
+      "color_temp": "3150K - 6300K",
+      "beam_angle": "50° (Standard)",
+      "output": "3.36kW Tungsten Equivalent",
+      "cri": ">95",
+      "power_consumption": "38W",
+      "mount": "V-Mount Battery Plate",
+      "control": "Local, DMX, Wi-Fi (iOS App)",
+      "flicker_free": "Tested up to 6000fps"
+    },
+    "image": "/gear/placeholder.jpg",
+    "images": [
+      {
+        "url": "/gear/placeholder.jpg"
+      }
+    ],
+    "available": true,
+    "featured": true,
+    "bookedDates": [],
+    "whatsIncluded": [],
+    "totalRentals": 0
+  },
+  {
     "id": "recCeQwtAsmwjAyJF",
     "name": "Neewer RGB 660 Pro Smart Metal LED Light",
     "category": "lighting",
@@ -273,6 +303,57 @@
     "featured": false,
     "bookedDates": [],
     "whatsIncluded": "[\"Baxxtar Pro V-Mount Battery\",\"Protective Terminal Cap\"]",
+    "totalRentals": 0
+  },
+  {
+    "id": "recMWLJJohFJIZija",
+    "name": "Tascam DR-60DMKII 4-Track Audio Field Recorder",
+    "category": "audio",
+    "pricePerDay": 10000,
+    "pricePerWeek": 58000,
+    "description": "Professional 4-track solid-state recorder designed specifically for DSLR filmmakers. Features high-quality HDDA preamps, tactile soft-touch buttons to eliminate handling noise, and a tripod mountable design to sit between your camera and tripod.",
+    "brand": "Tascam",
+    "specs": {
+      "recording_media": "SD/SDHC Card (up to 32GB)",
+      "channels": "4-track (stereo x2)",
+      "recording_format": "WAV/BWF (up to 24-bit/96kHz)",
+      "preamps": "HDDA with 64dB gain",
+      "inputs": "2x XLR/TRS Combo, 1x 3.5mm Stereo Mic",
+      "outputs": "3.5mm Camera Out, 3.5mm Line Out, 3.5mm Headphone",
+      "phantom_power": "+24/48V",
+      "power_source": "4x AA Batteries, USB, or AC Adapter"
+    },
+    "image": "/cms/recMWLJJohFJIZija-main.jpg",
+    "images": [
+      {
+        "url": "/cms/recMWLJJohFJIZija-0.jpg",
+        "filename": "dr-60dmk2_p_user.jpg",
+        "width": 942,
+        "height": 650
+      },
+      {
+        "url": "/cms/recMWLJJohFJIZija-1.jpg",
+        "filename": "dr-60dmk2_p_right.jpg",
+        "width": 598,
+        "height": 650
+      },
+      {
+        "url": "/cms/recMWLJJohFJIZija-2.jpg",
+        "filename": "dr-60dmk2_p_left.jpg",
+        "width": 591,
+        "height": 650
+      },
+      {
+        "url": "/cms/recMWLJJohFJIZija-3.jpg",
+        "filename": "preview.jpg",
+        "width": 965,
+        "height": 650
+      }
+    ],
+    "available": true,
+    "featured": true,
+    "bookedDates": [],
+    "whatsIncluded": "[\"Tascam DR-60DMKII Recorder\",\"USB Cable\",\"Top Camera Attachment Bracket\",\"Owner's Manual\"]",
     "totalRentals": 0
   },
   {
