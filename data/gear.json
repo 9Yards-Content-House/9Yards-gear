@@ -57,6 +57,192 @@
     "totalRentals": 0
   },
   {
+    "id": "rec7frPmrsyynuR4w",
+    "name": "YoloLiv YoloBox Pro",
+    "category": "accessories",
+    "pricePerDay": 100000,
+    "pricePerWeek": 500000,
+    "description": "The ultimate all-in-one multi-camera live streaming and switching system. Combines an encoder, switcher, monitor, and recorder into one portable device with an 8-inch touchscreen display.",
+    "brand": "YoloLiv",
+    "specs": {
+      "display": "8-inch LCD Touchscreen",
+      "brightness": "400 nits",
+      "inputs": "3x HDMI, 1x USB-A, 1x USB-C (Full-featured)",
+      "outputs": "1x HDMI Out, 3.5mm Audio Out",
+      "streaming": "Wi-Fi, Ethernet, 4G LTE (Nano SIM)",
+      "battery": "10,000mAh (up to 4.5 hours)",
+      "resolution": "Up to 1080p60",
+      "encoding": "H.264"
+    },
+    "image": "/cms/rec7frPmrsyynuR4w-main.jpg",
+    "images": [
+      {
+        "url": "/cms/rec7frPmrsyynuR4w-0.jpg",
+        "filename": "1683650769_IMG_1992582.jpg",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "url": "/cms/rec7frPmrsyynuR4w-1.jpg",
+        "filename": "1683649986_IMG_1562074.jpg",
+        "width": 500,
+        "height": 500
+      }
+    ],
+    "available": true,
+    "featured": true,
+    "bookedDates": [],
+    "whatsIncluded": "[\"YoloBox Pro Device\",\"2x USB-C Charging Cables\",\"Cold Shoe Mount\",\"SIM Card Eject Pin\",\"Storage Case/Bag\"]",
+    "totalRentals": 0
+  },
+  {
+    "id": "recCeQwtAsmwjAyJF",
+    "name": "Neewer RGB 660 Pro Smart Metal LED Light",
+    "category": "lighting",
+    "pricePerDay": 15000,
+    "pricePerWeek": 55000,
+    "description": "Professional 50W RGB LED video panel featuring full-color control, app integration, and a durable aluminum alloy body. Ideal for studio portraits, vlogging, and cinematic lighting effects.",
+    "brand": "Neewer",
+    "specs": {
+      "power": "50W",
+      "led_beads": "660 (320 RGB/170 Cool/170 Warm)",
+      "cri": "97+",
+      "color_temp": "3200K-5600K",
+      "brightness": "7000 Lux @ 0.5m",
+      "input_voltage": "DC 12-15V",
+      "control": "App & Manual"
+    },
+    "image": "/cms/recCeQwtAsmwjAyJF-main.jpg",
+    "images": [
+      {
+        "url": "/cms/recCeQwtAsmwjAyJF-0.jpg",
+        "filename": "1690549228_1778637.jpg",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "url": "/cms/recCeQwtAsmwjAyJF-1.jpg",
+        "filename": "1690549389_IMG_2049999.jpg",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "url": "/cms/recCeQwtAsmwjAyJF-2.jpg",
+        "filename": "1690549389_IMG_2049992.jpg",
+        "width": 500,
+        "height": 500
+      }
+    ],
+    "available": true,
+    "featured": true,
+    "bookedDates": [],
+    "whatsIncluded": "[\"Neewer RGB660 Pro LED Panel\",\"White Diffuser\",\"AC Power Adapter\",\"Power Cable\",\"Barndoors (Integrated)\",\"Carrying Bag\"]",
+    "totalRentals": 0
+  },
+  {
+    "id": "recGQK9xvuACKlrS5",
+    "name": "Vanguard T-120223AB Tripod",
+    "category": "grip-support",
+    "pricePerDay": 15000,
+    "pricePerWeek": 75000,
+    "description": "Lightweight aluminum tripod with 3-way pan/tilt head and quick release plate. Extends to 5 feet with center column crank adjustment. Perfect for photography, interviews, and lightweight video setups.",
+    "brand": "Vanguard",
+    "specs": {
+      "type": "Photo/Video Tripod",
+      "material": "Aluminum",
+      "maxHeight": "5 feet (152cm)",
+      "headType": "3-way Pan/Tilt",
+      "features": "360 degree rotation, Quick release plate, Spirit level bubble, Center column crank",
+      "legSections": "3",
+      "mounting": "1/4 inch camera screw",
+      "portrait": "Flip to portrait mode",
+      "weight": "Lightweight"
+    },
+    "image": "/cms/recGQK9xvuACKlrS5-main.jpg",
+    "images": [
+      {
+        "url": "/cms/recGQK9xvuACKlrS5-0.jpg",
+        "filename": "1493077861_1332555.jpg",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "url": "/cms/recGQK9xvuACKlrS5-1.jpg",
+        "filename": "1496839324_IMG_785291.jpg",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "url": "/cms/recGQK9xvuACKlrS5-2.jpg",
+        "filename": "1496839324_IMG_785295.jpg",
+        "width": 500,
+        "height": 500
+      }
+    ],
+    "available": true,
+    "featured": false,
+    "bookedDates": [],
+    "whatsIncluded": "[\"Vanguard T-120223AB tripod\",\"3-way pan/tilt head\",\"Quick release plate (QS-03)\",\"Soft carrying case with shoulder strap\"]",
+    "totalRentals": 0
+  },
+  {
+    "id": "recL8dKySErXSgOYJ",
+    "name": "Baxxtar Pro V-Mount Battery (190Wh / 13200mAh)",
+    "category": "accessories",
+    "pricePerDay": 150000,
+    "pricePerWeek": 60000,
+    "description": "High-capacity 190Wh V-Mount battery using premium LG cells. Features integrated D-Tap and USB outputs to power cameras, monitors, and mobile devices simultaneously. Includes a 4-level LED charge indicator.",
+    "brand": "Baxxtar",
+    "specs": {
+      "capacity": "13200mAh / 190.1Wh",
+      "voltage": "14.4V",
+      "cell_type": "Lithium-Ion (LG Cells)",
+      "d_tap_output": "10V-16.8V (100W max)",
+      "usb_output": "5V / 2.4A",
+      "max_discharge": "15A",
+      "weight": "1100g",
+      "dimensions": "96 x 152 x 57 mm"
+    },
+    "image": "/cms/recL8dKySErXSgOYJ-main.jpg",
+    "images": [
+      {
+        "url": "/cms/recL8dKySErXSgOYJ-0.jpg",
+        "filename": "61l7IX+olhL._AC_SL1246_.jpg",
+        "width": 810,
+        "height": 1240
+      },
+      {
+        "url": "/cms/recL8dKySErXSgOYJ-1.jpg",
+        "filename": "71brazA0pzL._AC_SL1231_.jpg",
+        "width": 750,
+        "height": 1209
+      },
+      {
+        "url": "/cms/recL8dKySErXSgOYJ-2.jpg",
+        "filename": "710vtXTDYRL._AC_SL1200_.jpg",
+        "width": 1084,
+        "height": 544
+      },
+      {
+        "url": "/cms/recL8dKySErXSgOYJ-3.jpg",
+        "filename": "713IZm9LQkL._AC_SL1200_.jpg",
+        "width": 1152,
+        "height": 740
+      },
+      {
+        "url": "/cms/recL8dKySErXSgOYJ-4.jpg",
+        "filename": "61USxE402FL._AC_SL1200_.jpg",
+        "width": 954,
+        "height": 719
+      }
+    ],
+    "available": true,
+    "featured": false,
+    "bookedDates": [],
+    "whatsIncluded": "[\"Baxxtar Pro V-Mount Battery\",\"Protective Terminal Cap\"]",
+    "totalRentals": 0
+  },
+  {
     "id": "recT9dFiKPxzYNejx",
     "name": "Godox P90H 90cm Parabolic Softbox",
     "category": "lighting",
@@ -102,6 +288,90 @@
     "featured": false,
     "bookedDates": [],
     "whatsIncluded": "[\"Godox P90H softbox body\",\"16 metal support rods\",\"Outer diffuser\",\"Inner diffuser\",\"Bowens mount adapter\",\"Carrying bag\"]",
+    "totalRentals": 0
+  },
+  {
+    "id": "recVDVwn4PQ1tVRTH",
+    "name": "Tilta Gravity G2X Handheld Gimbal",
+    "category": "motion-drones",
+    "pricePerDay": 120000,
+    "pricePerWeek": 600000,
+    "description": "Professional 3-axis handheld gimbal supporting cameras up to 8 lbs (3.6kg). Features 45° angled roll motor for unobstructed LCD viewing, auto-calibration, and 360° pan/tilt rotation. Includes Tilta Assistant app control, Manfrotto quick release, and dual rosette mounts. Perfect for DSLR, mirrorless, and compact cinema cameras.",
+    "brand": "Tilta",
+    "specs": {
+      "type": "3-axis Handheld Gimbal",
+      "maxPayload": "8 lbs (3.6 kg)",
+      "rotation": "360° pan and tilt, 60° roll (left/right)",
+      "rollMotor": "45° angled (front or back positioning)",
+      "modes": "Pan/Tilt Follow, Tilt Lock, Full Lock, Roll Lock",
+      "control": "Joystick + iOS/Android app (Bluetooth)",
+      "baseplate": "Manfrotto standard quick release",
+      "power": "Four 18650 rechargeable batteries (not included)",
+      "batteryLife": "Up to 10 hours",
+      "outputs": "14.8V DC in/out (3A max), 5V Mini USB",
+      "mounting": "Dual ARRI standard rosettes",
+      "weight": "3.9 lbs (1.77 kg)",
+      "material": "Aluminum and stainless steel",
+      "handle": "Brazilian rosewood pistol grip",
+      "features": "Auto-calibration, 7-11cm measuring scales, wireless timelapse"
+    },
+    "image": "/cms/recVDVwn4PQ1tVRTH-main.jpg",
+    "images": [
+      {
+        "url": "/cms/recVDVwn4PQ1tVRTH-0.jpg",
+        "filename": "1530101526_IMG_988039.jpg",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "url": "/cms/recVDVwn4PQ1tVRTH-1.jpg",
+        "filename": "tilta_gr_v02_gravity_g2x_compct_handheld_1530102038_1396701.jpg",
+        "width": 500,
+        "height": 500
+      }
+    ],
+    "available": true,
+    "featured": true,
+    "bookedDates": [],
+    "whatsIncluded": "[\"Tilta Gravity G2X gimbal body\",\"Quick-release Manfrotto baseplate\",\"Riser\",\"Lens support bracket\",\"Brazilian rosewood pistol grip handle\",\"Pistol grip balancing plate\",\"Tilta 18650 quad battery charger\",\"Hard shell waterproof case\",\"Multi-head screwdriver\",\"Hot shoe support bracket\"]",
+    "totalRentals": 0
+  },
+  {
+    "id": "recX4CJmCAvIG6G58",
+    "name": "B1 Easy Bear Rig Professional Handheld Stabilizer (3-18KG)",
+    "category": "accessories",
+    "pricePerDay": 80000,
+    "pricePerWeek": 350000,
+    "description": "Professional body-mounted camera support system designed to redistribute weight from the arms and shoulders to the hips. Supports heavy rigs from 3kg to 18kg, making it perfect for long shooting days with handheld gimbals or cinema cameras.",
+    "brand": "Yelangu",
+    "specs": {
+      "load_capacity": "3-18kg (6.6-39.7 lbs)",
+      "material": "Aluminum Alloy & Oxford Fabric",
+      "pulling_force": "120kg",
+      "breaking_force": "350kg",
+      "height_adjustment": "9cm range",
+      "vest_type": "Breathable Padded Vest",
+      "weight": "5.0kg"
+    },
+    "image": "/cms/recX4CJmCAvIG6G58-main.jpg",
+    "images": [
+      {
+        "url": "/cms/recX4CJmCAvIG6G58-0.jpg",
+        "filename": "H0cba7aa8a7764ea4b504c1a1a2ec57ab7.jpg",
+        "width": 1000,
+        "height": 1000
+      },
+      {
+        "url": "/cms/recX4CJmCAvIG6G58-1.jpg",
+        "filename": "H5b78c606a9944bd3820d3d316fec9a0ag.jpg",
+        "width": 1000,
+        "height": 1000
+      }
+    ],
+    "available": true,
+    "featured": false,
+    "bookedDates": [],
+    "whatsIncluded": "[\"B1 Easy Bear Rig Vest\",\"Height-Adjustable Support Bar\",\"Suspension Rope & Hook\",\"Portable Carrying Bag\",\"Assembly Tool Kit\"]",
     "totalRentals": 0
   }
 ]
