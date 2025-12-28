@@ -1,1 +1,107 @@
-[]
+[
+  {
+    "id": "rec1DY1tnTeYUW9s8",
+    "name": "Blackmagic Pocket Cinema Camera 4K",
+    "category": "cameras",
+    "pricePerDay": 250000,
+    "pricePerWeek": 1500000,
+    "description": "Professional 4K cinema camera with 13 stops of dynamic range, dual native ISO up to 25,600, and 4/3\" sensor. Records Blackmagic RAW and ProRes internally. Perfect for documentaries, music videos, and commercial productions.",
+    "brand": "Blackmagic Design",
+    "specs": {
+      "sensor": "4/3 inch CMOS",
+      "resolution": "4096 x 2160 (DCI 4K)",
+      "dynamicRange": "13 stops",
+      "iso": "Dual Native ISO 400/3200, expandable to 25,600",
+      "videoFormats": "DCI 4K, UHD 4K, HD",
+      "maxFrameRate": "60fps (4K), 120fps (HD windowed)",
+      "recording": "Blackmagic RAW 12-bit, ProRes 422 10-bit",
+      "lensMount": "Active MFT (Micro Four Thirds)",
+      "display": "5 inch touchscreen LCD",
+      "storage": "CFast 2.0, SD/UHS-II cards, USB-C external",
+      "audio": "Mini XLR (48V phantom), 3.5mm mic/headphone, stereo mics",
+      "outputs": "HDMI (10-bit), USB-C",
+      "battery": "Canon LP-E6 type",
+      "weight": "721g (1.59 lbs)"
+    },
+    "image": "/cms/rec1DY1tnTeYUW9s8-main.jpg",
+    "images": [
+      {
+        "url": "/cms/rec1DY1tnTeYUW9s8-0.jpg",
+        "filename": "1524046877_1401512.jpg",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "url": "/cms/rec1DY1tnTeYUW9s8-1.jpg",
+        "filename": "1713180723_IMG_2231993.jpg",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "url": "/cms/rec1DY1tnTeYUW9s8-2.jpg",
+        "filename": "1713179879_IMG_966432.jpg",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "url": "/cms/rec1DY1tnTeYUW9s8-3.jpg",
+        "filename": "1713179879_IMG_966434.jpg",
+        "width": 500,
+        "height": 500
+      }
+    ],
+    "available": true,
+    "featured": true,
+    "bookedDates": [],
+    "whatsIncluded": "[\"Canon LP-E6 battery\",\"30W power supply with locking connector\",\"International power adapters\",\"Lens mount dust cap\",\"DaVinci Resolve Studio activation key\",\"Camera strap\",\"USB-C cable\"]",
+    "totalRentals": 0
+  },
+  {
+    "id": "recT9dFiKPxzYNejx",
+    "name": "Godox P90H 90cm Parabolic Softbox",
+    "category": "lighting",
+    "pricePerDay": 25000,
+    "pricePerWeek": 125000,
+    "description": "35-inch deep parabolic softbox with high-temperature resistant metal rods and Bowens mount. Creates beautifully soft, focused light with crisp edge falloff. Perfect for portraits, fashion, and studio work. Includes inner and outer diffusers plus carrying bag.",
+    "brand": "Godox",
+    "specs": {
+      "type": "Parabolic Softbox",
+      "shape": "16-sided",
+      "diameter": "90cm (35 inches)",
+      "depth": "69.4cm (27.3 inches)",
+      "mount": "Bowens",
+      "construction": "16 premium metal rods",
+      "interior": "Silver reflective",
+      "diffusers": "Inner and outer (removable)",
+      "temperature": "High-temperature resistant (up to 85°C)",
+      "weight": "2.043kg (with carrying bag)",
+      "features": "Wind, crush, and fall resistant"
+    },
+    "image": "/cms/recT9dFiKPxzYNejx-main.jpg",
+    "images": [
+      {
+        "url": "/cms/recT9dFiKPxzYNejx-0.jpg",
+        "filename": "51Trrkn6pHL._AC_SL1200_.jpg",
+        "width": 976,
+        "height": 998
+      },
+      {
+        "url": "/cms/recT9dFiKPxzYNejx-1.jpg",
+        "filename": "51c4otHu06L._AC_SL1200_.jpg",
+        "width": 802,
+        "height": 917
+      },
+      {
+        "url": "/cms/recT9dFiKPxzYNejx-2.jpg",
+        "filename": "51GEjasdHVL._AC_SL1200_.jpg",
+        "width": 1193,
+        "height": 1130
+      }
+    ],
+    "available": true,
+    "featured": false,
+    "bookedDates": [],
+    "whatsIncluded": "[\"Godox P90H softbox body\",\"16 metal support rods\",\"Outer diffuser\",\"Inner diffuser\",\"Bowens mount adapter\",\"Carrying bag\"]",
+    "totalRentals": 0
+  }
+]
