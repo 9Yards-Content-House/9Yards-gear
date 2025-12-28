@@ -42,6 +42,7 @@ export type GearItem = {
   totalRentals: number;
   totalRevenue: number;
   lastRentedAt?: string;
+  brand?: string;
 };
 
 export type BookingItem = {
@@ -150,6 +151,7 @@ type AirtableGearFields = {
   totalRentals?: number;
   totalRevenue?: number;
   lastRentedAt?: string;
+  brand?: string;
 };
 
 

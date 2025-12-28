@@ -49,6 +49,7 @@ const AIRTABLE_BASE_ID = process.env.NEXT_PUBLIC_AIRTABLE_BASE_ID
 interface GearContextType {
   gear: GearItem[]
   categories: GearCategory[]
+  brands: string[]
   isLoading: boolean
   error: string | null
   refetch: () => Promise<void>
@@ -108,6 +109,7 @@ function transformGearRecord(record: any): GearItem {
     id: fields.id || record.id,
     name: fields.name || "",
     category: fields.category || "",
+    brand: fields.brand,
     pricePerDay: Number(fields.pricePerDay) || 0,
     pricePerWeek: Number(fields.pricePerWeek) || 0,
     description: fields.description || "",
@@ -116,6 +118,11 @@ function transformGearRecord(record: any): GearItem {
     available: Boolean(fields.available),
     featured: Boolean(fields.featured),
     bookedDates,
+    totalRentals: fields.totalRentals || 0,
+    totalRevenue: fields.totalRevenue || 0,
+    lastRentedAt: fields.lastRentedAt,
+    whatsIncluded: fields.whatsIncluded || [],
+    images: fields.images || [{ url: image }],
   }
 }
 
