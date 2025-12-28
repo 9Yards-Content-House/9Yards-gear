@@ -107,7 +107,7 @@ export default async function GearDetailPage({ params }: Props) {
                   Technical Specifications
                 </h3>
                 <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {Object.entries(item.specs).map(([key, value]) => (
+                  {item.specs && typeof item.specs === 'object' && Object.entries(item.specs).map(([key, value]) => (
                     <div key={key}>
                       <dt className="text-sm text-muted-foreground capitalize">
                         {key.replace(/([A-Z])/g, " $1")}

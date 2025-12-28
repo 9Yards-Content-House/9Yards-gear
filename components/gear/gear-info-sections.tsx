@@ -103,9 +103,25 @@ const getDefaultIncludedItems = (category: string) => {
 }
 
 export function WhatsIncluded({ itemName, category, whatsIncluded }: WhatsIncludedProps) {
-  // Use Airtable data if provided, otherwise fall back to category defaults
-  const includedItems = whatsIncluded && whatsIncluded.length > 0 
-    ? whatsIncluded 
+  // Defensive: Ensure whatsIncluded is always an array
+  let parsedIncluded: string[] = [];
+  
+  if (whatsIncluded) {
+    // Handle case where it might be a stringified array
+    if (typeof whatsIncluded === 'string') {
+      try {
+        parsedIncluded = JSON.parse(whatsIncluded);
+      } catch {
+        parsedIncluded = [];
+      }
+    } else if (Array.isArray(whatsIncluded)) {
+      parsedIncluded = whatsIncluded;
+    }
+  }
+  
+  // Use parsed Airtable data if provided, otherwise fall back to category defaults
+  const includedItems = parsedIncluded.length > 0 
+    ? parsedIncluded 
     : getDefaultIncludedItems(category)
 
   return (

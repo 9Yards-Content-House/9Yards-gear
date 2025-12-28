@@ -74,10 +74,13 @@
       "phantom_power": "+24V or +48V",
       "interface": "USB Audio Interface Mode"
     },
-    "image": "/gear/placeholder.jpg",
+    "image": "/cms/rec1wVF8k63noYMRv-main.jpg",
     "images": [
       {
-        "url": "/gear/placeholder.jpg"
+        "url": "/cms/rec1wVF8k63noYMRv-0.jpg",
+        "filename": "preview.jpg",
+        "width": 1200,
+        "height": 1200
       }
     ],
     "available": true,
