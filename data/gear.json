@@ -123,7 +123,7 @@
       }
     ],
     "available": true,
-    "featured": true,
+    "featured": false,
     "bookedDates": [],
     "whatsIncluded": "[\"YoloBox Pro Device\",\"2x USB-C Charging Cables\",\"Cold Shoe Mount\",\"SIM Card Eject Pin\",\"Storage Case/Bag\"]",
     "totalRentals": 0
@@ -146,16 +146,25 @@
       "control": "Local, DMX, Wi-Fi (iOS App)",
       "flicker_free": "Tested up to 6000fps"
     },
-    "image": "/gear/placeholder.jpg",
+    "image": "/cms/rec7rtbWpzic27LV5-main.jpg",
     "images": [
       {
-        "url": "/gear/placeholder.jpg"
+        "url": "/cms/rec7rtbWpzic27LV5-0.jpg",
+        "filename": "1437067892_IMG_515183.jpg",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "url": "/cms/rec7rtbWpzic27LV5-1.jpg",
+        "filename": "1437068131_1139503.jpg",
+        "width": 500,
+        "height": 500
       }
     ],
     "available": true,
     "featured": true,
     "bookedDates": [],
-    "whatsIncluded": [],
+    "whatsIncluded": "[\"Rotolight Anova V2 LED Panel\",\"Yoke with TVMP Bracket\",\"AC Power Adapter & Cable\",\"6-Piece Filter Set (Diffusion, Minus Green, Cosmetic Peach)\",\"Gel Filter Holder\"]",
     "totalRentals": 0
   },
   {

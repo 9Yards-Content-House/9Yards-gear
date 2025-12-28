@@ -16,11 +16,14 @@ import {
 } from "@/components/gear/gear-info-sections";
 import { GearFinalCTA } from "@/components/gear/gear-final-cta";
 import { ProductSchema } from "@/components/seo/schema-org";
+import { RelatedGearList } from "@/components/gear/related-gear-list";
+import { ShareButton } from "@/components/gear/share-button";
 import {
   getGearByIdAsync,
   getCategoryByIdAsync,
   formatPrice,
   getAllGearAsync,
+  getRelatedGearAsync,
 } from "@/lib/gear-data";
 
 type Props = {
@@ -60,6 +63,7 @@ export default async function GearDetailPage({ params }: Props) {
   }
 
   const category = await getCategoryByIdAsync(item.category);
+  const relatedGear = await getRelatedGearAsync(item.id, item.category);
 
   return (
     <>
@@ -69,10 +73,10 @@ export default async function GearDetailPage({ params }: Props) {
       <main className="min-h-screen pt-20">
         <div className="mx-auto max-w-7xl px-4 py-8 lg:px-8">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm mb-8">
+          <nav className="flex flex-wrap items-center gap-2 text-sm mb-8">
             <Link
               href="/inventory"
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
             >
               <ArrowLeft className="inline h-4 w-4 mr-1" />
               Back to Inventory
@@ -82,14 +86,14 @@ export default async function GearDetailPage({ params }: Props) {
               <>
                 <Link
                   href={`/inventory?category=${category.id}`}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
                 >
                   {category.name}
                 </Link>
                 <span className="text-muted-foreground">/</span>
               </>
             )}
-            <span className="text-foreground">{item.name}</span>
+            <span className="text-foreground font-medium truncate max-w-[200px] sm:max-w-none">{item.name}</span>
           </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
@@ -102,21 +106,23 @@ export default async function GearDetailPage({ params }: Props) {
               />
 
               {/* Specs */}
-              <div className="bg-card border border-border rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-4">
-                  Technical Specifications
-                </h3>
-                <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {item.specs && typeof item.specs === 'object' && Object.entries(item.specs).map(([key, value]) => (
-                    <div key={key}>
-                      <dt className="text-sm text-muted-foreground capitalize">
-                        {key.replace(/([A-Z])/g, " $1")}
-                      </dt>
-                      <dd className="text-foreground font-medium">{value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
+              {item.specs && Object.keys(item.specs).length > 0 && (
+                <div className="bg-card border border-border rounded-xl p-6">
+                  <h3 className="text-lg font-semibold text-foreground mb-4">
+                    Technical Specifications
+                  </h3>
+                  <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {typeof item.specs === 'object' && Object.entries(item.specs).map(([key, value]) => (
+                      <div key={key}>
+                        <dt className="text-sm text-muted-foreground capitalize">
+                          {key.replace(/([A-Z])/g, " $1")}
+                        </dt>
+                        <dd className="text-foreground font-medium">{value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              )}
 
               {/* What's Included */}
               <WhatsIncluded
@@ -130,7 +136,7 @@ export default async function GearDetailPage({ params }: Props) {
             </div>
 
             {/* Right column - Info and booking */}
-            <div className="space-y-6">
+            <div className="space-y-6 lg:sticky lg:top-24 h-fit">
               {/* Header */}
               <div>
                 <div className="flex items-start justify-between gap-4 mb-2">
@@ -144,24 +150,27 @@ export default async function GearDetailPage({ params }: Props) {
                       </Badge>
                     )}
                   </div>
-                  <Badge
-                    variant={item.available ? "outline" : "destructive"}
-                    className={
-                      item.available ? "border-green-500 text-green-500" : ""
-                    }
-                  >
-                    {item.available ? (
-                      <>
-                        <Check className="h-3 w-3 mr-1" />
-                        Available
-                      </>
-                    ) : (
-                      <>
-                        <X className="h-3 w-3 mr-1" />
-                        Currently Booked
-                      </>
-                    )}
-                  </Badge>
+                  <div className="flex items-center gap-2">
+                    <ShareButton title={item.name} text={`Check out this ${item.name} on 9Yards Gear`} />
+                    <Badge
+                      variant={item.available ? "outline" : "destructive"}
+                      className={
+                        item.available ? "border-green-500 text-green-500" : ""
+                      }
+                    >
+                      {item.available ? (
+                        <>
+                          <Check className="h-3 w-3 mr-1" />
+                          Available
+                        </>
+                      ) : (
+                        <>
+                          <X className="h-3 w-3 mr-1" />
+                          Currently Booked
+                        </>
+                      )}
+                    </Badge>
+                  </div>
                 </div>
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
                   {item.name}
@@ -199,6 +208,9 @@ export default async function GearDetailPage({ params }: Props) {
               <RentalTermsSummary dailyRate={item.pricePerDay} />
             </div>
           </div>
+
+          {/* Related Gear */}
+          <RelatedGearList items={relatedGear} />
 
           {/* Final CTA */}
           <GearFinalCTA itemName={item.name} pricePerDay={item.pricePerDay} />
