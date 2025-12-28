@@ -70,6 +70,16 @@ export function SearchBar() {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
+  // Auto-search when debounced query changes
+  useEffect(() => {
+    // Only search if the query is different from the URL param matching
+    const currentParam = searchParams.get("q") || ""
+    if (debouncedQuery !== currentParam) {
+      handleSearch(debouncedQuery)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedQuery])
+
   const handleSearch = (searchQuery: string) => {
     const params = new URLSearchParams(searchParams.toString())
     if (searchQuery) {
@@ -77,6 +87,8 @@ export function SearchBar() {
     } else {
       params.delete("q")
     }
+    // Reset page to 1 on new search
+    params.delete("page") 
     router.push(`/inventory?${params.toString()}`)
     setShowSuggestions(false)
   }

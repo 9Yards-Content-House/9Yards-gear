@@ -142,7 +142,7 @@ const jsonLd = {
       closes: "16:00"
     }
   ],
-  priceRange: "USh 40,000 - USh 500,000",
+  priceRange: "UGX 40,000 - UGX 500,000",
   aggregateRating: {
     "@type": "AggregateRating",
     ratingValue: "5",

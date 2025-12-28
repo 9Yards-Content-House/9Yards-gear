@@ -167,7 +167,7 @@ function InventoryResults() {
   )
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen pt-20" id="main-content">
       <div className="mx-auto max-w-7xl px-4 py-8 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -198,9 +198,14 @@ function InventoryResults() {
             {/* Mobile filter trigger */}
             <Sheet open={filtersOpen} onOpenChange={setFiltersOpen}>
               <SheetTrigger asChild>
-                <Button variant="outline" size="icon" className="lg:hidden relative bg-transparent">
+                <Button variant="outline" className="lg:hidden h-10 gap-2 bg-background border-input hover:bg-accent hover:text-accent-foreground">
                   <SlidersHorizontal className="h-4 w-4" />
-                  {hasActiveFilters && <span className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full" />}
+                  <span>Filters</span>
+                  {hasActiveFilters && (
+                    <Badge variant="secondary" className="ml-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-[10px]">
+                      !
+                    </Badge>
+                  )}
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-80">
@@ -262,7 +267,111 @@ function InventoryResults() {
                   </>
                 )}
               </p>
-              {hasActiveFilters && <p className="text-xs text-primary">Filters applied</p>}
+              {hasActiveFilters && (
+                <div className="flex flex-wrap gap-2 mt-2 md:mt-0">
+                  {/* Category badges */}
+                  {searchParams.get("category")?.split(",").filter(Boolean).map(cat => (
+                     <Badge key={`cat-${cat}`} variant="secondary" className="gap-1 pl-2 pr-1">
+                       {categories.find(c => c.id === cat)?.name || cat}
+                       <Button 
+                         variant="ghost" size="icon" className="h-4 w-4 ml-1 hover:bg-transparent"
+                         onClick={() => {
+                           const current = searchParams.get("category")?.split(",") || []
+                           const newCats = current.filter(c => c !== cat)
+                           const params = new URLSearchParams(searchParams.toString())
+                           if (newCats.length) params.set("category", newCats.join(","))
+                           else params.delete("category")
+                           router.push(`/inventory?${params.toString()}`)
+                         }}
+                       >
+                         <X className="h-3 w-3" />
+                       </Button>
+                     </Badge>
+                  ))}
+                  
+                  {/* Brand badges */}
+                  {searchParams.get("brands")?.split(",").filter(Boolean).map(brand => (
+                     <Badge key={`brand-${brand}`} variant="secondary" className="gap-1 pl-2 pr-1">
+                       {brand}
+                       <Button 
+                         variant="ghost" size="icon" className="h-4 w-4 ml-1 hover:bg-transparent"
+                         onClick={() => {
+                           const current = searchParams.get("brands")?.split(",") || []
+                           const newBrands = current.filter(b => b !== brand)
+                           const params = new URLSearchParams(searchParams.toString())
+                           if (newBrands.length) params.set("brands", newBrands.join(","))
+                           else params.delete("brands")
+                           router.push(`/inventory?${params.toString()}`)
+                         }}
+                       >
+                         <X className="h-3 w-3" />
+                       </Button>
+                     </Badge>
+                  ))}
+
+                  {/* Price badge */}
+                  {(searchParams.has("minPrice") || searchParams.has("maxPrice")) && (
+                     <Badge variant="secondary" className="gap-1 pl-2 pr-1">
+                       Price: {Number(searchParams.get("minPrice") || 0).toLocaleString()} - {searchParams.get("maxPrice") ? Number(searchParams.get("maxPrice")).toLocaleString() : "Any"}
+                       <Button 
+                         variant="ghost" size="icon" className="h-4 w-4 ml-1 hover:bg-transparent"
+                         onClick={() => {
+                           const params = new URLSearchParams(searchParams.toString())
+                           params.delete("minPrice")
+                           params.delete("maxPrice")
+                           router.push(`/inventory?${params.toString()}`)
+                         }}
+                       >
+                         <X className="h-3 w-3" />
+                       </Button>
+                     </Badge>
+                  )}
+
+                  {/* Availability badge */}
+                  {searchParams.get("available") === "true" && (
+                     <Badge variant="secondary" className="gap-1 pl-2 pr-1">
+                       Available Now
+                       <Button 
+                         variant="ghost" size="icon" className="h-4 w-4 ml-1 hover:bg-transparent"
+                         onClick={() => {
+                           const params = new URLSearchParams(searchParams.toString())
+                           params.delete("available")
+                           router.push(`/inventory?${params.toString()}`)
+                         }}
+                       >
+                         <X className="h-3 w-3" />
+                       </Button>
+                     </Badge>
+                  )}
+
+                  {/* Featured badge */}
+                  {searchParams.get("featured") === "true" && (
+                     <Badge variant="secondary" className="gap-1 pl-2 pr-1">
+                       Featured
+                       <Button 
+                         variant="ghost" size="icon" className="h-4 w-4 ml-1 hover:bg-transparent"
+                         onClick={() => {
+                           const params = new URLSearchParams(searchParams.toString())
+                           params.delete("featured")
+                           router.push(`/inventory?${params.toString()}`)
+                         }}
+                       >
+                         <X className="h-3 w-3" />
+                       </Button>
+                     </Badge>
+                  )}
+
+                  {/* Clear all badge */}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={clearFilters}
+                    className="text-xs text-muted-foreground hover:text-foreground h-6 px-2"
+                  >
+                    Clear All
+                  </Button>
+                </div>
+              )}
             </div>
 
             {isLoading ? (

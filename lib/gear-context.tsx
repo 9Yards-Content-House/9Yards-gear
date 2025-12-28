@@ -39,7 +39,7 @@ export type GearCategory = {
 
 // Price formatting utility
 export function formatPrice(amount: number): string {
-  return `USh ${amount.toLocaleString()}`
+  return `UGX ${amount.toLocaleString()}`
 }
 
 // Airtable API configuration (for client-side fetching - requires NEXT_PUBLIC_ env vars)

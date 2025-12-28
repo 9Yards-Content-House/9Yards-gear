@@ -1176,11 +1176,6 @@ export async function getRevenueByGear(): Promise<
 
 // ============ Utility Functions ============
 
-export function formatPrice(price: number): string {
-  return new Intl.NumberFormat("en-UG", {
-    style: "currency",
-    currency: "UGX",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(price);
+export function formatPrice(amount: number): string {
+  return `UGX ${amount.toLocaleString()}`
 }
