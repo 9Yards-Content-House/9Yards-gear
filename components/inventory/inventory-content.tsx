@@ -178,10 +178,10 @@ function InventoryResults() {
             <span className="text-foreground font-medium">Inventory</span>
           </nav>
           
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            Browse <span className="text-primary">Equipment</span>
+          <h1 className="text-3xl gradient-heading pb-1">
+            Browse Equipment
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl">
+          <p className="text-muted-foreground mt-2">
             Explore Uganda&apos;s most comprehensive film equipment inventory. From cinema cameras to professional audio, find the perfect gear for your production.
           </p>
         </div>
