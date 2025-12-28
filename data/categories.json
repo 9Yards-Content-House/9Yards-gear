@@ -1,34 +1,42 @@
 [
   {
     "id": "rec49aJYjwvQkJrQU",
-    "name": "Lenses"
+    "name": "Lenses",
+    "image": "/cms/cat-rec49aJYjwvQkJrQU.jpg"
   },
   {
     "id": "recLRcJxUZNjVKHRW",
-    "name": "Power & Media"
+    "name": "Power & Media",
+    "image": "/cms/cat-recLRcJxUZNjVKHRW.jpg"
   },
   {
     "id": "recRY6hQWnoi2rNqf",
-    "name": "Lighting"
+    "name": "Lighting",
+    "image": "/cms/cat-recRY6hQWnoi2rNqf.jpg"
   },
   {
     "id": "recVk15HvnsFLw9JV",
-    "name": "Accessories"
+    "name": "Accessories",
+    "image": "/cms/cat-recVk15HvnsFLw9JV.jpg"
   },
   {
     "id": "recbXsfIgsubAuZye",
-    "name": "Audio"
+    "name": "Audio",
+    "image": "/cms/cat-recbXsfIgsubAuZye.jpg"
   },
   {
     "id": "recgl3AInPwIB4V4v",
-    "name": "Cameras"
+    "name": "Cameras",
+    "image": "/cms/cat-recgl3AInPwIB4V4v.jpg"
   },
   {
     "id": "recpUuEKHeXMNbxIq",
-    "name": "Motion & Drones"
+    "name": "Motion & Drones",
+    "image": "/cms/cat-recpUuEKHeXMNbxIq.jpg"
   },
   {
     "id": "recwInr1J1yn51dOh",
-    "name": "Grip & Support"
+    "name": "Grip & Support",
+    "image": "/cms/cat-recwInr1J1yn51dOh.jpg"
   }
 ]
