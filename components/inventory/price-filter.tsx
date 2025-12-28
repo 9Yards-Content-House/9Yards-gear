@@ -9,10 +9,10 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useEffect, useState } from "react"
 
 const PRICE_RANGES = [
-  { label: "Under 30,000", min: 0, max: 30000 },
-  { label: "30,000 - 80,000", min: 30000, max: 80000 },
-  { label: "80,000 - 150,000", min: 80000, max: 150000 },
-  { label: "150,000+", min: 150000, max: null },
+  { label: "Under 50,000", min: 0, max: 50000 },
+  { label: "50,000 - 100,000", min: 50000, max: 100000 },
+  { label: "100,000 - 200,000", min: 100000, max: 200000 },
+  { label: "200,000+", min: 200000, max: null },
 ]
 
 export function PriceFilter() {
@@ -24,12 +24,12 @@ export function PriceFilter() {
   const maxParam = searchParams.get("maxPrice")
 
   // Local state for slider to avoid URL thrashing
-  const [sliderValue, setSliderValue] = useState([0, 200000])
+  const [sliderValue, setSliderValue] = useState([0, 300000])
 
   useEffect(() => {
     // Sync local state from URL on mount/update if present
     const min = minParam ? Number(minParam) : 0
-    const max = maxParam ? Number(maxParam) : 200000
+    const max = maxParam ? Number(maxParam) : 300000
     setSliderValue([min, max])
   }, [minParam, maxParam])
 
