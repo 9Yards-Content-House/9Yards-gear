@@ -58,9 +58,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/icon.png',
-    shortcut: '/icon.png',
-    apple: '/icon.png',
+    icon: '/9Yards-Film-2D-Logo_50.png',
+    shortcut: '/9Yards-Film-2D-Logo_50.png',
+    apple: '/9Yards-Film-2D-Logo_50.png',
   },
   openGraph: {
     type: "website",
