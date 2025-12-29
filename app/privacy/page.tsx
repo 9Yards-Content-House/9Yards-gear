@@ -1,7 +1,5 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
@@ -12,7 +10,6 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <>
-      <Header />
       <main className="min-h-screen pt-20">
         <div className="mx-auto max-w-4xl px-4 py-12 lg:px-8">
           {/* Back link */}
@@ -104,7 +101,6 @@ export default function PrivacyPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   )
 }

@@ -1,8 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Star, Quote, Film, Music, Building2, User } from "lucide-react"
@@ -88,7 +86,6 @@ function getTypeIcon(type: string) {
 export default function TestimonialsPage() {
   return (
     <>
-      <Header />
       <main id="main-content" className="min-h-screen pt-20">
         {/* Hero */}
         <section className="py-16 bg-gradient-to-b from-background to-card">
@@ -182,7 +179,6 @@ export default function TestimonialsPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   )
 }

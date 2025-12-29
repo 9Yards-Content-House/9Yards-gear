@@ -1,5 +1,3 @@
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
 import { HeroSection } from "@/components/home/hero-section"
 import { FeaturedGear } from "@/components/home/featured-gear"
 import { CategoriesSection } from "@/components/home/categories-section"
@@ -12,14 +10,12 @@ export default function HomePage() {
       <OrganizationSchema />
       <LocalBusinessSchema />
       <WebSiteSchema />
-      <Header />
       <main id="main-content">
         <HeroSection />
         <FeaturedGear />
         <CategoriesSection />
         <HowItWorks />
       </main>
-      <Footer />
     </>
   )
 }

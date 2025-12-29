@@ -3,8 +3,6 @@
 import { useState, useEffect, useMemo } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
@@ -77,7 +75,6 @@ export default function SearchPage() {
   
   return (
     <>
-      <Header />
       <main className="min-h-screen pt-20">
         <div className="mx-auto max-w-7xl px-4 py-8 lg:px-8">
           {/* Breadcrumb */}
@@ -257,7 +254,6 @@ export default function SearchPage() {
           )}
         </div>
       </main>
-      <Footer />
     </>
   )
 }

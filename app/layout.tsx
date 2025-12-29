@@ -6,6 +6,8 @@ import { PWARegister } from "@/components/pwa-register"
 import { GearProvider } from "@/lib/gear-context"
 import { CartProvider } from "@/lib/cart-context"
 import { getAllGear, getAllCategories } from "@/lib/gear-data"
+import { Header } from "@/components/layout/header"
+import { Footer } from "@/components/layout/footer"
 import "./globals.css"
 
 const inter = Inter({
@@ -204,7 +206,9 @@ export default async function RootLayout({
         </a>
         <GearProvider initialGear={initialGear} initialCategories={initialCategories}>
           <CartProvider>
+            <Header />
             {children}
+            <Footer />
           </CartProvider>
         </GearProvider>
         <FloatingActions />

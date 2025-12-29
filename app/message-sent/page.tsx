@@ -1,7 +1,5 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { 
@@ -17,7 +15,6 @@ export const metadata: Metadata = {
 export default function MessageSentPage() {
   return (
     <>
-      <Header />
       <main className="min-h-screen pt-20">
         <div className="mx-auto max-w-2xl px-4 py-16 lg:px-8">
           {/* Success Header */}
@@ -93,7 +90,6 @@ export default function MessageSentPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   )
 }

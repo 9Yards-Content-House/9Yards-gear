@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Check, X } from "lucide-react";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import { Badge } from "@/components/ui/badge";
 import { GearImageGallery } from "@/components/gear/gear-image-gallery";
 import { SyncedBookingSection } from "@/components/gear/synced-booking-section";
@@ -69,7 +67,7 @@ export default async function GearDetailPage({ params }: Props) {
     <>
       <ProductSchema item={item} />
       <GearViewTracker item={item} />
-      <Header />
+      <GearViewTracker item={item} />
       <main className="min-h-screen pt-20">
         <div className="mx-auto max-w-7xl px-4 py-8 lg:px-8">
           {/* Breadcrumb */}
@@ -216,7 +214,6 @@ export default async function GearDetailPage({ params }: Props) {
           <GearFinalCTA itemName={item.name} pricePerDay={item.pricePerDay} />
         </div>
       </main>
-      <Footer />
     </>
   );
 }

@@ -1,7 +1,5 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -91,7 +89,6 @@ const returnChecklist = [
 export default function EquipmentCarePage() {
   return (
     <>
-      <Header />
       <main id="main-content" className="min-h-screen pt-20">
         {/* Hero */}
         <section className="py-16 bg-gradient-to-b from-background to-card">
@@ -219,7 +216,6 @@ export default function EquipmentCarePage() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   )
 }

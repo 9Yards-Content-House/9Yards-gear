@@ -3,8 +3,6 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -57,7 +55,6 @@ export default function ContactPage() {
 
   return (
     <>
-      <Header />
       <main className="min-h-screen pt-20">
         {/* Hero */}
         <section className="bg-card border-b border-border">
@@ -206,7 +203,7 @@ export default function ContactPage() {
                               id="message"
                               required
                               placeholder="Tell us how we can help..."
-                              className="min-h-37.5"
+                               className="min-h-[150px]"
                               value={formData.message}
                               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                             />
@@ -235,7 +232,6 @@ export default function ContactPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   )
 }

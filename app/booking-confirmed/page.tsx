@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -62,7 +60,6 @@ export default function BookingConfirmedPage() {
 
   return (
     <>
-      <Header />
       <main className="min-h-screen pt-20">
         <div className="mx-auto max-w-3xl px-4 py-12 lg:px-8">
           {/* Success Header */}
@@ -209,7 +206,6 @@ export default function BookingConfirmedPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   )
 }

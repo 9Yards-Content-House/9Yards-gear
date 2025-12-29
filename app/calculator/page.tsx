@@ -1,7 +1,5 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
 import { RentalCalculator } from "@/components/calculator/rental-calculator"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
@@ -94,7 +92,6 @@ const notIncludedItems = [
 export default function CalculatorPage() {
   return (
     <>
-      <Header />
       <main className="min-h-screen pt-20">
         {/* Hero */}
         <section className="py-8 bg-gradient-to-b from-background to-card">
@@ -273,7 +270,6 @@ export default function CalculatorPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   )
 }

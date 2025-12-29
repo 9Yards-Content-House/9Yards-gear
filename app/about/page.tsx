@@ -1,7 +1,5 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { 
@@ -23,7 +21,6 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <Header />
       <main className="min-h-screen pt-20">
         {/* Hero */}
         <section className="relative py-20 lg:py-32 overflow-hidden bg-background">
@@ -224,7 +221,6 @@ export default function AboutPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   )
 }

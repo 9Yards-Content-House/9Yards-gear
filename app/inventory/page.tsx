@@ -1,7 +1,5 @@
 import { Suspense } from "react"
 import type { Metadata } from "next"
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
 import { InventoryContent } from "@/components/inventory/inventory-content"
 
 export const metadata: Metadata = {
@@ -21,13 +19,11 @@ export const revalidate = 3600 // Revalidate every hour
 export default function InventoryPage() {
   return (
     <>
-      <Header />
       <main id="main-content">
         <Suspense fallback={<InventoryLoadingSkeleton />}>
           <InventoryContent />
         </Suspense>
       </main>
-      <Footer />
     </>
   )
 }
