@@ -6,7 +6,7 @@
     "sync": "tsx scripts/sync-content.ts",
     "build": "pnpm run sync && next build",
     "dev": "next dev",
-    "lint": "eslint .",
+    "lint": "next lint",
     "start": "next start"
   },
   "dependencies": {

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { ChevronRight, HelpCircle, MessageCircle, Phone } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "FAQ | 9Yards Gear",
@@ -100,34 +101,51 @@ export default function FAQPage() {
     <>
       <main id="main-content" className="min-h-screen pt-20">
         {/* Hero */}
-        <section className="py-16 bg-gradient-to-b from-background to-card">
-          <div className="mx-auto max-w-7xl px-4 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-5xl gradient-heading mb-4">
-              Frequently Asked Questions
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to know about renting equipment from 9Yards Gear
-            </p>
+        <section className="py-12 bg-linear-to-b from-background to-card/50">
+          <div className="mx-auto max-w-7xl px-4 lg:px-8">
+            {/* Breadcrumb */}
+            <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8" aria-label="Breadcrumb">
+              <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+              <ChevronRight className="h-4 w-4" />
+              <span className="text-foreground font-medium">FAQ</span>
+            </nav>
+
+            <div className="max-w-3xl">
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
+                <span className="gradient-heading">Frequently Asked</span>
+                <br />
+                Questions
+              </h1>
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                Everything you need to know about renting equipment from 9Yards Gear. If you can't find the answer here, our team is just a message away.
+              </p>
+            </div>
           </div>
         </section>
 
         {/* FAQ Sections */}
-        <section className="py-16 bg-background">
-          <div className="mx-auto max-w-3xl px-4 lg:px-8">
+        <section className="py-12 bg-background">
+          <div className="mx-auto max-w-4xl px-4 lg:px-8">
             {faqs.map((section) => (
-              <div key={section.category} className="mb-12">
-                <h2 className="text-xl font-bold text-foreground mb-6">{section.category}</h2>
+              <div key={section.category} className="mb-12 last:mb-0">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                    <HelpCircle className="h-4 w-4 text-primary" />
+                  </div>
+                  <h2 className="text-xl font-bold text-foreground">{section.category}</h2>
+                </div>
+                
                 <Accordion type="single" collapsible className="space-y-4">
                   {section.questions.map((faq, index) => (
                     <AccordionItem 
                       key={index} 
                       value={`${section.category}-${index}`}
-                      className="border border-border rounded-lg px-4 bg-card"
+                      className="border border-primary/10 rounded-lg px-4 bg-card/50 hover:bg-card transition-colors"
                     >
-                      <AccordionTrigger className="text-left hover:no-underline">
+                      <AccordionTrigger className="text-left hover:no-underline py-4 text-base font-medium">
                         {faq.q}
                       </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground">
+                      <AccordionContent className="text-muted-foreground pb-4 leading-relaxed">
                         {faq.a}
                       </AccordionContent>
                     </AccordionItem>
@@ -139,17 +157,20 @@ export default function FAQPage() {
         </section>
 
         {/* Still Have Questions */}
-        <section className="py-16 bg-card">
+        <section className="py-16 bg-card border-t border-border">
           <div className="mx-auto max-w-7xl px-4 lg:px-8 text-center">
-            <h2 className="text-3xl gradient-heading mb-4">Still Have Questions?</h2>
+            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+              <MessageCircle className="h-8 w-8 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold mb-4">Still Have Questions?</h2>
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-              Can't find what you're looking for? Our team is here to help.
+              Can't find what you're looking for? Our team is here to help you find the perfect gear for your production.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg">
+              <Button asChild size="lg" className="rounded-md">
                 <Link href="/contact">Contact Us</Link>
               </Button>
-              <Button asChild size="lg" variant="outline">
+              <Button asChild size="lg" variant="outline" className="rounded-md">
                 <a href="https://wa.me/256700488870" target="_blank" rel="noopener noreferrer">
                   WhatsApp Us
                 </a>
