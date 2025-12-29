@@ -102,9 +102,7 @@ export default function EquipmentCarePage() {
 
             <div className="max-w-3xl">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
-                <span className="gradient-heading">Equipment Care</span>
-                <br />
-                Guide
+                <span className="gradient-heading">Equipment Care Guide</span>
               </h1>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                 Treat our gear like your own. Proper care ensures the best performance for your shoot and helps you avoid unnecessary damage fees.
@@ -179,7 +177,7 @@ export default function EquipmentCarePage() {
         </section>
 
         {/* Prohibited Actions & Checklist */}
-        <section className="py-12 bg-background">
+        <section className="py-24 bg-background">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="grid md:grid-cols-2 gap-8">
               {/* Prohibited Actions */}
@@ -226,24 +224,6 @@ export default function EquipmentCarePage() {
                 </Card>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Emergency */}
-        <section className="py-16 bg-card border-t border-border">
-          <div className="mx-auto max-w-3xl px-4 lg:px-8 text-center">
-            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Phone className="h-8 w-8 text-primary" />
-            </div>
-            <h2 className="text-2xl font-bold mb-4">Something Went Wrong?</h2>
-            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-              If equipment malfunctions or gets damaged, contact us immediately. Don't attempt repairs yourself.
-            </p>
-            <Button asChild size="lg" className="rounded-md">
-              <a href="tel:+256700488870">
-                Call Support: 0700 488 870
-              </a>
-            </Button>
           </div>
         </section>
       </main>
