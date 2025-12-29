@@ -4,9 +4,10 @@ import { RentalCalculator } from "@/components/calculator/rental-calculator"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { 
   Info, Clock, CreditCard, Truck, Sparkles, CheckCircle, 
-  ChevronRight, Phone, Package, HelpCircle
+  ChevronRight, Phone, Package, HelpCircle, Search, Calendar as CalendarIcon, FileText
 } from "lucide-react"
 
 export const metadata: Metadata = {
@@ -20,9 +21,24 @@ export const metadata: Metadata = {
 }
 
 const steps = [
-  { number: "1", title: "Search and select", description: "the equipment you need for your production" },
-  { number: "2", title: "Choose your rental duration", description: "daily, 3-day, weekly, or custom dates" },
-  { number: "3", title: "Get your instant quote", description: "with line-item pricing and total cost" },
+  { 
+    number: "1", 
+    title: "Search & Select", 
+    description: "Browse our inventory and add equipment to your quote list.",
+    icon: Search 
+  },
+  { 
+    number: "2", 
+    title: "Set Dates", 
+    description: "Choose your pickup and return dates to see accurate pricing.",
+    icon: CalendarIcon 
+  },
+  { 
+    number: "3", 
+    title: "Get Quote", 
+    description: "Review your estimate and submit a booking request instantly.",
+    icon: FileText 
+  },
 ]
 
 const tips = [
@@ -94,34 +110,50 @@ export default function CalculatorPage() {
     <>
       <main className="min-h-screen pt-20">
         {/* Hero */}
-        <section className="py-8 bg-gradient-to-b from-background to-card">
+        <section className="py-12 bg-linear-to-b from-background to-card/50">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             {/* Breadcrumb */}
-            <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+            <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8" aria-label="Breadcrumb">
               <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
               <ChevronRight className="h-4 w-4" />
               <span className="text-foreground font-medium">Calculator</span>
             </nav>
 
-            <div className="max-w-3xl">
-              <h1 className="text-3xl md:text-4xl gradient-heading mb-3">
-                Estimate Your Rental Cost
-              </h1>
-              <p className="text-muted-foreground mb-4">
-                Select your equipment and rental dates to get an instant quote. No signup required, no commitments just clear pricing so you can plan your production budget with confidence.
-              </p>
-              
-              {/* How to use - inline steps */}
-              <div className="flex flex-wrap gap-4 text-sm">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="max-w-2xl">
+                <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
+                  <span className="gradient-heading">Estimate Your</span>
+                  <br />
+                  Rental Costs
+                </h1>
+                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                  Plan your production budget with confidence. Select your equipment, choose your dates, and get an instant, transparent quote with no hidden fees.
+                </p>
+                
+                <div className="flex flex-wrap gap-4">
+                  <Button size="lg" className="rounded-md" asChild>
+                    <Link href="#calculator">Start Calculating</Link>
+                  </Button>
+                  <Button size="lg" variant="outline" className="rounded-md" asChild>
+                    <Link href="/how-it-works">How It Works</Link>
+                  </Button>
+                </div>
+              </div>
+
+              {/* Visual Steps */}
+              <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
                 {steps.map((step) => (
-                  <div key={step.number} className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">
-                      {step.number}
-                    </span>
-                    <span>
-                      <strong>{step.title}</strong> {step.description}
-                    </span>
-                  </div>
+                  <Card key={step.number} className="bg-background/50 backdrop-blur border-primary/10">
+                    <CardContent className="p-4 flex flex-col gap-3">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">
+                        {step.number}
+                      </div>
+                      <div>
+                        <h3 className="font-semibold mb-1">{step.title}</h3>
+                        <p className="text-xs text-muted-foreground leading-snug">{step.description}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
                 ))}
               </div>
             </div>
@@ -129,7 +161,7 @@ export default function CalculatorPage() {
         </section>
 
         {/* Calculator Section */}
-        <section className="py-8 bg-background">
+        <section id="calculator" className="py-12 bg-background">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Main Calculator */}
@@ -140,7 +172,7 @@ export default function CalculatorPage() {
               {/* Sidebar */}
               <div className="space-y-6">
                 {/* Discount Banner */}
-                <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/20">
+                <Card className="bg-linear-to-br from-primary/10 via-primary/5 to-transparent border-primary/20">
                   <CardContent className="p-4">
                     <div className="flex items-start gap-3">
                       <Sparkles className="h-5 w-5 text-primary shrink-0 mt-0.5" />
@@ -179,33 +211,21 @@ export default function CalculatorPage() {
                   </CardContent>
                 </Card>
 
-                {/* What's Included */}
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-sm">What&apos;s Included</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-2">
-                    {includedItems.map((item) => (
-                      <div key={item} className="flex items-start gap-2 text-xs">
-                        <CheckCircle className="h-3 w-3 text-green-500 shrink-0 mt-0.5" />
-                        <span className="text-muted-foreground">{item}</span>
-                      </div>
-                    ))}
-                  </CardContent>
-                </Card>
-
-                {/* What's NOT Included */}
-                <Card className="border-orange-500/20 bg-orange-500/5">
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-sm">Not Included</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-2">
-                    {notIncludedItems.map((item) => (
-                      <div key={item} className="flex items-start gap-2 text-xs">
-                        <span className="text-orange-500 shrink-0">•</span>
-                        <span className="text-muted-foreground">{item}</span>
-                      </div>
-                    ))}
+                {/* Need Help? */}
+                <Card className="bg-primary text-primary-foreground">
+                  <CardContent className="p-6 text-center space-y-4">
+                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto">
+                      <Phone className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-lg mb-1">Need Help?</h3>
+                      <p className="text-primary-foreground/80 text-sm">
+                        Not sure what equipment you need? Our team can help you build the perfect package.
+                      </p>
+                    </div>
+                    <Button variant="secondary" className="w-full" asChild>
+                      <Link href="/contact">Contact Support</Link>
+                    </Button>
                   </CardContent>
                 </Card>
 
@@ -242,33 +262,7 @@ export default function CalculatorPage() {
           </div>
         </section>
 
-        {/* Trust Indicators */}
-        <section className="py-8 bg-background border-t border-border">
-          <div className="mx-auto max-w-7xl px-4 lg:px-8">
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1">
-                <CheckCircle className="h-4 w-4 text-green-500" />
-                Transparent Pricing
-              </span>
-              <span className="flex items-center gap-1">
-                <CheckCircle className="h-4 w-4 text-green-500" />
-                No Hidden Fees
-              </span>
-              <span className="flex items-center gap-1">
-                <CheckCircle className="h-4 w-4 text-green-500" />
-                Same-Day Deposit Refunds
-              </span>
-              <span className="flex items-center gap-1">
-                <CheckCircle className="h-4 w-4 text-green-500" />
-                Flexible Booking
-              </span>
-            </div>
-            <p className="text-center text-xs text-muted-foreground mt-4">
-              Questions? Call <a href="tel:+256700488870" className="text-primary hover:underline">0700 488 870</a> or{" "}
-              <Link href="/contact" className="text-primary hover:underline">contact us</Link>
-            </p>
-          </div>
-        </section>
+
       </main>
     </>
   )
