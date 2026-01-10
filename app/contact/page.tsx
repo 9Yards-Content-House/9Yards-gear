@@ -19,7 +19,7 @@ export default function ContactPage() {
     email: "",
     phone: "",
     subject: "",
-    message: "",
+    message: "", 
   })
 
   const handleSubmit = async (e: React.FormEvent) => {
