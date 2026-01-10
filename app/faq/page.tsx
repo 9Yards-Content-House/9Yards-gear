@@ -3,10 +3,27 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { ChevronRight, HelpCircle, MessageCircle, Phone } from "lucide-react"
+import { BreadcrumbSchema, FAQSchema } from "@/components/seo/schema-org"
 
 export const metadata: Metadata = {
-  title: "FAQ | 9Yards Gear",
-  description: "Frequently asked questions about renting equipment from 9Yards Gear. Learn about booking, pricing, policies, and more.",
+  title: "FAQ - Film Equipment Rental Questions | 9Yards Gear Uganda",
+  description: "Frequently asked questions about renting film equipment from 9Yards Gear in Kampala, Uganda. Learn about booking, pricing, equipment care, policies, and more. Part of 9Yards Film.",
+  keywords: [
+    "film equipment rental FAQ Uganda",
+    "camera rental questions Kampala",
+    "9Yards Gear FAQ",
+    "9Yards Film equipment",
+    "gear rental policies Uganda",
+    "how to rent film equipment Uganda",
+  ],
+  openGraph: {
+    title: "FAQ - Film Equipment Rental Questions | 9Yards Gear",
+    description: "Everything you need to know about renting professional film equipment in Uganda. Booking, pricing, policies & more.",
+    url: "https://gear.9yards.co.ug/faq",
+  },
+  alternates: {
+    canonical: "https://gear.9yards.co.ug/faq",
+  },
 }
 
 const faqs = [
@@ -99,6 +116,13 @@ const faqs = [
 export default function FAQPage() {
   return (
     <>
+      <FAQSchema />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://gear.9yards.co.ug" },
+          { name: "FAQ", url: "https://gear.9yards.co.ug/faq" },
+        ]}
+      />
       <main id="main-content" className="min-h-screen pt-20">
         {/* Hero */}
         <section className="py-12 bg-linear-to-b from-background to-card/50">

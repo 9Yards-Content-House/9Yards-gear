@@ -1,4 +1,7 @@
-# https://www.robotstxt.org/robotstxt.html
+# 9Yards Gear - Film Equipment Rental Uganda
+# https://gear.9yards.co.ug
+# Part of 9Yards Film: https://film.9yards.co.ug
+
 User-agent: *
 Allow: /
 Disallow: /admin/
@@ -13,14 +16,23 @@ Sitemap: https://gear.9yards.co.ug/sitemap.xml
 # Crawl-delay for respectful crawling
 Crawl-delay: 1
 
-# Google specific
+# Google specific - prioritize indexing
 User-agent: Googlebot
+Allow: /
+Allow: /gear/
+Allow: /inventory
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+
+# Bing specific
+User-agent: Bingbot
 Allow: /
 Disallow: /admin/
 Disallow: /dashboard/
 Disallow: /api/
 
-# Allow images for all bots
+# Allow images for all bots (important for rich snippets)
 User-agent: *
 Allow: /*.jpg$
 Allow: /*.jpeg$
@@ -28,3 +40,9 @@ Allow: /*.png$
 Allow: /*.gif$
 Allow: /*.webp$
 Allow: /*.svg$
+Allow: /cms/
+Allow: /gear/
+Allow: /logo/
+
+# Host directive
+Host: https://gear.9yards.co.ug

@@ -1,0 +1,19 @@
+{
+  "name": "9Yards Gear - Professional Equipment Rental",
+  "short_name": "9Yards Gear",
+  "icons": [
+    {
+      "src": "/favicon/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#D4AF37",
+  "background_color": "#0A0A0A",
+  "display": "standalone"
+}

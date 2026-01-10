@@ -1,15 +1,29 @@
 import { Suspense } from "react"
 import type { Metadata } from "next"
 import { InventoryContent } from "@/components/inventory/inventory-content"
+import { BreadcrumbSchema } from "@/components/seo/schema-org"
 
 export const metadata: Metadata = {
-  title: "Film Equipment Inventory | Cameras, Lenses & Lighting",
+  title: "Film Equipment Inventory | Cameras, Lenses & Lighting Rental Uganda",
   description:
-    "Browse 50+ cinema cameras, lenses, lighting, audio gear & drones. Real-time availability, transparent pricing. ARRI, RED, Sony, Canon & more. Book today.",
+    "Browse 50+ cinema cameras, lenses, lighting, audio gear & drones for rent in Kampala, Uganda. Real-time availability, transparent pricing. ARRI, RED, Sony, Blackmagic, Canon & more. Book professional film equipment today from 9Yards Gear.",
+  keywords: [
+    "film equipment rental Uganda",
+    "camera rental Kampala",
+    "cinema camera hire Uganda",
+    "lighting rental Kampala",
+    "audio gear rental Uganda",
+    "drone rental Uganda",
+    "9Yards Film equipment",
+    "production gear Uganda",
+  ],
   openGraph: {
-    title: "Film Equipment Inventory - 9Yards Gear",
-    description: "Browse 50+ professional cinema cameras, lenses, lighting, audio gear & drones. Real-time availability in Kampala.",
+    title: "Film Equipment Inventory - 9Yards Gear Uganda",
+    description: "Browse 50+ professional cinema cameras, lenses, lighting, audio gear & drones. Real-time availability in Kampala. Rent from Uganda's trusted film equipment house.",
     url: "https://gear.9yards.co.ug/inventory",
+  },
+  alternates: {
+    canonical: "https://gear.9yards.co.ug/inventory",
   },
 }
 
@@ -19,6 +33,12 @@ export const revalidate = 3600 // Revalidate every hour
 export default function InventoryPage() {
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://gear.9yards.co.ug" },
+          { name: "Equipment Inventory", url: "https://gear.9yards.co.ug/inventory" },
+        ]}
+      />
       <main id="main-content">
         <Suspense fallback={<InventoryLoadingSkeleton />}>
           <InventoryContent />

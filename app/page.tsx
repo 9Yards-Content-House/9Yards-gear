@@ -2,7 +2,7 @@ import { HeroSection } from "@/components/home/hero-section"
 import { FeaturedGear } from "@/components/home/featured-gear"
 import { CategoriesSection } from "@/components/home/categories-section"
 import { HowItWorks } from "@/components/home/how-it-works"
-import { OrganizationSchema, LocalBusinessSchema, WebSiteSchema } from "@/components/seo/schema-org"
+import { OrganizationSchema, LocalBusinessSchema, WebSiteSchema, ServiceSchema, FAQSchema } from "@/components/seo/schema-org"
 
 export default function HomePage() {
   return (
@@ -10,6 +10,8 @@ export default function HomePage() {
       <OrganizationSchema />
       <LocalBusinessSchema />
       <WebSiteSchema />
+      <ServiceSchema />
+      <FAQSchema />
       <main id="main-content">
         <HeroSection />
         <FeaturedGear />

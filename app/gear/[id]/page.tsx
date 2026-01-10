@@ -13,7 +13,7 @@ import {
   RentalTermsSummary,
 } from "@/components/gear/gear-info-sections";
 import { GearFinalCTA } from "@/components/gear/gear-final-cta";
-import { ProductSchema } from "@/components/seo/schema-org";
+import { ProductSchema, BreadcrumbSchema } from "@/components/seo/schema-org";
 import { RelatedGearList } from "@/components/gear/related-gear-list";
 import { ShareButton } from "@/components/gear/share-button";
 import {
@@ -46,9 +46,44 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const category = await getCategoryByIdAsync(item.category);
+  const categoryName = category?.name || "Equipment";
+
   return {
-    title: `${item.name} | 9Yards Gear`,
-    description: item.description,
+    title: `Rent ${item.name} in Uganda | ${categoryName} Rental - 9Yards Gear`,
+    description: `${item.description} Rent ${item.name} in Kampala, Uganda from UGX ${item.pricePerDay?.toLocaleString()}/day. Professional ${categoryName.toLowerCase()} rental from 9Yards Film.`,
+    keywords: [
+      `${item.name} rental Uganda`,
+      `rent ${item.name} Kampala`,
+      `${item.brand || ''} rental Uganda`,
+      `${categoryName} rental Kampala`,
+      "film equipment Uganda",
+      "9Yards Gear",
+      "9Yards Film",
+    ],
+    openGraph: {
+      title: `Rent ${item.name} | 9Yards Gear Uganda`,
+      description: `${item.description} Available for rent in Kampala from UGX ${item.pricePerDay?.toLocaleString()}/day.`,
+      url: `https://gear.9yards.co.ug/gear/${id}`,
+      images: [
+        {
+          url: item.image?.startsWith('http') ? item.image : `https://gear.9yards.co.ug${item.image}`,
+          width: 800,
+          height: 600,
+          alt: `${item.name} for rent in Uganda`,
+        },
+      ],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Rent ${item.name} | 9Yards Gear`,
+      description: `Rent in Kampala from UGX ${item.pricePerDay?.toLocaleString()}/day. Professional gear from 9Yards Film.`,
+      images: [item.image?.startsWith('http') ? item.image : `https://gear.9yards.co.ug${item.image}`],
+    },
+    alternates: {
+      canonical: `https://gear.9yards.co.ug/gear/${id}`,
+    },
   };
 }
 
@@ -66,7 +101,14 @@ export default async function GearDetailPage({ params }: Props) {
   return (
     <>
       <ProductSchema item={item} />
-      <GearViewTracker item={item} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://gear.9yards.co.ug" },
+          { name: "Equipment Inventory", url: "https://gear.9yards.co.ug/inventory" },
+          ...(category ? [{ name: category.name, url: `https://gear.9yards.co.ug/inventory?category=${category.id}` }] : []),
+          { name: item.name, url: `https://gear.9yards.co.ug/gear/${item.id}` },
+        ]}
+      />
       <GearViewTracker item={item} />
       <main className="min-h-screen pt-20">
         <div className="mx-auto max-w-7xl px-4 py-8 lg:px-8">

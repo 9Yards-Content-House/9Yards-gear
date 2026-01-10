@@ -6,21 +6,41 @@ import {
   ArrowRight, Shield, Zap, Wrench,
   ChevronRight, Phone, Mail, Camera
 } from "lucide-react"
+import { BreadcrumbSchema, OrganizationSchema } from "@/components/seo/schema-org"
 
 export const metadata: Metadata = {
-  title: "About 9Yards Gear | Uganda's Premier Equipment Rental House",
+  title: "About 9Yards Gear | Uganda's Premier Film Equipment Rental House",
   description:
-    "Part of 9Yards Film. 50+ professional equipment pieces, 200+ productions supported. Empowering Uganda's storytellers with cinema-quality gear since 2020.",
+    "Part of 9Yards Film production company. 50+ professional equipment pieces, 200+ productions supported. Empowering Uganda's storytellers with cinema-quality gear since 2020. Rent cameras, lenses, lighting & audio in Kampala.",
+  keywords: [
+    "9Yards Film",
+    "9Yards Gear",
+    "about 9Yards Uganda",
+    "film equipment rental company Uganda",
+    "Uganda film production company",
+    "Kampala equipment rental",
+    "9Yards content house",
+  ],
   openGraph: {
     title: "About 9Yards Gear - Uganda's Premier Film Equipment Rental",
-    description: "Empowering Uganda's storytellers since 2020. 50+ equipment pieces, 200+ productions supported. Learn our story.",
+    description: "Part of 9Yards Film. Empowering Uganda's storytellers since 2020. 50+ equipment pieces, 200+ productions supported. Learn our story.",
     url: "https://gear.9yards.co.ug/about",
+  },
+  alternates: {
+    canonical: "https://gear.9yards.co.ug/about",
   },
 }
 
 export default function AboutPage() {
   return (
     <>
+      <OrganizationSchema />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://gear.9yards.co.ug" },
+          { name: "About Us", url: "https://gear.9yards.co.ug/about" },
+        ]}
+      />
       <main className="min-h-screen pt-20">
         {/* Hero */}
         <section className="relative py-20 lg:py-32 overflow-hidden bg-background">

@@ -9,18 +9,24 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/9Yards-Film-2D-Logo_50.png",
+      "src": "/favicon/favicon-32x32.png",
       "sizes": "32x32",
       "type": "image/png"
     },
     {
-      "src": "/9Yards-Film-2D-Logo_50.png",
+      "src": "/favicon/apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/9Yards-Film-2D-Logo_50.png",
+      "src": "/favicon/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
@@ -33,14 +39,14 @@
       "short_name": "Inventory",
       "description": "View all available equipment",
       "url": "/inventory",
-      "icons": [{ "src": "/9Yards-Film-2D-Logo_50.png", "sizes": "180x180" }]
+      "icons": [{ "src": "/favicon/apple-touch-icon.png", "sizes": "180x180" }]
     },
     {
       "name": "Rental Calculator",
       "short_name": "Calculator",
       "description": "Calculate rental costs",
       "url": "/calculator",
-      "icons": [{ "src": "/9Yards-Film-2D-Logo_50.png", "sizes": "180x180" }]
+      "icons": [{ "src": "/favicon/apple-touch-icon.png", "sizes": "180x180" }]
     }
   ]
 }

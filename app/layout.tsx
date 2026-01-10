@@ -38,7 +38,20 @@ export const metadata: Metadata = {
     "audio gear rental",
     "drone rental Kampala",
     "9Yards Gear",
-    "9Yards Film"
+    "9Yards Film",
+    "gear rental Uganda",
+    "equipment hire Kampala",
+    "film production Uganda",
+    "video production equipment Uganda",
+    "Blackmagic rental Uganda",
+    "RED camera rental Uganda",
+    "film gear hire East Africa",
+    "professional camera rental Uganda",
+    "movie equipment rental Kampala",
+    "broadcast equipment Uganda",
+    "9Yards content house",
+    "9Yards Uganda",
+    "hire film equipment Kampala"
   ],
   authors: [{ name: "9Yards Film", url: "https://film.9yards.co.ug" }],
   creator: "9Yards Gear",
@@ -60,9 +73,13 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/9Yards-Film-2D-Logo_50.png',
-    shortcut: '/9Yards-Film-2D-Logo_50.png',
-    apple: '/9Yards-Film-2D-Logo_50.png',
+    icon: [
+      { url: '/favicon/favicon.ico', sizes: 'any' },
+      { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    shortcut: '/favicon/favicon.ico',
+    apple: '/favicon/apple-touch-icon.png',
   },
   openGraph: {
     type: "website",
@@ -90,6 +107,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
   },
+  verification: {
+    google: "QDT0bvNomFsJHjx50qFwFZJc0MgLW_ULO3JolmgDxds",
+  },
   category: "Film Equipment Rental",
   other: {
     "geo.region": "UG-C",
@@ -112,8 +132,8 @@ const jsonLd = {
   "@type": "LocalBusiness",
   "@id": `${siteUrl}/#organization`,
   name: "9Yards Gear",
-  alternateName: "9Yards Film Equipment Rental",
-  description: "Professional film equipment rental in Kampala, Uganda. Cinema cameras, lenses, lighting, audio gear & drones for filmmakers and content creators.",
+  alternateName: ["9Yards Film Equipment Rental", "9Yards Film Gear", "9Yards Uganda Gear"],
+  description: "Professional film equipment rental in Kampala, Uganda. Cinema cameras, lenses, lighting, audio gear & drones for filmmakers and content creators. Part of 9Yards Film production company.",
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
   image: `${siteUrl}/og-image.jpg`,
@@ -121,8 +141,10 @@ const jsonLd = {
   email: "gear@9yards.co.ug",
   address: {
     "@type": "PostalAddress",
+    streetAddress: "Kampala",
     addressLocality: "Kampala",
     addressRegion: "Central Region",
+    postalCode: "256",
     addressCountry: "UG"
   },
   geo: {
@@ -130,6 +152,11 @@ const jsonLd = {
     latitude: "0.3476",
     longitude: "32.5825"
   },
+  areaServed: [
+    { "@type": "City", name: "Kampala" },
+    { "@type": "Country", name: "Uganda" },
+    { "@type": "Place", name: "East Africa" }
+  ],
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
@@ -144,22 +171,53 @@ const jsonLd = {
       closes: "16:00"
     }
   ],
-  priceRange: "UGX 40,000 - UGX 500,000",
+  priceRange: "UGX 10,000 - UGX 500,000",
   aggregateRating: {
     "@type": "AggregateRating",
     ratingValue: "5",
+    bestRating: "5",
+    worstRating: "1",
     reviewCount: "47"
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Film Equipment Rental Catalog",
+    itemListElement: [
+      { "@type": "OfferCatalog", name: "Cinema Cameras", description: "Professional cinema cameras for film production" },
+      { "@type": "OfferCatalog", name: "Lenses", description: "Cinema and photography lenses" },
+      { "@type": "OfferCatalog", name: "Lighting", description: "Professional lighting equipment" },
+      { "@type": "OfferCatalog", name: "Audio", description: "Audio recording equipment" },
+      { "@type": "OfferCatalog", name: "Drones", description: "Professional aerial filming drones" },
+      { "@type": "OfferCatalog", name: "Accessories", description: "Production accessories and grip equipment" }
+    ]
   },
   sameAs: [
     "https://www.instagram.com/9yards.ug",
     "https://www.tiktok.com/@9yards",
-    "https://www.youtube.com/@9yardscontenthouse"
+    "https://www.youtube.com/@9yardscontenthouse",
+    "https://film.9yards.co.ug",
+    "https://9yards.co.ug"
   ],
+  isPartOf: {
+    "@type": "Organization",
+    "@id": "https://film.9yards.co.ug/#organization",
+    name: "9Yards Film",
+    url: "https://film.9yards.co.ug",
+    description: "Uganda's premier film production company"
+  },
   parentOrganization: {
     "@type": "Organization",
     name: "9Yards",
     url: "https://9yards.co.ug"
-  }
+  },
+  knowsAbout: [
+    "Film Production",
+    "Video Production",
+    "Camera Equipment",
+    "Cinematography",
+    "Film Equipment Rental",
+    "Uganda Film Industry"
+  ]
 }
 
 export default async function RootLayout({

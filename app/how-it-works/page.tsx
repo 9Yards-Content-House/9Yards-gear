@@ -9,14 +9,26 @@ import {
   ChevronRight, Clock, CreditCard, 
   Shield, Users, Star, Sparkles
 } from "lucide-react"
+import { BreadcrumbSchema } from "@/components/seo/schema-org"
 
 export const metadata: Metadata = {
-  title: "How to Rent Film Equipment | Simple 4-Step Process",
-  description: "Renting professional gear is easy: Browse, Book, Pickup, Create. Learn our simple 4-step process and pickup requirements. Call: 0700488870",
+  title: "How to Rent Film Equipment in Uganda | Simple 4-Step Process - 9Yards Gear",
+  description: "Rent professional film equipment in Kampala with our simple 4-step process: Browse, Book, Pickup, Create. Learn about requirements, deposits, and policies. Part of 9Yards Film. Call: 0700488870",
+  keywords: [
+    "how to rent film equipment Uganda",
+    "camera rental process Kampala",
+    "9Yards Gear rental",
+    "9Yards Film equipment",
+    "film gear rental requirements",
+    "equipment rental deposit Uganda",
+  ],
   openGraph: {
-    title: "How to Rent Film Equipment - 9Yards Gear",
-    description: "Simple 4-step rental process: Browse, Book, Pickup, Create. Learn everything about renting professional film gear in Kampala.",
+    title: "How to Rent Film Equipment - 9Yards Gear Uganda",
+    description: "Simple 4-step rental process: Browse, Book, Pickup, Create. Learn everything about renting professional film gear in Kampala from 9Yards Film.",
     url: "https://gear.9yards.co.ug/how-it-works",
+  },
+  alternates: {
+    canonical: "https://gear.9yards.co.ug/how-it-works",
   },
 }
 
@@ -85,6 +97,12 @@ const trustIndicators = [
 export default function HowItWorksPage() {
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://gear.9yards.co.ug" },
+          { name: "How It Works", url: "https://gear.9yards.co.ug/how-it-works" },
+        ]}
+      />
       <main id="main-content" className="min-h-screen pt-20 bg-background">
         {/* Hero Section */}
         <section className="relative py-20 lg:py-32 overflow-hidden">
