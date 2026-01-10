@@ -18,7 +18,7 @@ export default function ContactPage() {
     name: "",
     email: "",
     phone: "",
-    subject: "",
+    subject: "", 
     message: "", 
   })
 
