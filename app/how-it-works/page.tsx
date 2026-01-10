@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { 
-  Search, Calendar, Package, Camera, CheckCircle, Phone, 
+  Search, Calendar, Package, Camera, CheckCircle, Mail, 
   ChevronRight, Clock, CreditCard, 
   Shield, Users, Star, Sparkles
 } from "lucide-react"
@@ -55,7 +55,7 @@ const steps = [
       "Select your pickup and return dates",
       "Review your rental summary",
       "Submit booking with contact details",
-      "Receive confirmation via phone/WhatsApp",
+      "Receive confirmation via email",
     ],
     proTip: "We recommend booking at least 48 hours in advance for regular equipment, and 5-7 days for high-demand items.",
   },
@@ -284,12 +284,12 @@ export default function HowItWorksPage() {
                 <span className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center group-hover:bg-primary/10 transition-colors">?</span>
                 Check our FAQ
               </Link>
-              <a href="tel:+256700488870" className="flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors group">
+              <Link href="/contact" className="flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors group">
                 <span className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-                  <Phone className="h-4 w-4" />
+                  <Mail className="h-4 w-4" />
                 </span>
-                Call 0700 488 870
-              </a>
+                Contact Us
+              </Link>
               <Link href="/equipment-care" className="flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors group">
                 <span className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center group-hover:bg-primary/10 transition-colors">
                   <Shield className="h-4 w-4" />

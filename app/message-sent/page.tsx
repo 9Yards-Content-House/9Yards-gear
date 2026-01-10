@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { 
   CheckCircle, Clock, ArrowRight, Package, 
-  Phone, MessageCircle, ChevronRight
+  Mail, ChevronRight
 } from "lucide-react"
 
 export const metadata: Metadata = {
@@ -51,19 +51,13 @@ export default function MessageSentPage() {
             <CardContent className="p-6 text-center">
               <h3 className="font-semibold text-foreground mb-2">Need a Faster Response?</h3>
               <p className="text-sm text-muted-foreground mb-4">
-                For urgent inquiries, reach us directly via phone or WhatsApp.
+                For urgent inquiries, reach us directly via email.
               </p>
-              <div className="flex flex-col sm:flex-row gap-2 justify-center">
+              <div className="flex justify-center">
                 <Button asChild>
-                  <a href="tel:+256700488870">
-                    <Phone className="h-4 w-4 mr-2" />
-                    Call: 0700 488 870
-                  </a>
-                </Button>
-                <Button asChild variant="outline" className="bg-transparent">
-                  <a href="https://wa.me/256700488870" target="_blank" rel="noopener noreferrer">
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    WhatsApp Us
+                  <a href="mailto:gear@9yards.co.ug">
+                    <Mail className="h-4 w-4 mr-2" />
+                    Email: gear@9yards.co.ug
                   </a>
                 </Button>
               </div>

@@ -2,7 +2,6 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import Script from "next/script"
-import { FloatingActions } from "@/components/ui/floating-actions"
 import { PWARegister } from "@/components/pwa-register"
 import { GearProvider } from "@/lib/gear-context"
 import { CartProvider } from "@/lib/cart-context"
@@ -139,11 +138,10 @@ const jsonLd = {
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
   image: `${siteUrl}/og-image.jpg`,
-  telephone: "+256700488870",
   email: "gear@9yards.co.ug",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Kampala",
+    streetAddress: "Canoga Suites, Lower Kkonge",
     addressLocality: "Kampala",
     addressRegion: "Central Region",
     postalCode: "256",
@@ -194,9 +192,9 @@ const jsonLd = {
     ]
   },
   sameAs: [
-    "https://www.instagram.com/9yards.ug",
-    "https://www.tiktok.com/@9yards",
-    "https://www.youtube.com/@9yardscontenthouse",
+    "https://www.instagram.com/9yards_content_house/",
+    "https://www.tiktok.com/@9.yards.content.house",
+    "https://www.youtube.com/@9Yards-ch",
     "https://film.9yards.co.ug",
     "https://9yards.co.ug"
   ],
@@ -272,7 +270,6 @@ export default async function RootLayout({
             <Footer />
           </CartProvider>
         </GearProvider>
-        <FloatingActions />
         <PWARegister />
         
         {/* Google Analytics 4 - Load after page content (afterInteractive) */}

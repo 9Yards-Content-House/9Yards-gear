@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useGear, formatPrice } from "@/lib/gear-context"
 import { 
   Search, ChevronRight, ArrowRight, Filter, SortAsc, 
-  Phone, MessageCircle, Package, X
+  Package, X
 } from "lucide-react"
 
 export default function SearchPage() {
@@ -220,18 +220,11 @@ export default function SearchPage() {
                   <p className="text-sm text-muted-foreground mb-4">
                     Contact us we might have it in stock or can source it for you.
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-2 justify-center">
+                  <div className="flex justify-center">
                     <Button asChild>
                       <Link href="/contact">
-                        <Phone className="h-4 w-4 mr-2" />
                         Contact Us
                       </Link>
-                    </Button>
-                    <Button asChild variant="outline" className="bg-transparent">
-                      <a href="https://wa.me/256700488870" target="_blank" rel="noopener noreferrer">
-                        <MessageCircle className="h-4 w-4 mr-2" />
-                        WhatsApp
-                      </a>
                     </Button>
                   </div>
                 </CardContent>

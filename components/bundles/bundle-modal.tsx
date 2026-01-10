@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { X, Check, Calculator, MessageCircle } from "lucide-react"
+import { X, Check, Calculator, Mail } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -28,13 +28,6 @@ type BundleModalProps = {
 
 export function BundleModal({ bundle, isOpen, onClose }: BundleModalProps) {
   if (!bundle) return null
-
-  const handleWhatsApp = () => {
-    const message = `Hi! I'm interested in the ${bundle.name} bundle (${formatPrice(bundle.pricePerDay)}/day). Can you tell me more?`
-    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "256783791730"
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
-    window.open(whatsappUrl, "_blank")
-  }
 
   const handleCalculator = () => {
     // Store bundle info in localStorage for calculator
@@ -119,9 +112,11 @@ export function BundleModal({ bundle, isOpen, onClose }: BundleModalProps) {
             <Calculator className="h-5 w-5 mr-2" />
             Calculate with Dates
           </Button>
-          <Button onClick={handleWhatsApp} variant="outline" className="flex-1" size="lg">
-            <MessageCircle className="h-5 w-5 mr-2" />
-            WhatsApp Quote
+          <Button asChild variant="outline" className="flex-1" size="lg">
+            <a href={`mailto:gear@9yards.co.ug?subject=Quote Request: ${bundle.name}&body=Hi! I'm interested in the ${bundle.name} bundle (${formatPrice(bundle.pricePerDay)}/day). Can you tell me more?`}>
+              <Mail className="h-5 w-5 mr-2" />
+              Email Quote
+            </a>
           </Button>
         </div>
 

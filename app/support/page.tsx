@@ -5,9 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { 
   Search, 
-  Phone, 
   Mail, 
-  MessageCircle, 
   BookOpen, 
   CreditCard, 
   Package, 
@@ -110,45 +108,15 @@ export default function SupportPage() {
         <section className="py-16 bg-background">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <h2 className="text-2xl gradient-heading mb-8 text-center">Contact Support</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              <Card className="text-center">
-                <CardContent className="pt-6">
-                  <div className="w-12 h-12 mx-auto rounded-full bg-green-500/10 flex items-center justify-center mb-4">
-                    <MessageCircle className="h-6 w-6 text-green-500" />
-                  </div>
-                  <h3 className="font-semibold text-foreground mb-2">WhatsApp</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Fastest response time</p>
-                  <Button asChild className="w-full bg-green-600 hover:bg-green-700">
-                    <a href="https://wa.me/256700488870" target="_blank" rel="noopener noreferrer">
-                      Chat Now
-                    </a>
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="text-center">
+            <div className="flex justify-center">
+              <Card className="text-center max-w-md w-full">
                 <CardContent className="pt-6">
                   <div className="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                    <Phone className="h-6 w-6 text-primary" />
+                    <Mail className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="font-semibold text-foreground mb-2">Phone</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Mon-Fri 9AM-6PM</p>
-                  <Button asChild variant="outline" className="w-full">
-                    <a href="tel:+256700488870">
-                      0700 488 870
-                    </a>
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="text-center">
-                <CardContent className="pt-6">
-                  <div className="w-12 h-12 mx-auto rounded-full bg-blue-500/10 flex items-center justify-center mb-4">
-                    <Mail className="h-6 w-6 text-blue-500" />
-                  </div>
-                  <h3 className="font-semibold text-foreground mb-2">Email</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Response within 24hrs</p>
-                  <Button asChild variant="outline" className="w-full">
+                  <h3 className="font-semibold text-foreground mb-2">Email Support</h3>
+                  <p className="text-sm text-muted-foreground mb-4">We typically respond within 24 hours</p>
+                  <Button asChild className="w-full">
                     <a href="mailto:gear@9yards.co.ug">
                       gear@9yards.co.ug
                     </a>
@@ -167,12 +135,12 @@ export default function SupportPage() {
               <h3 className="font-semibold text-foreground">During-Rental Emergency?</h3>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
-              Equipment malfunction during your shoot? We're here to help 24/7.
+              Equipment malfunction during your shoot? Contact us immediately.
             </p>
             <Button asChild size="lg" className="bg-orange-600 hover:bg-orange-700">
-              <a href="tel:+256700488870">
-                <Phone className="mr-2 h-4 w-4" />
-                Emergency: 0700 488 870
+              <a href="mailto:gear@9yards.co.ug">
+                <Mail className="mr-2 h-4 w-4" />
+                Email: gear@9yards.co.ug
               </a>
             </Button>
           </div>

@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { formatPrice } from "@/lib/gear-context"
 import { 
-  CheckCircle, Calendar, Phone, MessageCircle, 
+  CheckCircle, Calendar, Mail, 
   ArrowRight, Package, Clock, MapPin, Edit, ChevronRight
 } from "lucide-react"
 import { format } from "date-fns"
@@ -86,8 +86,8 @@ export default function BookingConfirmedPage() {
                 <div className="flex items-start gap-3">
                   <Badge className="h-6 w-6 rounded-full flex items-center justify-center shrink-0">1</Badge>
                   <div>
-                    <p className="font-medium text-foreground">Confirmation Call/Message</p>
-                    <p className="text-sm text-muted-foreground">We&apos;ll call or WhatsApp you within 2 hours to confirm equipment availability.</p>
+                    <p className="font-medium text-foreground">Confirmation Email</p>
+                    <p className="text-sm text-muted-foreground">We&apos;ll email you within 2 hours to confirm equipment availability.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -178,17 +178,11 @@ export default function BookingConfirmedPage() {
               <p className="text-sm text-muted-foreground mb-4">
                 We&apos;re here to help. Reach out anytime.
               </p>
-              <div className="flex flex-col sm:flex-row gap-2 justify-center">
+              <div className="flex justify-center">
                 <Button asChild>
-                  <a href="tel:+256700488870">
-                    <Phone className="h-4 w-4 mr-2" />
-                    0700 488 870
-                  </a>
-                </Button>
-                <Button asChild variant="outline" className="bg-transparent">
-                  <a href="https://wa.me/256700488870" target="_blank" rel="noopener noreferrer">
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    WhatsApp Us
+                  <a href="mailto:gear@9yards.co.ug">
+                    <Mail className="h-4 w-4 mr-2" />
+                    Email: gear@9yards.co.ug
                   </a>
                 </Button>
               </div>

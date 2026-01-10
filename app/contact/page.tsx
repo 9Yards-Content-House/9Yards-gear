@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent } from "@/components/ui/card"
-import { Mail, Send, Loader2, MessageCircle, CheckCircle, MapPin, Clock, Phone } from "lucide-react"
+import { Mail, Send, Loader2, CheckCircle, MapPin, Clock, Phone } from "lucide-react"
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -55,13 +55,7 @@ export default function ContactPage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Button asChild size="lg" className="h-14 px-8 text-lg shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all">
-                  <a href="https://wa.me/256783791730" target="_blank" rel="noopener noreferrer">
-                    <MessageCircle className="mr-2 h-5 w-5" />
-                    WhatsApp Us
-                  </a>
-                </Button>
+              <div className="flex justify-center">
                 <Button asChild variant="outline" size="lg" className="h-14 px-8 text-lg border-primary/20 hover:bg-primary/5">
                   <a href="mailto:gear@9yards.co.ug">
                     <Mail className="mr-2 h-5 w-5" />

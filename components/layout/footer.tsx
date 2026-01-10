@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { MapPin, Clock, ExternalLink } from "lucide-react"
-import { FaInstagram, FaTiktok, FaYoutube, FaWhatsapp } from "react-icons/fa6"
+import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa6"
 import { getAllCategoriesAsync } from "@/lib/gear-data"
 
 const staticFooterLinks = {
@@ -29,10 +29,9 @@ const staticFooterLinks = {
 
 // Social links with actual URLs for SEO
 const socialLinks = [
-  { name: "Instagram", href: "https://www.instagram.com/9yards.ug", icon: FaInstagram },
-  { name: "TikTok", href: "https://www.tiktok.com/@9yards", icon: FaTiktok },
-  { name: "YouTube", href: "https://www.youtube.com/@9yardscontenthouse", icon: FaYoutube },
-  { name: "WhatsApp", href: "https://wa.me/256700488870", icon: FaWhatsapp },
+  { name: "Instagram", href: "https://www.instagram.com/9yards_content_house/", icon: FaInstagram },
+  { name: "TikTok", href: "https://www.tiktok.com/@9.yards.content.house", icon: FaTiktok },
+  { name: "YouTube", href: "https://www.youtube.com/@9Yards-ch", icon: FaYoutube },
 ]
 
 export async function Footer() {
@@ -50,7 +49,7 @@ export async function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <Image
-                src="/logo.png"
+                src="/9Yards-Film-2D-Logo_50.png"
                 alt="9Yards Gear"
                 width={200}
                 height={70}
@@ -66,7 +65,7 @@ export async function Footer() {
             <ul className="space-y-4 mb-6">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                <span className="text-sm text-muted-foreground">Kampala, Uganda</span>
+                <span className="text-sm text-muted-foreground">Canoga Suites, Lower Kkonge</span>
               </li>
               <li className="flex items-start gap-3">
                 <Clock className="h-5 w-5 text-primary shrink-0 mt-0.5" />

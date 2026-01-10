@@ -195,8 +195,8 @@ export default function FAQPage() {
                 <Link href="/contact">Contact Us</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="rounded-md">
-                <a href="https://wa.me/256700488870" target="_blank" rel="noopener noreferrer">
-                  WhatsApp Us
+                <a href="mailto:gear@9yards.co.ug">
+                  Email Support
                 </a>
               </Button>
             </div>
