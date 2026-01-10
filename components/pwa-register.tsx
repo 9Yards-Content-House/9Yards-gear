@@ -4,19 +4,23 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { RefreshCw, X } from "lucide-react"
+import { initializeWebVitalsMonitoring } from "@/lib/performance-monitoring"
 
 export function PWARegister() {
   const [showUpdatePrompt, setShowUpdatePrompt] = useState(false)
   const [waitingWorker, setWaitingWorker] = useState<ServiceWorker | null>(null)
 
   useEffect(() => {
+    // Initialize Web Vitals monitoring for performance tracking
+    initializeWebVitalsMonitoring()
+
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker
           .register("/sw.js")
           .then((registration) => {
             if (process.env.NODE_ENV === "development") {
-              console.log("Service Worker registered successfully")
+              console.log("✅ Service Worker registered successfully")
             }
 
             // Check for updates every hour
@@ -41,7 +45,7 @@ export function PWARegister() {
           })
           .catch((error) => {
             if (process.env.NODE_ENV === "development") {
-              console.error("Service Worker registration failed", error)
+              console.error("❌ Service Worker registration failed", error)
             }
           })
 
@@ -49,9 +53,8 @@ export function PWARegister() {
         navigator.serviceWorker.addEventListener("message", (event) => {
           if (event.data.type === "BOOKING_SYNCED") {
             if (process.env.NODE_ENV === "development") {
-              console.log("Booking synced successfully")
+              console.log("✅ Booking synced successfully")
             }
-            // You could show a toast notification here
           }
         })
 

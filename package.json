@@ -4,10 +4,15 @@
   "private": true,
   "scripts": {
     "sync": "tsx scripts/sync-content.ts",
-    "build": "pnpm run sync && next build",
     "dev": "next dev",
+    "build": "pnpm run sync && next build",
+    "build:analyze": "ANALYZE=true pnpm run build",
+    "start": "next start",
     "lint": "next lint",
-    "start": "next start"
+    "lint:fix": "next lint --fix",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .next out node_modules/.cache",
+    "prebuild": "pnpm run typecheck"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

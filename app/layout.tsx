@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
+import Script from "next/script"
 import { FloatingActions } from "@/components/ui/floating-actions"
 import { PWARegister } from "@/components/pwa-register"
 import { GearProvider } from "@/lib/gear-context"
@@ -14,6 +15,7 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
+  preload: true,
 })
 
 const siteUrl = "https://gear.9yards.co.ug"
@@ -234,29 +236,22 @@ export default async function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
+        {/* Critical: Preconnect to external domains */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://checkout.flutterwave.com" />
+        <link rel="dns-prefetch" href="https://identity.netlify.com" />
+        
         {/* JSON-LD Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* Google Analytics 4 */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TQZXSDWSF"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-5TQZXSDWSF');
-            `,
-          }}
-        />
-        {/* Flutterwave */}
-        <script src="https://checkout.flutterwave.com/v3.js"></script>
-        {/* Netlify Identity Widget */}
-        <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+        
         {/* PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
+        
         {/* Favicons - explicit links for browser compatibility */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="shortcut icon" href="/favicon.ico" />
@@ -279,6 +274,35 @@ export default async function RootLayout({
         </GearProvider>
         <FloatingActions />
         <PWARegister />
+        
+        {/* Google Analytics 4 - Load after page content (afterInteractive) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-5TQZXSDWSF"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-5TQZXSDWSF', {
+              page_path: window.location.pathname,
+              send_page_view: true
+            });
+          `}
+        </Script>
+        
+        {/* Flutterwave - Load lazily (only needed on booking) */}
+        <Script
+          src="https://checkout.flutterwave.com/v3.js"
+          strategy="lazyOnload"
+        />
+        
+        {/* Netlify Identity - Load lazily (only needed for CMS) */}
+        <Script
+          src="https://identity.netlify.com/v1/netlify-identity-widget.js"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   )

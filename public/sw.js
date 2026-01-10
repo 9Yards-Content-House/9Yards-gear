@@ -1,145 +1,183 @@
-// Service Worker for 9Yards Gear PWA - Enhanced Version
-const CACHE_NAME = '9yards-gear-v2'
+// Service Worker for 9Yards Gear PWA - Production Optimized v3
+const CACHE_NAME = '9yards-gear-v3'
 const OFFLINE_URL = '/offline.html'
-const OFFLINE_DATA_CACHE = '9yards-offline-data-v1'
-const BOOKING_QUEUE = 'pending-bookings'
+const STATIC_CACHE = '9yards-static-v3'
+const DYNAMIC_CACHE = '9yards-dynamic-v3'
+const IMAGE_CACHE = '9yards-images-v3'
 
-// Assets to cache on install
-const STATIC_ASSETS = [
+// Critical assets to precache on install
+const PRECACHE_ASSETS = [
   '/',
-  '/inventory',
-  '/calculator',
-  '/compare',
-  '/about',
-  '/contact',
+  '/inventory/',
   '/offline.html',
-  '/placeholder.svg',
+  '/manifest.json',
+  '/favicon.ico',
+  '/logo.png',
 ]
 
-// Install event - cache static assets
+// Cache duration settings (in seconds)
+const CACHE_DURATIONS = {
+  static: 31536000,  // 1 year for static assets
+  dynamic: 86400,    // 1 day for dynamic content
+  images: 604800,    // 1 week for images
+}
+
+// Install event - precache critical assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS)
-    })
+    caches.open(STATIC_CACHE)
+      .then((cache) => cache.addAll(PRECACHE_ASSETS))
+      .then(() => self.skipWaiting())
   )
-  self.skipWaiting()
 })
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
+  const currentCaches = [CACHE_NAME, STATIC_CACHE, DYNAMIC_CACHE, IMAGE_CACHE]
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME && name !== OFFLINE_DATA_CACHE)
-          .map((name) => caches.delete(name))
-      )
-    })
+    caches.keys()
+      .then((cacheNames) => {
+        return Promise.all(
+          cacheNames
+            .filter((name) => !currentCaches.includes(name))
+            .map((name) => caches.delete(name))
+        )
+      })
+      .then(() => self.clients.claim())
   )
-  self.clients.claim()
 })
 
-// Fetch event - Network first for API, cache first for assets
-self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests
-  if (event.request.method !== 'GET') return
+// Helper: Check if request is for an image
+function isImageRequest(request) {
+  const url = new URL(request.url)
+  return /\.(jpg|jpeg|png|gif|webp|avif|svg|ico)$/i.test(url.pathname)
+}
 
-  // Skip external requests
-  if (!event.request.url.startsWith(self.location.origin)) return
+// Helper: Check if request is for static asset
+function isStaticAsset(request) {
+  const url = new URL(request.url)
+  return url.pathname.startsWith('/_next/static/') ||
+         url.pathname.startsWith('/fonts/') ||
+         /\.(js|css|woff|woff2)$/i.test(url.pathname)
+}
 
-  // API requests - network first with fallback
-  if (event.request.url.includes('/api/')) {
-    event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          // Clone and cache successful responses
-          if (response.ok) {
-            const responseClone = response.clone()
-            caches.open(OFFLINE_DATA_CACHE).then((cache) => {
-              cache.put(event.request, responseClone)
-            })
-          }
-          return response
-        })
-        .catch(() => {
-          // Fallback to cache
-          return caches.match(event.request)
-        })
-    )
-    return
+// Helper: Check if request is for API
+function isApiRequest(request) {
+  const url = new URL(request.url)
+  return url.pathname.startsWith('/api/')
+}
+
+// Helper: Check if request is a navigation request
+function isNavigationRequest(request) {
+  return request.mode === 'navigate'
+}
+
+// Strategy: Cache First (for static assets)
+async function cacheFirst(request, cacheName) {
+  const cachedResponse = await caches.match(request)
+  if (cachedResponse) {
+    return cachedResponse
   }
+  
+  try {
+    const networkResponse = await fetch(request)
+    if (networkResponse.ok) {
+      const cache = await caches.open(cacheName)
+      cache.put(request, networkResponse.clone())
+    }
+    return networkResponse
+  } catch (error) {
+    return new Response('Network error', { status: 408 })
+  }
+}
 
-  // Static assets - cache first
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        // Return cached version and update cache in background
-        fetch(event.request).then((response) => {
-          if (response.ok) {
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, response)
-            })
-          }
-        }).catch(() => {})
-        return cachedResponse
+// Strategy: Stale While Revalidate (for images and dynamic content)
+async function staleWhileRevalidate(request, cacheName) {
+  const cachedResponse = await caches.match(request)
+  
+  const fetchPromise = fetch(request)
+    .then((networkResponse) => {
+      if (networkResponse.ok) {
+        const cache = caches.open(cacheName)
+        cache.then((c) => c.put(request, networkResponse.clone()))
       }
-
-      return fetch(event.request)
-        .then((response) => {
-          // Don't cache if not a success response
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response
-          }
-
-          // Clone the response
-          const responseToCache = response.clone()
-
-          // Cache successful responses
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache)
-          })
-
-          return response
-        })
-        .catch(() => {
-          // Return offline page for navigation requests
-          if (event.request.mode === 'navigate') {
-            return caches.match(OFFLINE_URL)
-          }
-        })
+      return networkResponse
     })
-  )
+    .catch(() => cachedResponse)
+  
+  return cachedResponse || fetchPromise
+}
+
+// Strategy: Network First (for navigation and API)
+async function networkFirst(request, cacheName) {
+  try {
+    const networkResponse = await fetch(request)
+    if (networkResponse.ok) {
+      const cache = await caches.open(cacheName)
+      cache.put(request, networkResponse.clone())
+    }
+    return networkResponse
+  } catch (error) {
+    const cachedResponse = await caches.match(request)
+    if (cachedResponse) {
+      return cachedResponse
+    }
+    
+    // Return offline page for navigation requests
+    if (isNavigationRequest(request)) {
+      return caches.match(OFFLINE_URL)
+    }
+    
+    return new Response('Offline', { status: 503 })
+  }
+}
+
+// Main fetch handler
+self.addEventListener('fetch', (event) => {
+  const { request } = event
+  
+  // Skip non-GET requests
+  if (request.method !== 'GET') return
+  
+  // Skip external requests
+  if (!request.url.startsWith(self.location.origin)) return
+  
+  // Skip chrome-extension and other protocols
+  if (!request.url.startsWith('http')) return
+  
+  // Route to appropriate strategy
+  if (isStaticAsset(request)) {
+    event.respondWith(cacheFirst(request, STATIC_CACHE))
+  } else if (isImageRequest(request)) {
+    event.respondWith(staleWhileRevalidate(request, IMAGE_CACHE))
+  } else if (isApiRequest(request)) {
+    event.respondWith(networkFirst(request, DYNAMIC_CACHE))
+  } else if (isNavigationRequest(request)) {
+    event.respondWith(networkFirst(request, DYNAMIC_CACHE))
+  } else {
+    event.respondWith(staleWhileRevalidate(request, DYNAMIC_CACHE))
+  }
 })
 
-// Background sync for offline booking submissions
+// Background sync for offline bookings
 self.addEventListener('sync', (event) => {
   if (event.tag === 'sync-bookings') {
-    event.waitUntil(syncBookings())
+    event.waitUntil(syncPendingBookings())
   }
 })
 
-// Sync pending bookings when back online
-async function syncBookings() {
+async function syncPendingBookings() {
   try {
-    const cache = await caches.open(OFFLINE_DATA_CACHE)
+    const cache = await caches.open(DYNAMIC_CACHE)
     const requests = await cache.keys()
     const bookingRequests = requests.filter(req => req.url.includes('booking'))
-
+    
     for (const request of bookingRequests) {
       try {
         const response = await fetch(request.clone())
         if (response.ok) {
           await cache.delete(request)
-          // Notify clients about successful sync
-          self.clients.matchAll().then(clients => {
-            clients.forEach(client => {
-              client.postMessage({
-                type: 'BOOKING_SYNCED',
-                url: request.url
-              })
-            })
-          })
+          notifyClients({ type: 'BOOKING_SYNCED', url: request.url })
         }
       } catch (error) {
         console.error('Failed to sync booking:', error)
@@ -150,56 +188,61 @@ async function syncBookings() {
   }
 }
 
-// Push notification handler (for future implementation)
-self.addEventListener('push', (event) => {
-  const options = {
-    body: event.data ? event.data.text() : 'New notification from 9Yards Gear',
-    icon: '/icon-192.png',
-    badge: '/icon-72.png',
-    vibrate: [100, 50, 100],
-    data: {
-      dateOfArrival: Date.now(),
-      primaryKey: 1
-    }
-  }
+// Helper: Notify all clients
+function notifyClients(message) {
+  self.clients.matchAll({ type: 'window' }).then((clients) => {
+    clients.forEach((client) => client.postMessage(message))
+  })
+}
 
+// Push notification handler
+self.addEventListener('push', (event) => {
+  const data = event.data ? event.data.json() : {}
+  const options = {
+    body: data.body || 'New notification from 9Yards Gear',
+    icon: '/favicon/android-chrome-192x192.png',
+    badge: '/favicon/favicon-32x32.png',
+    vibrate: [100, 50, 100],
+    data: { url: data.url || '/' }
+  }
+  
   event.waitUntil(
-    self.registration.showNotification('9Yards Gear', options)
+    self.registration.showNotification(data.title || '9Yards Gear', options)
   )
 })
 
 // Notification click handler
 self.addEventListener('notificationclick', (event) => {
   event.notification.close()
-
+  const url = event.notification.data?.url || '/'
+  
   event.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true })
-      .then((clientList) => {
-        // Focus existing window if available
-        for (const client of clientList) {
-          if ('focus' in client) {
-            return client.focus()
-          }
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true })
+      .then((clients) => {
+        const existingClient = clients.find((c) => c.url === url && 'focus' in c)
+        if (existingClient) {
+          return existingClient.focus()
         }
-        // Open new window if no existing window
-        if (clients.openWindow) {
-          return clients.openWindow('/')
-        }
+        return self.clients.openWindow(url)
       })
   )
 })
 
-// Message handler for communication with clients
+// Message handler
 self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
+  if (event.data?.type === 'SKIP_WAITING') {
     self.skipWaiting()
   }
   
-  if (event.data && event.data.type === 'CACHE_URLS') {
+  if (event.data?.type === 'PRECACHE_URLS') {
     event.waitUntil(
-      caches.open(CACHE_NAME).then((cache) => {
-        return cache.addAll(event.data.urls)
-      })
+      caches.open(STATIC_CACHE).then((cache) => cache.addAll(event.data.urls))
+    )
+  }
+  
+  if (event.data?.type === 'CLEAR_CACHE') {
+    event.waitUntil(
+      caches.keys().then((names) => Promise.all(names.map((n) => caches.delete(n))))
     )
   }
 })
