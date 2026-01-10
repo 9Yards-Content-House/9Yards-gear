@@ -2,6 +2,9 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
+// Auto-update date format
+const lastUpdated = new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" })
+
 export const metadata: Metadata = {
   title: "Privacy Policy | 9Yards Gear Uganda",
   description: "Privacy policy for 9Yards Gear film equipment rental - how we collect, use, and protect your personal information in Uganda.",
@@ -25,7 +28,7 @@ export default function PrivacyPage() {
           </Link>
 
           <h1 className="text-4xl gradient-heading mb-4">Privacy Policy</h1>
-          <p className="text-muted-foreground mb-8">Last updated: December 2025</p>
+          <p className="text-muted-foreground mb-8">Last updated: {lastUpdated}</p>
 
           <div className="prose prose-invert max-w-none space-y-8">
             <section>
