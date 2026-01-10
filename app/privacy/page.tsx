@@ -3,8 +3,11 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | 9Yards Gear",
-  description: "Privacy policy for 9Yards Gear - how we collect, use, and protect your personal information.",
+  title: "Privacy Policy | 9Yards Gear Uganda",
+  description: "Privacy policy for 9Yards Gear film equipment rental - how we collect, use, and protect your personal information in Uganda.",
+  alternates: {
+    canonical: "https://gear.9yards.co.ug/privacy",
+  },
 }
 
 export default function PrivacyPage() {

@@ -6,8 +6,24 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { AlertTriangle, Battery, Camera, CheckCircle, Download, Headphones, Lightbulb, Phone, Shield, Thermometer, Droplets, Wind, ChevronRight, Heart } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Equipment Care Guide | 9Yards Gear",
-  description: "Learn how to properly handle and care for rental equipment. Guidelines for cameras, lenses, lighting, audio, and more.",
+  title: "Film Equipment Care Guide | How to Handle Rental Gear - 9Yards Gear Uganda",
+  description: "Learn how to properly handle and care for rental film equipment in Uganda. Guidelines for cameras, lenses, lighting, audio gear, and drones. Protect your rental from 9Yards Gear.",
+  keywords: [
+    "film equipment care guide",
+    "how to handle rental cameras",
+    "camera care Uganda",
+    "lens cleaning guide",
+    "equipment handling",
+    "9Yards Gear care",
+  ],
+  openGraph: {
+    title: "Equipment Care Guide - 9Yards Gear Uganda",
+    description: "Learn how to properly handle and care for rental film equipment. Guidelines for cameras, lenses, lighting, and audio gear.",
+    url: "https://gear.9yards.co.ug/equipment-care",
+  },
+  alternates: {
+    canonical: "https://gear.9yards.co.ug/equipment-care",
+  },
 }
 
 const generalGuidelines = [

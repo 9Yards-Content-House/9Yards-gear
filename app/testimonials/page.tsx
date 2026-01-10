@@ -6,8 +6,23 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Star, Quote, Film, Music, Building2, User } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Testimonials | 9Yards Gear",
-  description: "See what Uganda's top creators say about renting from 9Yards Gear. Trusted by filmmakers, musicians, and brands.",
+  title: "Client Reviews & Testimonials | 9Yards Gear Uganda",
+  description: "See what Uganda's top filmmakers, content creators, and production companies say about renting equipment from 9Yards Gear. 5-star rated film equipment rental in Kampala. Part of 9Yards Film.",
+  keywords: [
+    "9Yards Gear reviews",
+    "9Yards Film testimonials",
+    "film equipment rental reviews Uganda",
+    "camera rental Kampala reviews",
+    "best equipment rental Uganda",
+  ],
+  openGraph: {
+    title: "Client Reviews - 9Yards Gear Uganda",
+    description: "5-star rated film equipment rental. See what Uganda's top creators say about renting from 9Yards Gear.",
+    url: "https://gear.9yards.co.ug/testimonials",
+  },
+  alternates: {
+    canonical: "https://gear.9yards.co.ug/testimonials",
+  },
 }
 
 const testimonials = [

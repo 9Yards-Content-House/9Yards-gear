@@ -11,12 +11,22 @@ import {
 } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Rental Cost Calculator | Estimate Your Equipment Quote",
-  description: "Calculate your film equipment rental cost instantly. Select gear, choose duration, see pricing. Transparent rates with no hidden fees. Start your quote now.",
+  title: "Film Equipment Rental Cost Calculator Uganda | 9Yards Gear",
+  description: "Calculate your film equipment rental cost instantly in Uganda. Select cameras, lenses, lighting, audio gear - see transparent pricing with no hidden fees. Get your quote from 9Yards Gear Kampala.",
+  keywords: [
+    "film equipment rental cost Uganda",
+    "camera rental price Kampala",
+    "equipment rental calculator",
+    "9Yards Gear pricing",
+    "gear rental quote Uganda",
+  ],
   openGraph: {
-    title: "Equipment Rental Cost Calculator - 9Yards Gear",
-    description: "Estimate your rental cost instantly. Select equipment, choose duration, see transparent pricing with no hidden fees.",
+    title: "Equipment Rental Cost Calculator - 9Yards Gear Uganda",
+    description: "Estimate your film equipment rental cost instantly. Select equipment, choose duration, see transparent pricing. Part of 9Yards Film.",
     url: "https://gear.9yards.co.ug/calculator",
+  },
+  alternates: {
+    canonical: "https://gear.9yards.co.ug/calculator",
   },
 }
 

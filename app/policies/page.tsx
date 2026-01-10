@@ -5,8 +5,23 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { AlertTriangle, CheckCircle, Clock, CreditCard, Shield, Truck, ChevronRight, FileText } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Rental Policies | 9Yards Gear",
-  description: "Rental terms, conditions, and policies for 9Yards Gear equipment rentals. Understand deposits, damage coverage, cancellations, and more.",
+  title: "Rental Policies & Terms | Film Equipment Rental Uganda - 9Yards Gear",
+  description: "Clear rental terms, conditions, and policies for 9Yards Gear film equipment rentals in Kampala, Uganda. Understand deposits, damage coverage, cancellations, and pickup requirements.",
+  keywords: [
+    "film equipment rental terms Uganda",
+    "camera rental policy Kampala",
+    "9Yards Gear policies",
+    "equipment rental deposit",
+    "gear rental cancellation",
+  ],
+  openGraph: {
+    title: "Rental Policies & Terms - 9Yards Gear Uganda",
+    description: "Clear rental terms and conditions for film equipment rentals. Deposits, damage coverage, cancellations, and more.",
+    url: "https://gear.9yards.co.ug/policies",
+  },
+  alternates: {
+    canonical: "https://gear.9yards.co.ug/policies",
+  },
 }
 
 export default function PoliciesPage() {

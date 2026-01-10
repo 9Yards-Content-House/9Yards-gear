@@ -3,8 +3,11 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Terms of Service | 9Yards Gear",
-  description: "Terms of service for 9Yards Gear equipment rental services in Uganda.",
+  title: "Terms of Service | Film Equipment Rental - 9Yards Gear Uganda",
+  description: "Terms of service for 9Yards Gear film equipment rental services in Kampala, Uganda. Rental agreements, liability, and conditions for equipment hire.",
+  alternates: {
+    canonical: "https://gear.9yards.co.ug/terms",
+  },
 }
 
 export default function TermsPage() {
