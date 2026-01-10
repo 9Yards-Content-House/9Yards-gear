@@ -153,6 +153,15 @@ async function processGear(records: any[]) {
   return processed;
 }
 
+// Helper to create slug from name
+function slugify(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/&/g, '-')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
 async function processCategories(records: any[]) {
     return Promise.all(records.map(async (record: any) => {
         const fields = record.fields;
@@ -167,7 +176,8 @@ async function processCategories(records: any[]) {
         }
 
         return {
-            id: record.id, // Keep the Airtable ID to link with Gear Category field
+            id: slugify(fields.name), // Use slug instead of Airtable ID
+            airtableId: record.id, // Keep for reference
             name: fields.name,
             icon: fields.icon,
             image: imagePath

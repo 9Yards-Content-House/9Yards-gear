@@ -1,41 +1,49 @@
 [
   {
-    "id": "rec49aJYjwvQkJrQU",
+    "id": "lenses",
+    "airtableId": "rec49aJYjwvQkJrQU",
     "name": "Lenses",
     "image": "/cms/cat-rec49aJYjwvQkJrQU.jpg"
   },
   {
-    "id": "recLRcJxUZNjVKHRW",
+    "id": "power-media",
+    "airtableId": "recLRcJxUZNjVKHRW",
     "name": "Power & Media",
     "image": "/cms/cat-recLRcJxUZNjVKHRW.jpg"
   },
   {
-    "id": "recRY6hQWnoi2rNqf",
+    "id": "lighting",
+    "airtableId": "recRY6hQWnoi2rNqf",
     "name": "Lighting",
     "image": "/cms/cat-recRY6hQWnoi2rNqf.jpg"
   },
   {
-    "id": "recVk15HvnsFLw9JV",
+    "id": "accessories",
+    "airtableId": "recVk15HvnsFLw9JV",
     "name": "Accessories",
     "image": "/cms/cat-recVk15HvnsFLw9JV.jpg"
   },
   {
-    "id": "recbXsfIgsubAuZye",
+    "id": "audio",
+    "airtableId": "recbXsfIgsubAuZye",
     "name": "Audio",
     "image": "/cms/cat-recbXsfIgsubAuZye.jpg"
   },
   {
-    "id": "recgl3AInPwIB4V4v",
+    "id": "cameras",
+    "airtableId": "recgl3AInPwIB4V4v",
     "name": "Cameras",
     "image": "/cms/cat-recgl3AInPwIB4V4v.jpg"
   },
   {
-    "id": "recpUuEKHeXMNbxIq",
+    "id": "motion-drones",
+    "airtableId": "recpUuEKHeXMNbxIq",
     "name": "Motion & Drones",
     "image": "/cms/cat-recpUuEKHeXMNbxIq.jpg"
   },
   {
-    "id": "recwInr1J1yn51dOh",
+    "id": "grip-support",
+    "airtableId": "recwInr1J1yn51dOh",
     "name": "Grip & Support",
     "image": "/cms/cat-recwInr1J1yn51dOh.jpg"
   }
