@@ -274,7 +274,7 @@ export default async function RootLayout({
         
         {/* Google Analytics 4 - Load after page content (afterInteractive) */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-5TQZXSDWSF"
+          src="https://www.googletagmanager.com/gtag/js?id=G-JQ6NR19KL7"
           strategy="afterInteractive"
         />
         <Script id="gtag-init" strategy="afterInteractive">
@@ -282,7 +282,7 @@ export default async function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-5TQZXSDWSF', {
+            gtag('config', 'G-JQ6NR19KL7', {
               page_path: window.location.pathname,
               send_page_view: true
             });
