@@ -91,7 +91,7 @@ export function GearCard({ item, hideFeaturedBadge = false }: GearCardProps) {
           <Link href={`/gear/${item.id}`}>
             <ImageWithFallback
               src={item.image || "/placeholder.svg"}
-              alt={item.name}
+              alt={`Rent ${item.name} in Uganda - ${category?.name || 'Equipment'} rental from 9Yards Gear`}
               fill
               className={cn(
                 "object-cover transition-transform duration-500 ease-out",

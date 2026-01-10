@@ -186,12 +186,6 @@ export function ServiceSchema() {
           ],
         },
         termsOfService: "https://gear.9yards.co.ug/terms",
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "5",
-          bestRating: "5",
-          reviewCount: "47",
-        },
       }}
     />
   )

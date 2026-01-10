@@ -27,12 +27,12 @@ const staticFooterLinks = {
   ],
 }
 
-// Links set to '#' as requested "for now i dont want these links to go anywhere"
+// Social links with actual URLs for SEO
 const socialLinks = [
-  { name: "Instagram", href: "#", icon: FaInstagram },
-  { name: "TikTok", href: "#", icon: FaTiktok },
-  { name: "YouTube", href: "#", icon: FaYoutube },
-  { name: "WhatsApp", href: "#", icon: FaWhatsapp },
+  { name: "Instagram", href: "https://www.instagram.com/9yards.ug", icon: FaInstagram },
+  { name: "TikTok", href: "https://www.tiktok.com/@9yards", icon: FaTiktok },
+  { name: "YouTube", href: "https://www.youtube.com/@9yardscontenthouse", icon: FaYoutube },
+  { name: "WhatsApp", href: "https://wa.me/256700488870", icon: FaWhatsapp },
 ]
 
 export async function Footer() {

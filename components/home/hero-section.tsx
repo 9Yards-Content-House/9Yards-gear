@@ -45,7 +45,7 @@ export function HeroSection() {
           <div className="relative w-full aspect-square max-w-[500px] lg:max-w-none">
              <Image
               src="/gear/9Yards-Films-hero-serction-02.jpg"
-              alt="9Yards Films Hero"
+              alt="Professional film equipment rental in Kampala Uganda - Cinema cameras, lenses and lighting gear from 9Yards Gear"
               fill
               className="object-contain"
               priority
