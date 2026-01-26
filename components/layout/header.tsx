@@ -59,12 +59,11 @@ export function Header() {
       <nav className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-6 lg:px-8 relative">
         {/* Left Section: Back Link & Logo */}
         <div className="flex items-center gap-8 lg:flex-1">
-          <Link 
-            href="https://film.9yards.co.ug" 
-            className="hidden md:flex items-center gap-1.5 text-[12px] font-medium text-[#B4B4B4] hover:text-white transition-colors whitespace-nowrap"
+          <span
+            className="hidden md:flex items-center gap-1.5 text-[12px] font-medium text-[#B4B4B4] hover:text-white transition-colors whitespace-nowrap cursor-default"
           >
             ← Back to 9Yards Film
-          </Link>
+          </span>
           
           <Link href="/" className="-m-1.5 p-1.5 flex items-center group">
             <Image
