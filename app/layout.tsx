@@ -105,9 +105,10 @@ export const metadata: Metadata = {
     images: ["/twitter-card.jpg"],
     creator: "@9yards_ug",
   },
-  alternates: {
-    canonical: siteUrl,
-  },
+  /* 
+    NOTE: We removed the global 'alternates' canonical tag that was pointing everything to siteUrl.
+    This allows each page to be its own canonical or to be defined specifically in page files. 
+  */
   verification: {
     google: "QDT0bvNomFsJHjx50qFwFZJc0MgLW_ULO3JolmgDxds",
   },
