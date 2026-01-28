@@ -127,8 +127,8 @@ export function WebSiteSchema() {
       data={{
         "@id": "https://gear.9yards.co.ug/#website",
         url: "https://gear.9yards.co.ug",
-        name: "9Yards Gear - Film Equipment Rental Uganda",
-        alternateName: "9Yards Film Gear",
+        name: "9Yards Gear Rental",
+        alternateName: ["9Yards Gear", "9Yards Film Equipment Rental"],
         description: "Professional film and production equipment rental in Uganda. Rent cinema cameras, lenses, lighting, audio gear & drones in Kampala.",
         publisher: {
           "@id": "https://gear.9yards.co.ug/#organization",

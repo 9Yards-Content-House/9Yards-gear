@@ -86,7 +86,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_UG",
     url: siteUrl,
-    siteName: "9Yards Gear",
+    siteName: "9Yards Gear Rental",
     title: "Professional Film Equipment Rental Kampala | 9Yards Gear",
     description: "Uganda's premier film equipment rental house. Cinema cameras, lighting, audio gear & more. Trusted by 200+ productions. Book professional gear today.",
     images: [
